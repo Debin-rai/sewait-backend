@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-    const adminEmail = "admin@sajilosathi.com";
+    const adminEmail = "admin@sewait.com";
     const adminPassword = process.env.ADMIN_INITIAL_PASSWORD || "securepassword123";
 
     console.log('Seeding admin user...');
@@ -17,7 +17,7 @@ async function main() {
         create: {
             email: adminEmail,
             password: hashedPassword,
-            name: "Sajilo Sathi Admin",
+            name: "SewaIT Admin",
             role: "ADMIN",
         },
     });

@@ -6,7 +6,7 @@ const users = [
     {
         id: "#USR-8821",
         name: "Rohan Adhikari",
-        email: "rohan@sajilosathi.com",
+        email: "rohan@sewait.com",
         role: "Admin",
         status: "Active",
         lastLogin: "Oct 24, 2023 · 09:15 AM",
@@ -15,7 +15,7 @@ const users = [
     {
         id: "#USR-9102",
         name: "Sita Sharma",
-        email: "sita@sajilosathi.com",
+        email: "sita@sewait.com",
         role: "Moderator",
         status: "Active",
         lastLogin: "Oct 23, 2023 · 04:30 PM",
@@ -24,7 +24,7 @@ const users = [
     {
         id: "#USR-7732",
         name: "Ramesh KC",
-        email: "ramesh@sajilosathi.com",
+        email: "ramesh@sewait.com",
         role: "Moderator",
         status: "Inactive",
         lastLogin: "Sep 12, 2023 · 11:20 AM",
@@ -33,7 +33,7 @@ const users = [
     {
         id: "#USR-6621",
         name: "Binita Rai",
-        email: "binita@sajilosathi.com",
+        email: "binita@sewait.com",
         role: "Admin",
         status: "Active",
         lastLogin: "Oct 24, 2023 · 08:45 AM",

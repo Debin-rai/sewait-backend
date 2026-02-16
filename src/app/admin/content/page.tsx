@@ -55,7 +55,7 @@ export default function ContentDirectoryPage() {
             <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">Content Directory</h2>
-                    <p className="text-slate-500 mt-1">Manage and update dynamic data modules for the SajiloSathi platform.</p>
+                    <p className="text-slate-500 mt-1">Manage and update dynamic data modules for the SewaIT platform.</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2 bg-white dark:bg-slate-900 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">

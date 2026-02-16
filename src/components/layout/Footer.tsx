@@ -13,11 +13,11 @@ export default function Footer() {
                             <div className="relative w-8 h-8 overflow-hidden rounded-lg">
                                 <img
                                     src="/assets/images/Logo.jpg"
-                                    alt="सजिलो साथी लोगो"
+                                    alt="SewaIT Logo"
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-                            <span className="text-xl font-bold">सजिलो <span className="text-primary">साथी</span></span>
+                            <span className="text-xl font-bold">Sewa<span className="text-primary">IT</span></span>
                         </div>
                         <p className="text-slate-600 text-xs leading-relaxed mb-6">
                             Our goal is to simplify citizens&apos; lives by bringing Nepal Government&apos;s digital services to one place.
@@ -74,7 +74,7 @@ export default function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-500">
-                    <p className="uppercase">© २०८१ सजिलो साथी OFFICIAL. सर्वाधिकार सुरक्षित।</p>
+                    <p className="uppercase">© २०८१ SewaIT OFFICIAL. सर्वाधिकार सुरक्षित।</p>
                     <div className="flex items-center gap-2">
                         <span className="font-medium">OFFICIAL UTILITY PLATFORM OF</span>
                         <div className="flex items-center gap-1">

@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform overflow-hidden">
                         <span className="material-symbols-outlined font-bold">shield_person</span>
                     </div>
-                    <h1 className="text-lg font-bold tracking-tight text-slate-900">सजिलो साथी <span className="text-slate-400">एडमिन</span></h1>
+                    <h1 className="text-lg font-bold tracking-tight text-slate-900">SewaIT <span className="text-slate-400">Admin</span></h1>
                 </Link>
                 <div className="flex items-center gap-8">
                     <Link href="/" className="text-sm font-bold text-slate-500 hover:text-primary transition-colors">Main Website</Link>
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                                 className="w-full h-14 px-4 rounded-xl border border-slate-200 bg-slate-50/30 text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none text-sm font-medium"
                                 id="email"
                                 name="email"
-                                placeholder="e.g., admin@sajilosathi.com"
+                                placeholder="e.g., admin@sewait.com"
                                 type="email"
                                 required
                             />
@@ -154,7 +154,7 @@ export default function AdminLoginPage() {
             {/* Footer */}
             <footer className="py-8 px-12 border-t border-slate-200 bg-white text-center">
                 <p className="text-xs font-bold text-slate-400 tracking-tight uppercase">
-                    © २०८१ सजिलो साथी INC. सर्वाधिकार सुरक्षित।
+                    © २०८१ SewaIT OFFICIAL. सर्वाधिकार सुरक्षित।
                     <span className="mx-3 text-slate-200">|</span>
                     <a className="hover:text-primary transition-colors" href="#">Privacy Policy</a>
                     <span className="mx-3 text-slate-200">|</span>

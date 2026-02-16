@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SewaIT - Digital Utility Platform
 
-## Getting Started
+SewaIT (formerly Sajilo Sathi) is a modern digital utility platform designed to simplify the lives of Nepalese citizens by bringing government services, financial data, and essential tools into one unified interface.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   **Government Services**: Easy access to guides and links for Passport, License, PAN, and more.
+-   **Financial Data**: Real-time NEPSE (Stock Market) data, Gold/Silver rates, and Currency Exchange rates.
+-   **Utilities**: Nepali Calendar (Bikram Sambat), Kalimati Vegetable Prices, and Weather updates.
+-   **Modern Tech Stack**: Built with Next.js 14, TailwindCSS, and Prisma for a fast, responsive experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+-   **Framework**: [Next.js](https://nextjs.org) (App Router)
+-   **Styling**: [TailwindCSS](https://tailwindcss.com)
+-   **Database**: PostgreSQL (via [Railway](https://railway.app))
+-   **ORM**: [Prisma](https://www.prisma.io)
+-   **Auth**: Custom JWT Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Getting Started
 
-## Learn More
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Debin-rai/sajilosathi-backend.git
+    cd sajilosathi-backend
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3.  **Set up Environment Variables:**
+    Create a `.env` file in the root directory and add:
+    ```env
+    DATABASE_URL="postgresql://user:password@localhost:5432/sewait"
+    JWT_SECRET="your-secret-key"
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-## Deploy on Vercel
+    Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🚀 Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is optimized for deployment on **Railway** or **Vercel**.
+
+1.  **Build Command**: `prisma generate && next build`
+2.  **Environment Variables**: Ensure `DATABASE_URL` is set in your deployment settings.
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+**SewaIT** - *Simplifying Digital Nepal*

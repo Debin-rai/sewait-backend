@@ -23,8 +23,8 @@ const notoSansDevanagari = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "सजिलो साथी - नेपाली युटिलिटी एप",
-  description: "Sajilo Sathi - Bringing Nepal Government digital services to one place.",
+  title: "SewaIT - Digital Utility Platform",
+  description: "SewaIT - Bringing Nepal Government digital services to one place with modern technology.",
   icons: {
     icon: [
       { url: "/assets/favicon_io/favicon-32x32.png", sizes: "32x32", type: "image/png" },

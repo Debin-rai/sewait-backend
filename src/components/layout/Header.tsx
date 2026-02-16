@@ -22,11 +22,11 @@ export default function Header() {
                     <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                         <img
                             src="/assets/images/Logo.jpg"
-                            alt="सजिलो साथी लोगो"
+                            alt="SewaIT Logo"
                             className="w-full h-full object-cover"
                         />
                     </div>
-                    <h1 className="text-xl font-bold tracking-tight text-slate-800">सजिलो <span className="text-primary">साथी</span></h1>
+                    <h1 className="text-xl font-bold tracking-tight text-slate-800">Sewa<span className="text-primary">IT</span></h1>
                 </Link>
                 <nav className="hidden lg:flex items-center gap-6">
                     {navLinks.map((link) => {
