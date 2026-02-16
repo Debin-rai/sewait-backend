@@ -30,7 +30,7 @@ export default function Hero() {
                             <span className="material-symbols-outlined text-white/60 text-lg">sunny</span>
                             <span>Kathmandu: 22°C</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 whitespace-nowrap">
                             <span className="material-symbols-outlined text-white/60 text-lg">schedule</span>
                             <span>10:45 AM</span>
                         </div>

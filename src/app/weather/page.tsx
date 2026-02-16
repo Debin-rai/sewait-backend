@@ -166,7 +166,7 @@ export default function WeatherPage() {
 
                         {/* Sun & Moon Info */}
                         <div className="relative overflow-hidden rounded-3xl bg-slate-900 p-8 shadow-2xl transition-all hover:shadow-primary/20">
-                            <h3 className="mb-8 font-black text-white/50 text-xs uppercase tracking-[0.2em] nepali-font">सुर्योदय र सुर्यास्त</h3>
+                            <h3 className="mb-8 font-black text-white/50 text-xs uppercase tracking-[0.2em]">सुर्योदय र सुर्यास्त</h3>
                             <div className="grid grid-cols-2 gap-6 relative z-10">
                                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
                                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20 ring-1 ring-orange-500/30">
@@ -174,7 +174,7 @@ export default function WeatherPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black text-white/30 uppercase tracking-widest">Sunrise</p>
-                                        <p className="text-lg font-black text-white">5:12 AM</p>
+                                        <p className="text-lg font-black text-white whitespace-nowrap">5:12 AM</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
@@ -183,7 +183,7 @@ export default function WeatherPage() {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black text-white/30 uppercase tracking-widest">Sunset</p>
-                                        <p className="text-lg font-black text-white">6:45 PM</p>
+                                        <p className="text-lg font-black text-white whitespace-nowrap">6:45 PM</p>
                                     </div>
                                 </div>
                             </div>

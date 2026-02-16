@@ -48,8 +48,8 @@ export default function CalendarPage() {
                 {/* Sub Header Stats */}
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
                     <div>
-                        <h2 className="text-4xl font-black text-primary tracking-tight nepali-font">Nepali Calendar 2080</h2>
-                        <p className="text-slate-500 font-bold mt-1 nepali-font">Phagun - Chaitra | Bikram Sambat</p>
+                        <h2 className="text-4xl font-black text-primary tracking-tight">Nepali Calendar 2080</h2>
+                        <p className="text-slate-500 font-bold mt-1">Phagun - Chaitra | Bikram Sambat</p>
                     </div>
                     <div className="flex gap-4">
                         <button className="bg-white border border-slate-200 px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2 shadow-sm hover:bg-slate-50 transition-all transition-colors nepali-font">
@@ -68,7 +68,7 @@ export default function CalendarPage() {
                         <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                             <div className="bg-primary/5 p-5 border-b border-slate-50 flex items-center gap-2">
                                 <span className="material-symbols-outlined text-primary font-bold">flare</span>
-                                <h3 className="font-bold text-primary uppercase tracking-wider text-xs nepali-font">Daily Panchang</h3>
+                                <h3 className="font-bold text-primary uppercase tracking-wider text-xs">Daily Panchang</h3>
                             </div>
                             <div className="p-0">
                                 {panchangData.map((item, idx) => (
@@ -81,9 +81,9 @@ export default function CalendarPage() {
                             <div className="bg-slate-50 p-6 border-t border-slate-50">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="material-symbols-outlined text-primary text-xl">schedule</span>
-                                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest nepali-font">Auspicious Time</span>
+                                    <span className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Auspicious Time</span>
                                 </div>
-                                <p className="text-xl font-black text-primary nepali-font">11:45 AM - 12:30 PM</p>
+                                <p className="text-xl font-black text-primary">11:45 AM - 12:30 PM</p>
                             </div>
                         </div>
 
@@ -106,7 +106,7 @@ export default function CalendarPage() {
                         <div className="flex flex-col items-center mb-10 text-center">
                             <span className="bg-orange-100 text-orange-600 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 shadow-sm shadow-orange-100/50 nepali-font">आज : TODAY</span>
                             <h2 className="text-7xl font-black text-slate-900 mb-2 nepali-font leading-tight">१५ फागुन २०८०</h2>
-                            <p className="text-slate-500 font-black text-lg tracking-tight nepali-font">Tuesday, 27 February 2024</p>
+                            <p className="text-slate-500 font-black text-lg tracking-tight">Tuesday, 27 February 2024</p>
                         </div>
 
                         <div className="bg-white rounded-[2rem] p-10 shadow-sm border border-slate-50">
@@ -145,8 +145,8 @@ export default function CalendarPage() {
                                     <span className="material-symbols-outlined text-orange-500 text-2xl">wb_sunny</span>
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 nepali-font">Sunrise</p>
-                                    <p className="text-xl font-black text-primary nepali-font whitespace-nowrap">06:42 AM</p>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Sunrise</p>
+                                    <p className="text-xl font-black text-primary whitespace-nowrap">06:42 AM</p>
                                 </div>
                             </div>
                             <div className="bg-white rounded-2xl p-6 flex items-center gap-5 shadow-sm border border-slate-50 hover:shadow-md transition-shadow min-w-0">
@@ -154,8 +154,8 @@ export default function CalendarPage() {
                                     <span className="material-symbols-outlined text-orange-500 text-2xl">wb_twilight</span>
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 nepali-font">Sunset</p>
-                                    <p className="text-xl font-black text-primary nepali-font whitespace-nowrap">06:12 PM</p>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Sunset</p>
+                                    <p className="text-xl font-black text-primary whitespace-nowrap">06:12 PM</p>
                                 </div>
                             </div>
                             <div className="bg-white rounded-2xl p-6 flex items-center gap-5 shadow-sm border border-slate-50 hover:shadow-md transition-shadow min-w-0">
@@ -163,8 +163,8 @@ export default function CalendarPage() {
                                     <span className="material-symbols-outlined text-orange-500 text-2xl">stars</span>
                                 </div>
                                 <div className="min-w-0 overflow-hidden">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 nepali-font truncate">Tithi / Pakshya</p>
-                                    <p className="text-[11px] font-black text-primary nepali-font leading-tight line-clamp-2">Magh Shukla Pakshya, Panchami</p>
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 truncate">Tithi / Pakshya</p>
+                                    <p className="text-[11px] font-black text-primary leading-tight line-clamp-2">Magh Shukla Pakshya, Panchami</p>
                                 </div>
                             </div>
                         </div>
@@ -202,8 +202,8 @@ export default function CalendarPage() {
                                 <span className="material-symbols-outlined text-slate-400 group-hover:text-white transition-colors">cloud</span>
                             </div>
                             <div>
-                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest nepali-font">Weather - Kathmandu</p>
-                                <p className="text-sm font-black text-primary nepali-font">18°C / 4°C · Sunny</p>
+                                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Weather - Kathmandu</p>
+                                <p className="text-sm font-black text-primary">18°C / 4°C · Sunny</p>
                             </div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@ export default function CalendarPage() {
                     <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl -mr-40 -mt-40 transition-transform group-hover:scale-125"></div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-16 items-center relative z-10">
                         <div className="col-span-1 border-l-8 border-primary pl-8">
-                            <h3 className="text-4xl font-black text-primary mb-3 italic tracking-tighter nepali-font">Calendar Trivia</h3>
+                            <h3 className="text-4xl font-black text-primary mb-3 italic tracking-tighter">Calendar Trivia</h3>
                             <div className="h-1.5 w-20 bg-accent-amber rounded-full"></div>
                         </div>
                         <div className="col-span-2">

@@ -245,7 +245,7 @@ export default function GoldSilverPage() {
                             <a key={l} className="text-[10px] font-black text-slate-300 hover:text-primary uppercase tracking-[0.2em] transition-all" href="#">{l}</a>
                         ))}
                     </div>
-                    <p className="mt-10 text-[10px] font-black text-slate-200 uppercase tracking-[0.4em]">© २०८१ सजिलो साथी OFFICIAL. सर्वाधिकार सुरक्षित।</p>
+                    <p className="mt-10 text-[10px] font-black text-slate-200 uppercase tracking-[0.4em]">© २०८१ SewaIT OFFICIAL. सर्वाधिकार सुरक्षित।</p>
                 </footer>
             </main>
         </div>

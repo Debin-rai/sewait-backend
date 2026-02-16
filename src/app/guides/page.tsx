@@ -79,7 +79,7 @@ export default function GuidesPage() {
                             <span className="text-blue-300 font-sans text-3xl md:text-4xl mt-2 block">Government processes made easy.</span>
                         </h1>
                         <p className="text-blue-100 text-lg md:text-xl max-w-2xl font-medium">
-                            सजिलो साथी is a platform that presents official information from various Nepal Government agencies in a simple manner.
+                            SewaIT is a platform that presents official information from various Nepal Government agencies in a simple manner.
                         </p>
                         <div className="w-full max-w-2xl mt-4">
                             <div className="relative group">
@@ -285,7 +285,7 @@ export default function GuidesPage() {
                                     Verified Information
                                 </h5>
                                 <p className="text-slate-600 text-xs leading-relaxed">
-                                    सजिलो साथी content is cross-verified with official government portals (gov.np). We are an independent guide platform aimed at improving citizen access to information.
+                                    SewaIT content is cross-verified with official government portals (gov.np). We are an independent guide platform aimed at improving citizen access to information.
                                 </p>
                             </div>
                         </div>
