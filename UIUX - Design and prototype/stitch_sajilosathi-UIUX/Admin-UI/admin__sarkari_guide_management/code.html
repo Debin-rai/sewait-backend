@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sarkari Guide Admin Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 font-display">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-72 bg-white border-r border-slate-200 flex flex-col shrink-0">
+<div class="p-6 border-b border-slate-100 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<h1 class="text-primary font-bold text-lg leading-tight">Admin Panel</h1>
+<p class="text-slate-500 text-xs font-medium">Sarkari Guide Portal</p>
+</div>
+</div>
+<nav class="flex-1 p-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px] fill-current">menu_book</span>
+<span class="text-sm font-bold">Sarkari Guide</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">group</span>
+<span class="text-sm font-semibold">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">category</span>
+<span class="text-sm font-semibold">Service Categories</span>
+</a>
+<div class="pt-4 pb-2 px-3 text-[10px] uppercase tracking-wider font-bold text-slate-400">System</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm font-semibold">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">help</span>
+<span class="text-sm font-semibold">Support</span>
+</a>
+</nav>
+<div class="p-4 mt-auto border-t border-slate-100">
+<div class="flex items-center gap-3 p-2 bg-slate-50 rounded-xl">
+<img alt="Admin Profile" class="size-9 rounded-full object-cover" data-alt="Professional male admin profile headshot avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7fZm9i4aO0b6IQubrEIQI1PZLSxfCDZIJ2QqWj10IF5Zy10e4EE5qriQohbuUPJjXjDODY6rmw3cH1rhsBmLUESDLmzwl2ykFGyIAoiBMLK0wXT-2WkRG9Q3sEhLCJUFSqNbFDVrzkYBCzs2_RsIFDTViGVEvleCAU0Ti7Bx-I18snPtSepJT0BFaspTU8bfT6YEN2d9nxVDUalrmsUQTI4EXolL_CLvrNsJMKSa8y_AfuFz_zMRktWleoPK4ib2SCsMlFGl6SpI"/>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-800 truncate">Rohan Sharma</p>
+<p class="text-[10px] text-slate-500 truncate">Super Admin</p>
+</div>
+<button class="text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined text-sm">logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col bg-background-light">
+<!-- Top Header -->
+<header class="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between sticky top-0 z-10">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<span class="hover:text-primary cursor-pointer">Admin</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="font-semibold text-slate-900">Sarkari Guide Management</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="relative p-2 text-slate-500 hover:bg-slate-50 rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto w-full space-y-6">
+<!-- Page Title & CTA -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-3xl font-black text-primary tracking-tight">Sarkari Guide Management</h2>
+<p class="text-slate-500 mt-1">Manage and update government service procedures and documentation requirements.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-sm transition-all whitespace-nowrap">
+<span class="material-symbols-outlined">add</span>
+                        Add New Guide
+                    </button>
+</div>
+<!-- Filters & Search -->
+<div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-4">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-slate-50 border-slate-200 rounded-lg focus:ring-primary focus:border-primary text-sm" placeholder="Search guides by title, keyword or department..." type="text"/>
+</div>
+<div class="flex gap-2">
+<select class="bg-slate-50 border-slate-200 rounded-lg py-2 pl-3 pr-8 text-sm focus:ring-primary focus:border-primary font-medium text-slate-600">
+<option>All Categories</option>
+<option>Citizenship</option>
+<option>Transport</option>
+<option>Taxation</option>
+<option>Land Revenue</option>
+</select>
+<select class="bg-slate-50 border-slate-200 rounded-lg py-2 pl-3 pr-8 text-sm focus:ring-primary focus:border-primary font-medium text-slate-600">
+<option>All Status</option>
+<option>Published</option>
+<option>Draft</option>
+</select>
+<button class="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Table Tabs -->
+<div class="flex border-b border-slate-200">
+<button class="px-6 py-3 text-sm font-bold text-primary border-b-2 border-primary">All Guides</button>
+<button class="px-6 py-3 text-sm font-semibold text-slate-500 hover:text-slate-700 border-b-2 border-transparent hover:border-slate-300">Published</button>
+<button class="px-6 py-3 text-sm font-semibold text-slate-500 hover:text-slate-700 border-b-2 border-transparent hover:border-slate-300">Drafts</button>
+</div>
+<!-- Data Table -->
+<div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-slate-50 border-b border-slate-200">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Guide Title &amp; Category</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Department</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Last Updated</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+<th class="px-6 py-4 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Citizenship -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">badge</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800">New Citizenship Certificate (By Descent)</p>
+<p class="text-xs text-slate-500">Citizenship Services</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 font-medium">District Administration Office</td>
+<td class="px-6 py-4 text-sm text-slate-500">Oct 12, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-100 text-green-700 uppercase">Published</span>
+</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Transport -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">directions_car</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Smart Driving License Renewal</p>
+<p class="text-xs text-slate-500">Transport Management</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 font-medium">Department of Transport</td>
+<td class="px-6 py-4 text-sm text-slate-500">Oct 05, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-100 text-green-700 uppercase">Published</span>
+</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Taxation -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Individual PAN Registration Guide</p>
+<p class="text-xs text-slate-500">Inland Revenue</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 font-medium">Inland Revenue Department</td>
+<td class="px-6 py-4 text-sm text-slate-500">Sep 28, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600 uppercase">Draft</span>
+</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Land Revenue -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-emerald-100 text-emerald-700 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">home</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Land Ownership Transfer (Namshari)</p>
+<p class="text-xs text-slate-500">Land Revenue</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 font-medium">Land Revenue Office (Malpot)</td>
+<td class="px-6 py-4 text-sm text-slate-500">Sep 15, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-100 text-green-700 uppercase">Published</span>
+</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Vital Reg -->
+<tr class="hover:bg-slate-50/50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-rose-100 text-rose-700 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">family_restroom</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-800">Birth Registration Process</p>
+<p class="text-xs text-slate-500">Vital Registration</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm text-slate-600 font-medium">Local Ward Office</td>
+<td class="px-6 py-4 text-sm text-slate-500">Aug 30, 2023</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-green-100 text-green-700 uppercase">Published</span>
+</td>
+<td class="px-6 py-4 text-right space-x-2">
+<button class="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+<div class="text-xs font-semibold text-slate-500">
+                            Showing <span class="text-slate-900 font-bold">1 to 5</span> of <span class="text-slate-900 font-bold">24</span> guides
+                        </div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 text-sm font-bold text-slate-400 cursor-not-allowed">Previous</button>
+<div class="flex gap-1">
+<button class="size-8 rounded flex items-center justify-center text-sm font-bold bg-primary text-white">1</button>
+<button class="size-8 rounded flex items-center justify-center text-sm font-semibold text-slate-600 hover:bg-slate-200">2</button>
+<button class="size-8 rounded flex items-center justify-center text-sm font-semibold text-slate-600 hover:bg-slate-200">3</button>
+<span class="px-1 text-slate-400">...</span>
+<button class="size-8 rounded flex items-center justify-center text-sm font-semibold text-slate-600 hover:bg-slate-200">5</button>
+</div>
+<button class="px-3 py-1 text-sm font-bold text-primary hover:bg-primary/5 rounded">Next</button>
+</div>
+</div>
+</div>
+<!-- Stats summary (extra context) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Total Guides</p>
+<p class="text-2xl font-black text-primary mt-1">24</p>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Most Visited</p>
+<p class="text-2xl font-black text-primary mt-1">Citizenship</p>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Pending Updates</p>
+<p class="text-2xl font-black text-orange-500 mt-1">3</p>
+</div>
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+<p class="text-slate-500 text-xs font-bold uppercase tracking-wider">Avg. Completion</p>
+<p class="text-2xl font-black text-primary mt-1">94%</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

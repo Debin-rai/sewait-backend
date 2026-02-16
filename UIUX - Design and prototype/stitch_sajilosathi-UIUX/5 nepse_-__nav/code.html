@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi | NEPSE Market Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#121417]">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#f1f2f4] px-10 py-3 bg-white sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-8 flex items-center justify-center bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<h2 class="text-primary text-xl font-bold leading-tight tracking-[-0.015em]">SajiloSathi</h2>
+</div>
+<nav class="flex items-center gap-6">
+<a class="text-[#687382] hover:text-primary text-sm font-medium transition-colors" href="#">Chaupari</a>
+<a class="text-[#687382] hover:text-primary text-sm font-medium transition-colors" href="#">Patro</a>
+<a class="text-[#687382] hover:text-primary text-sm font-medium transition-colors" href="#">Mausam</a>
+<a class="text-[#687382] hover:text-primary text-sm font-medium transition-colors" href="#">Bazaar</a>
+<a class="text-primary text-sm font-semibold border-b-2 border-primary pb-1" href="#">NEPSE</a>
+<a class="text-[#687382] hover:text-primary text-sm font-medium transition-colors" href="#">Sarkari Guide</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-[#dde0e4] bg-[#f8f9fa]">
+<div class="text-[#687382] flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</div>
+<input class="form-input flex w-full border-none bg-transparent focus:ring-0 text-sm font-normal placeholder:text-[#687382]" placeholder="Search Scrip (e.g. NICA, ADLB)" value=""/>
+</div>
+</label>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-[#687382] hover:text-primary p-2 rounded-full hover:bg-gray-100" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined text-[#687382] hover:text-primary p-2 rounded-full hover:bg-gray-100" data-icon="settings">settings</button>
+</div>
+<div class="h-8 w-[1px] bg-gray-200"></div>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:bg-opacity-90 transition-all">
+<span>Login</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1280px] mx-auto w-full px-6 py-6">
+<!-- Market Status & Top Stats -->
+<div class="flex items-center justify-between mb-8">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<h1 class="text-3xl font-bold tracking-tight text-primary">NEPSE Index</h1>
+<span class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-100 uppercase tracking-wider">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Market Open
+                        </span>
+</div>
+<p class="text-sm text-[#687382]">Last updated: 2023-10-27 15:00:01 (NST)</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl flex flex-col min-w-[180px] shadow-sm">
+<span class="text-xs font-semibold text-[#687382] uppercase tracking-wide">NEPSE Value</span>
+<div class="flex items-end gap-2 mt-1">
+<span class="text-2xl font-bold tabular-nums">2,100.45</span>
+<span class="text-emerald-600 text-sm font-bold flex items-center mb-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_upward">arrow_upward</span>
+                                1.25%
+                            </span>
+</div>
+</div>
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl flex flex-col min-w-[180px] shadow-sm">
+<span class="text-xs font-semibold text-[#687382] uppercase tracking-wide">Turnover (NPR)</span>
+<div class="flex items-end gap-2 mt-1">
+<span class="text-2xl font-bold tabular-nums">4.12B</span>
+<span class="text-emerald-600 text-sm font-bold mb-0.5">+5.4%</span>
+</div>
+</div>
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl flex flex-col min-w-[180px] shadow-sm">
+<span class="text-xs font-semibold text-[#687382] uppercase tracking-wide">Volume</span>
+<div class="flex items-end gap-2 mt-1">
+<span class="text-2xl font-bold tabular-nums">12.45M</span>
+<span class="text-emerald-600 text-sm font-bold mb-0.5">+2.1%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Grid Layout for Tables and Sub-indices -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Left Column: Main Tables -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Performance Tabs Section -->
+<div class="bg-white border border-[#dde0e4] rounded-xl shadow-sm overflow-hidden">
+<div class="border-b border-[#dde0e4] bg-[#f8f9fa]">
+<nav aria-label="Tabs" class="flex px-4">
+<button class="border-b-2 border-primary py-4 px-6 text-sm font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="trending_up">trending_up</span>
+                                    Top Gainers
+                                </button>
+<button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-[#687382] hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="trending_down">trending_down</span>
+                                    Top Losers
+                                </button>
+<button class="border-b-2 border-transparent py-4 px-6 text-sm font-medium text-[#687382] hover:text-primary transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="monetization_on">monetization_on</span>
+                                    Top Turnover
+                                </button>
+</nav>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-[#fcfcfc] border-b border-[#dde0e4]">
+<tr>
+<th class="px-6 py-4 text-xs font-bold text-[#687382] uppercase">Symbol</th>
+<th class="px-6 py-4 text-xs font-bold text-[#687382] uppercase text-right">LTP (NPR)</th>
+<th class="px-6 py-4 text-xs font-bold text-[#687382] uppercase text-right">Change</th>
+<th class="px-6 py-4 text-xs font-bold text-[#687382] uppercase text-right">% Change</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#f1f2f4]">
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary">NICA</span>
+<span class="text-[10px] text-[#687382]">NIC Asia Bank Ltd.</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right tabular-nums font-medium">842.10</td>
+<td class="px-6 py-4 text-right tabular-nums text-emerald-600 font-semibold">+32.40</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded text-xs font-bold tabular-nums">+4.01%</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary">ADLB</span>
+<span class="text-[10px] text-[#687382]">Aadhikhola Laghubitta</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right tabular-nums font-medium">1,245.00</td>
+<td class="px-6 py-4 text-right tabular-nums text-emerald-600 font-semibold">+45.00</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded text-xs font-bold tabular-nums">+3.75%</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary">UPW</span>
+<span class="text-[10px] text-[#687382]">Upper Tamakoshi Hydropower</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right tabular-nums font-medium">425.20</td>
+<td class="px-6 py-4 text-right tabular-nums text-emerald-600 font-semibold">+12.10</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded text-xs font-bold tabular-nums">+2.93%</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary">NTC</span>
+<span class="text-[10px] text-[#687382]">Nepal Telecom</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right tabular-nums font-medium">912.00</td>
+<td class="px-6 py-4 text-right tabular-nums text-emerald-600 font-semibold">+22.50</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded text-xs font-bold tabular-nums">+2.52%</span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span class="font-bold text-primary">SHL</span>
+<span class="text-[10px] text-[#687382]">Soaltee Hotel Limited</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right tabular-nums font-medium">380.00</td>
+<td class="px-6 py-4 text-right tabular-nums text-emerald-600 font-semibold">+8.40</td>
+<td class="px-6 py-4 text-right">
+<span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded text-xs font-bold tabular-nums">+2.26%</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-4 bg-white text-center">
+<button class="text-sm font-bold text-primary hover:underline">View All Gainers</button>
+</div>
+</div>
+</div>
+<!-- Sector Wise Indices -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-[#687382] uppercase mb-2">Banking</p>
+<p class="text-lg font-bold tabular-nums">1,234.50</p>
+<div class="flex items-center gap-1 text-emerald-600 text-xs font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="north_east">north_east</span>
+                                0.85%
+                            </div>
+</div>
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-[#687382] uppercase mb-2">Hydropower</p>
+<p class="text-lg font-bold tabular-nums">2,410.12</p>
+<div class="flex items-center gap-1 text-red-600 text-xs font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="south_east">south_east</span>
+                                1.20%
+                            </div>
+</div>
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-[#687382] uppercase mb-2">Insurance</p>
+<p class="text-lg font-bold tabular-nums">11,042.80</p>
+<div class="flex items-center gap-1 text-emerald-600 text-xs font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="north_east">north_east</span>
+                                2.15%
+                            </div>
+</div>
+<div class="bg-white border border-[#dde0e4] p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-[#687382] uppercase mb-2">Finance</p>
+<p class="text-lg font-bold tabular-nums">1,950.40</p>
+<div class="flex items-center gap-1 text-emerald-600 text-xs font-bold mt-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="north_east">north_east</span>
+                                0.45%
+                            </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Sidebar -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- My Watchlist Card -->
+<div class="bg-white border border-[#dde0e4] rounded-xl shadow-sm overflow-hidden">
+<div class="px-5 py-4 border-b border-[#dde0e4] flex items-center justify-between">
+<h3 class="text-sm font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span>
+                                My Watchlist
+                            </h3>
+<button class="text-primary text-xs font-bold hover:underline">Edit List</button>
+</div>
+<div class="divide-y divide-[#f1f2f4]">
+<div class="px-5 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+<div>
+<span class="text-sm font-bold text-primary block">NIB</span>
+<span class="text-[10px] text-[#687382]">Last Price: 215.00</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold block tabular-nums text-red-600">-1.20%</span>
+<span class="text-[10px] text-[#687382]">Vol: 24,000</span>
+</div>
+</div>
+<div class="px-5 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+<div>
+<span class="text-sm font-bold text-primary block">Nabil</span>
+<span class="text-[10px] text-[#687382]">Last Price: 590.00</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold block tabular-nums text-emerald-600">+0.45%</span>
+<span class="text-[10px] text-[#687382]">Vol: 102,120</span>
+</div>
+</div>
+<div class="px-5 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+<div>
+<span class="text-sm font-bold text-primary block">HDHPC</span>
+<span class="text-[10px] text-[#687382]">Last Price: 198.50</span>
+</div>
+<div class="text-right">
+<span class="text-sm font-bold block tabular-nums text-emerald-600">+5.20%</span>
+<span class="text-[10px] text-[#687382]">Vol: 45,800</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#dde0e4]">
+<button class="w-full py-2 bg-[#f1f2f4] hover:bg-[#e8eaed] rounded text-xs font-bold text-primary transition-colors">
+                                Add Scrip to Watchlist
+                            </button>
+</div>
+</div>
+<!-- Market Insights -->
+<div class="bg-primary text-white rounded-xl shadow-lg p-6 relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-[10px] font-bold uppercase tracking-widest opacity-80">Quick Insight</span>
+<h4 class="text-lg font-bold mt-1">Hydropower leads momentum</h4>
+<p class="text-sm mt-3 leading-relaxed opacity-90">The hydropower sector is witnessing a high volume of trade today, following the recent policy updates regarding project extensions.</p>
+<button class="mt-4 flex items-center gap-2 text-xs font-bold border border-white/30 px-3 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">
+                                Read Full Report
+                                <span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<!-- Abstract Background Decoration -->
+<div class="absolute -right-8 -bottom-8 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="insert_chart">insert_chart</span>
+</div>
+</div>
+<!-- Market Status Component -->
+<div class="bg-white border border-[#dde0e4] rounded-xl shadow-sm p-5">
+<h3 class="text-sm font-bold text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="event">event</span>
+                            Trading Schedule
+                        </h3>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-xs">
+<span class="text-[#687382]">Pre-Open Session</span>
+<span class="font-semibold">10:30 - 10:45</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-[#687382]">Continuous Session</span>
+<span class="font-bold text-emerald-600">11:00 - 15:00</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<span class="text-[#687382]">Odd Lot Session</span>
+<span class="font-semibold">11:00 - 15:00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- News & Announcements -->
+<div class="mt-8">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xl font-bold text-primary">Market Announcements</h2>
+<a class="text-sm font-bold text-primary hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white p-5 rounded-xl border border-[#dde0e4] hover:shadow-md transition-shadow">
+<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">DIVIDEND</span>
+<h4 class="font-bold text-sm mt-2 text-primary">SCB announces 12.5% Cash Dividend</h4>
+<p class="text-xs text-[#687382] mt-2 line-clamp-2">Standard Chartered Bank has declared its dividend for the fiscal year 79/80 with a major portion in cash...</p>
+<span class="text-[10px] text-[#687382] mt-4 block">2 hours ago</span>
+</div>
+<div class="bg-white p-5 rounded-xl border border-[#dde0e4] hover:shadow-md transition-shadow">
+<span class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded">LISTING</span>
+<h4 class="font-bold text-sm mt-2 text-primary">Rights Shares of NIMB listed in NEPSE</h4>
+<p class="text-xs text-[#687382] mt-2 line-clamp-2">The 10:3 ratio rights shares of Nepal Investment Mega Bank have been successfully listed on the exchange...</p>
+<span class="text-[10px] text-[#687382] mt-4 block">5 hours ago</span>
+</div>
+<div class="bg-white p-5 rounded-xl border border-[#dde0e4] hover:shadow-md transition-shadow">
+<span class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">AUCTION</span>
+<h4 class="font-bold text-sm mt-2 text-primary">NICL to auction unclaimed rights shares</h4>
+<p class="text-xs text-[#687382] mt-2 line-clamp-2">Neco Insurance Limited is opening an auction for its unclaimed promoter and ordinary rights shares starting next week...</p>
+<span class="text-[10px] text-[#687382] mt-4 block">1 day ago</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white border-t border-[#f1f2f4] py-8 mt-12 px-10">
+<div class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6 flex items-center justify-center bg-primary rounded text-white">
+<span class="material-symbols-outlined text-sm" data-icon="account_balance">account_balance</span>
+</div>
+<h2 class="text-primary text-sm font-bold">SajiloSathi Financials</h2>
+</div>
+<div class="flex gap-8 text-xs font-medium text-[#687382]">
+<a class="hover:text-primary" href="#">Data Privacy</a>
+<a class="hover:text-primary" href="#">Terms of Service</a>
+<a class="hover:text-primary" href="#">Disclaimer</a>
+<a class="hover:text-primary" href="#">Help Center</a>
+</div>
+<p class="text-xs text-[#687382]">© 2023 SajiloSathi. Real-time data provided by NEPSE.</p>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

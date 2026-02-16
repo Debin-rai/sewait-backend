@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gold &amp; Silver Market Rates | SajiloSathi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#1a355b",
+                "gold-accent": "#D4AF37",
+                "background-light": "#f6f7f8",
+                "background-dark": "#13181f",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F1D37E 50%, #B8860B 100%);
+        }
+        .chart-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 0;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 md:px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary dark:text-white">
+<div class="size-8 flex items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<h2 class="text-primary dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]">SajiloSathi</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-center gap-8">
+<div class="flex items-center gap-9"><a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Chaupari</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Patro</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Mausam</a>
+<a class="text-primary dark:text-gold-accent text-sm font-bold border-b-2 border-primary dark:border-gold-accent pb-1" href="#">Bazaar</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">NEPSE</a>
+<a class="text-slate-600 dark:text-slate-300 text-sm font-medium hover:text-primary transition-colors" href="#">Sarkari Guide</a></div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto w-full px-4 md:px-10 py-8">
+<!-- Breadcrumbs & Title -->
+<div class="mb-8">
+<nav class="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-sm mb-4">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-white font-medium">Gold &amp; Silver Rates</span>
+</nav>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="text-primary dark:text-white text-4xl font-black leading-tight tracking-tight">Bullion Market Rates</h1>
+<p class="text-slate-500 dark:text-slate-400 mt-2">Live retail prices in Nepal per Tola (11.66 Grams)</p>
+</div>
+<div class="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 px-3 py-1.5 rounded-full text-xs font-bold border border-emerald-100 dark:border-emerald-800">
+<span class="material-symbols-outlined text-xs animate-pulse">sync</span>
+                        Last Updated: Oct 24, 2023, 10:30 AM
+                    </div>
+</div>
+</div>
+<!-- Rate Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<!-- Gold 24K -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gold-accent/5 rounded-full -mr-10 -mt-10 group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2 text-gold-accent font-bold">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span>Gold 24K</span>
+</div>
+<span class="text-emerald-500 flex items-center text-sm font-bold">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+                            0.5%
+                        </span>
+</div>
+<div class="text-slate-400 text-sm mb-1 uppercase tracking-wider font-semibold">Current Price</div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary dark:text-white">NPR 118,500</span>
+<span class="text-slate-500 text-sm">/ tola</span>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500">
+<span>Yesterday: NPR 117,900</span>
+<span class="text-emerald-500">+ NPR 600</span>
+</div>
+</div>
+<!-- Gold 22K -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-full -mr-10 -mt-10 group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2 text-slate-600 dark:text-slate-300 font-bold">
+<span class="material-symbols-outlined">stars</span>
+<span>Gold 22K</span>
+</div>
+<span class="text-emerald-500 flex items-center text-sm font-bold">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+                            0.4%
+                        </span>
+</div>
+<div class="text-slate-400 text-sm mb-1 uppercase tracking-wider font-semibold">Current Price</div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary dark:text-white">NPR 117,950</span>
+<span class="text-slate-500 text-sm">/ tola</span>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500">
+<span>Yesterday: NPR 117,450</span>
+<span class="text-emerald-500">+ NPR 500</span>
+</div>
+</div>
+<!-- Silver -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-blue-50 dark:bg-blue-900/10 rounded-full -mr-10 -mt-10 group-hover:scale-110 transition-transform"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2 text-slate-400 font-bold">
+<span class="material-symbols-outlined">blur_on</span>
+<span>Silver</span>
+</div>
+<span class="text-rose-500 flex items-center text-sm font-bold">
+<span class="material-symbols-outlined text-sm">arrow_downward</span>
+                            0.2%
+                        </span>
+</div>
+<div class="text-slate-400 text-sm mb-1 uppercase tracking-wider font-semibold">Current Price</div>
+<div class="flex items-baseline gap-1">
+<span class="text-3xl font-black text-primary dark:text-white">NPR 1,450</span>
+<span class="text-slate-500 text-sm">/ tola</span>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500">
+<span>Yesterday: NPR 1,455</span>
+<span class="text-rose-500">- NPR 5</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Chart Section -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h3 class="text-lg font-bold text-primary dark:text-white">7-Day Price History</h3>
+<p class="text-slate-500 text-sm">Gold 24K Trend</p>
+</div>
+<div class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+<button class="px-4 py-1.5 rounded-md bg-white dark:bg-slate-700 text-xs font-bold text-primary dark:text-white shadow-sm">Gold</button>
+<button class="px-4 py-1.5 rounded-md text-xs font-bold text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">Silver</button>
+</div>
+</div>
+<!-- SVG Chart Mockup -->
+<div class="relative h-[300px] w-full mt-4">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 800 300">
+<!-- Grid lines -->
+<line class="dark:stroke-slate-800" stroke="#f1f5f9" stroke-width="1" x1="0" x2="800" y1="50" y2="50"></line>
+<line class="dark:stroke-slate-800" stroke="#f1f5f9" stroke-width="1" x1="0" x2="800" y1="150" y2="150"></line>
+<line class="dark:stroke-slate-800" stroke="#f1f5f9" stroke-width="1" x1="0" x2="800" y1="250" y2="250"></line>
+<!-- Area Gradient -->
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#1a355b" stop-opacity="0.1"></stop>
+<stop offset="100%" stop-color="#1a355b" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,250 L100,230 L200,240 L300,180 L400,200 L500,140 L600,160 L700,80 L800,90 L800,300 L0,300 Z" fill="url(#chartGradient)"></path>
+<!-- Line -->
+<path class="chart-line" d="M0,250 L100,230 L200,240 L300,180 L400,200 L500,140 L600,160 L700,80 L800,90" fill="none" stroke="#1a355b" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Dots -->
+<circle cx="100" cy="230" fill="#1a355b" r="4"></circle>
+<circle cx="200" cy="240" fill="#1a355b" r="4"></circle>
+<circle cx="300" cy="180" fill="#1a355b" r="4"></circle>
+<circle cx="400" cy="200" fill="#1a355b" r="4"></circle>
+<circle cx="500" cy="140" fill="#1a355b" r="4"></circle>
+<circle cx="600" cy="160" fill="#1a355b" r="4"></circle>
+<circle cx="700" cy="80" fill="#D4AF37" r="6" stroke="white" stroke-width="2"></circle>
+<circle cx="800" cy="90" fill="#1a355b" r="4"></circle>
+</svg>
+<!-- X-axis labels -->
+<div class="flex justify-between mt-6 text-xs font-medium text-slate-400 px-2">
+<span>Oct 18</span>
+<span>Oct 19</span>
+<span>Oct 20</span>
+<span>Oct 21</span>
+<span>Oct 22</span>
+<span>Oct 23</span>
+<span>Today</span>
+</div>
+</div>
+</div>
+<!-- Sidebar Widgets -->
+<div class="space-y-6">
+<!-- Converter -->
+<div class="bg-primary text-white p-6 rounded-xl shadow-lg border border-primary dark:border-slate-800">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-gold-accent">calculate</span>
+<h3 class="font-bold">Unit Converter</h3>
+</div>
+<div class="space-y-4">
+<div>
+<label class="text-[10px] uppercase font-bold text-slate-400 block mb-1">Quantity (Tola)</label>
+<input class="w-full bg-primary/50 border-white/20 rounded-lg text-white font-bold focus:ring-gold-accent focus:border-gold-accent" type="number" value="1"/>
+</div>
+<div class="flex items-center justify-center py-2">
+<span class="material-symbols-outlined text-slate-400 rotate-90">sync_alt</span>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-white/10 p-3 rounded-lg border border-white/5">
+<div class="text-[10px] uppercase text-slate-400 mb-1">Grams</div>
+<div class="font-bold">11.66</div>
+</div>
+<div class="bg-white/10 p-3 rounded-lg border border-white/5">
+<div class="text-[10px] uppercase text-slate-400 mb-1">Ounces</div>
+<div class="font-bold">0.41</div>
+</div>
+</div>
+<div class="pt-2">
+<div class="text-[10px] uppercase text-slate-400 mb-1">Total Estimated Value</div>
+<div class="text-xl font-black text-gold-accent">NPR 118,500.00</div>
+</div>
+</div>
+</div>
+<!-- Market Insights -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<h3 class="font-bold text-primary dark:text-white mb-4">Market Outlook</h3>
+<div class="space-y-4">
+<div class="flex gap-3">
+<div class="size-2 rounded-full bg-emerald-500 mt-2 shrink-0"></div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Bullish sentiment remains strong due to global market fluctuations.</p>
+</div>
+<div class="flex gap-3">
+<div class="size-2 rounded-full bg-amber-500 mt-2 shrink-0"></div>
+<p class="text-sm text-slate-600 dark:text-slate-400">Nepal's festive season demand is keeping retail prices stable but high.</p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 bg-slate-100 dark:bg-slate-800 text-primary dark:text-white text-sm font-bold rounded-lg hover:bg-slate-200 transition-colors">View Deep Analysis</button>
+</div>
+</div>
+</div>
+<!-- Detailed Table -->
+<div class="mt-10 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
+<h3 class="font-bold text-primary dark:text-white">Historical Weekly Data</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-xs uppercase tracking-wider text-slate-500 font-bold border-b border-slate-100 dark:border-slate-800">
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4">Gold 24K (Tola)</th>
+<th class="px-6 py-4">Gold 22K (Tola)</th>
+<th class="px-6 py-4">Silver (Tola)</th>
+<th class="px-6 py-4 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="text-sm hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium">Oct 24, 2023</td>
+<td class="px-6 py-4 text-primary dark:text-white font-bold">118,500</td>
+<td class="px-6 py-4">117,950</td>
+<td class="px-6 py-4">1,450</td>
+<td class="px-6 py-4 text-right">
+<span class="text-emerald-500 font-bold text-xs uppercase">+0.51%</span>
+</td>
+</tr>
+<tr class="text-sm hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium">Oct 23, 2023</td>
+<td class="px-6 py-4 text-primary dark:text-white font-bold">117,900</td>
+<td class="px-6 py-4">117,450</td>
+<td class="px-6 py-4">1,455</td>
+<td class="px-6 py-4 text-right">
+<span class="text-rose-500 font-bold text-xs uppercase">-0.10%</span>
+</td>
+</tr>
+<tr class="text-sm hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium">Oct 22, 2023</td>
+<td class="px-6 py-4 text-primary dark:text-white font-bold">118,000</td>
+<td class="px-6 py-4">117,500</td>
+<td class="px-6 py-4">1,440</td>
+<td class="px-6 py-4 text-right">
+<span class="text-slate-400 font-bold text-xs uppercase">No Change</span>
+</td>
+</tr>
+<tr class="text-sm hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-medium">Oct 21, 2023</td>
+<td class="px-6 py-4 text-primary dark:text-white font-bold">117,200</td>
+<td class="px-6 py-4">116,650</td>
+<td class="px-6 py-4">1,425</td>
+<td class="px-6 py-4 text-right">
+<span class="text-emerald-500 font-bold text-xs uppercase">+1.20%</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Info -->
+<footer class="mt-12 py-10 border-t border-slate-200 dark:border-slate-800 text-center">
+<p class="text-sm text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
+                    Data provided by the Federation of Nepal Gold and Silver Dealers' Association (FENEGOSIDA). 
+                    Prices are indicative and may vary slightly across different regions in Nepal.
+                </p>
+<div class="mt-4 flex justify-center gap-6">
+<a class="text-xs font-bold text-slate-400 hover:text-primary uppercase tracking-widest" href="#">Privacy Policy</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary uppercase tracking-widest" href="#">Terms of Service</a>
+<a class="text-xs font-bold text-slate-400 hover:text-primary uppercase tracking-widest" href="#">API Access</a>
+</div>
+<p class="mt-8 text-xs text-slate-400">© 2023 SajiloSathi. All rights reserved.</p>
+</footer>
+</main>
+</div>
+</div>
+</body></html>

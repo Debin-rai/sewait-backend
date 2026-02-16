@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi - Government Process Explainer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-white group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-primary/10 px-6 md:px-20 py-4 bg-white sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl">account_balance</span>
+</div>
+<div class="flex flex-col">
+<h2 class="text-primary text-xl font-black leading-tight tracking-tight">SajiloSathi</h2>
+<span class="text-[10px] uppercase tracking-widest font-bold text-primary/60">Government Services Simplified</span>
+</div>
+</div>
+<nav class="hidden lg:flex items-center gap-8">
+<a class="text-primary/80 hover:text-primary text-sm font-semibold transition-colors" href="#">Chaupari</a>
+<a class="text-primary/80 hover:text-primary text-sm font-semibold transition-colors" href="#">Patro</a>
+<a class="text-primary/80 hover:text-primary text-sm font-semibold transition-colors" href="#">Mausam</a>
+<a class="text-primary/80 hover:text-primary text-sm font-semibold transition-colors" href="#">Bazaar</a>
+<a class="text-primary/80 hover:text-primary text-sm font-semibold transition-colors" href="#">NEPSE</a>
+<a class="text-primary text-sm font-bold border-b-2 border-primary transition-colors" href="#">Sarkari Guide</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition-all">
+                        English / नेपाली
+                    </button>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
+                        Sign In
+                    </button>
+</div>
+</header>
+<main class="flex flex-col flex-1">
+<!-- Hero Search Section -->
+<section class="relative py-16 px-6 md:px-20 bg-primary overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,_#ffffff_0%,_transparent_50%)]"></div>
+</div>
+<div class="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center gap-6">
+<h1 class="text-white text-4xl md:text-5xl font-black leading-tight tracking-tight">
+                            सरकारी प्रक्रिया अब सजिलो। <br/>
+<span class="text-blue-300">Government processes made easy.</span>
+</h1>
+<p class="text-blue-100 text-lg md:text-xl max-w-2xl font-medium">
+                            Step-by-step guidance for Passports, Licenses, and National ID. No more confusion, no more middlemen.
+                        </p>
+<div class="w-full max-w-2xl mt-4">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full h-16 pl-12 pr-32 rounded-xl border-none ring-4 ring-white/10 focus:ring-white/30 text-slate-800 placeholder:text-slate-400 text-lg shadow-2xl transition-all" placeholder="Search for a service (e.g., 'Apply for Passport' or 'सवारी चालक अनुमति पत्र')" type="text"/>
+<button class="absolute right-2 top-2 bottom-2 bg-primary text-white px-6 rounded-lg font-bold text-sm hover:bg-blue-900 transition-colors">
+                                    Search
+                                </button>
+</div>
+<div class="flex flex-wrap justify-center gap-2 mt-4 text-white/70 text-sm">
+<span>Popular:</span>
+<a class="underline hover:text-white transition-colors" href="#">E-Passport</a>
+<span class="opacity-30">•</span>
+<a class="underline hover:text-white transition-colors" href="#">License Renewal</a>
+<span class="opacity-30">•</span>
+<a class="underline hover:text-white transition-colors" href="#">PAN Registration</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Service Categories Grid -->
+<section class="py-12 px-6 md:px-20 max-w-[1400px] mx-auto w-full">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="text-slate-900 text-2xl font-black">Browse by Category</h2>
+<p class="text-slate-500 font-medium">Select a service to view requirements and process</p>
+</div>
+<a class="text-primary font-bold text-sm flex items-center gap-1 hover:underline" href="#">
+                            View All Services <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Citizenship & ID -->
+<div class="group cursor-pointer flex flex-col p-6 bg-white border border-slate-200 rounded-xl hover:shadow-xl hover:border-primary/30 transition-all">
+<div class="w-10 h-10 bg-slate-100 text-primary rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-xl">badge</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-4">Citizenship &amp; ID</h3>
+<p class="text-slate-500 text-xs leading-relaxed mb-6">Comprehensive guides for obtaining National ID cards, E-Passports, and new or replacement Citizenship certificates.</p>
+<ul class="flex flex-col gap-3 mb-8">
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                National ID Card
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                E-Passport Application
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Citizenship Certificate
+                            </li>
+</ul>
+<a class="mt-auto text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            View Step-by-Step Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Transport & Vehicles -->
+<div class="group cursor-pointer flex flex-col p-6 bg-white border border-slate-200 rounded-xl hover:shadow-xl hover:border-primary/30 transition-all">
+<div class="w-10 h-10 bg-slate-100 text-primary rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-xl">directions_car</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-4">Transport &amp; Vehicles</h3>
+<p class="text-slate-500 text-xs leading-relaxed mb-6">Everything you need for driving licenses, vehicle tax payments, and the bluebook renewal process.</p>
+<ul class="flex flex-col gap-3 mb-8">
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Smart Driving License
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Bluebook Renewal
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Annual Vehicle Tax
+                            </li>
+</ul>
+<a class="mt-auto text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            View Step-by-Step Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Tax & Finance -->
+<div class="group cursor-pointer flex flex-col p-6 bg-white border border-slate-200 rounded-xl hover:shadow-xl hover:border-primary/30 transition-all">
+<div class="w-10 h-10 bg-slate-100 text-primary rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-xl">payments</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-4">Tax &amp; Finance</h3>
+<p class="text-slate-500 text-xs leading-relaxed mb-6">Instructions for PAN/VAT registration, annual tax filing for individuals, and business entity registrations.</p>
+<ul class="flex flex-col gap-3 mb-8">
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Personal/Business PAN
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                VAT Registration
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Business Registration
+                            </li>
+</ul>
+<a class="mt-auto text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            View Step-by-Step Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Education & Exams -->
+<div class="group cursor-pointer flex flex-col p-6 bg-white border border-slate-200 rounded-xl hover:shadow-xl hover:border-primary/30 transition-all">
+<div class="w-10 h-10 bg-slate-100 text-primary rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-xl">school</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-4">Education &amp; Exams</h3>
+<p class="text-slate-500 text-xs leading-relaxed mb-6">Guidelines for obtaining No Objection Certificates (NOC), degree equivalence, and Lok Sewa Aayog applications.</p>
+<ul class="flex flex-col gap-3 mb-8">
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                NOC for Abroad Study
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                TU Equivalence Process
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Public Service Exams
+                            </li>
+</ul>
+<a class="mt-auto text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            View Step-by-Step Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Local Government -->
+<div class="group cursor-pointer flex flex-col p-6 bg-white border border-slate-200 rounded-xl hover:shadow-xl hover:border-primary/30 transition-all">
+<div class="w-10 h-10 bg-slate-100 text-primary rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-xl">location_city</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-4">Local Government</h3>
+<p class="text-slate-500 text-xs leading-relaxed mb-6">Service guides for birth, death, and marriage registration, along with other essential Ward-level administrative tasks.</p>
+<ul class="flex flex-col gap-3 mb-8">
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Vital Registration (Birth/Death)
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Marriage Registration
+                            </li>
+<li class="flex items-center gap-2 text-slate-700 text-xs font-medium">
+<span class="w-1 h-1 bg-slate-900 rounded-full"></span>
+                                Ward Recommendation Letters
+                            </li>
+</ul>
+<a class="mt-auto text-primary text-xs font-bold flex items-center gap-1 hover:underline" href="#">
+                            View Step-by-Step Guide <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Missing a Guide? -->
+<div class="flex flex-col items-center justify-center p-8 bg-slate-50 border border-dashed border-slate-300 rounded-xl">
+<div class="w-10 h-10 bg-slate-200 text-slate-400 rounded-full flex items-center justify-center mb-4">
+<span class="material-symbols-outlined">add</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 mb-2">Missing a Guide?</h3>
+<p class="text-slate-500 text-xs text-center mb-6">Let us know which government process you need a guide for.</p>
+<button class="px-6 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-900 hover:bg-slate-100 transition-colors">Request Guide</button>
+</div>
+</div>
+</section>
+<!-- Featured Guides & Updates Section -->
+<section class="py-12 px-6 md:px-20 bg-slate-50 w-full">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+<!-- Left: Featured Process Guides -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary">verified</span>
+<h2 class="text-2xl font-black text-slate-900">Featured Process Guides</h2>
+</div>
+<!-- Guide Card 1 -->
+<div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-blue-100 text-primary text-[10px] font-black uppercase px-2 py-0.5 rounded">High Priority</span>
+<span class="text-slate-400 text-xs font-medium">Updated 2 days ago</span>
+</div>
+<h3 class="text-xl font-extrabold text-slate-900">E-Passport Renewal (34-Page)</h3>
+<p class="text-slate-500 text-sm mt-1">Complete steps from online appointment to document collection at DOV.</p>
+</div>
+<button class="bg-primary text-white text-sm font-bold px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors">Start Guide</button>
+</div>
+<!-- Step Indicators -->
+<div class="mt-8 flex items-center">
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold z-10">1</div>
+<span class="text-[10px] font-bold text-primary mt-2">Appointment</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary/20 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold z-10">2</div>
+<span class="text-[10px] font-bold text-slate-400 mt-2">Payment</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary/20 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold z-10">3</div>
+<span class="text-[10px] font-bold text-slate-400 mt-2">Live Photo</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary/20 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold z-10">4</div>
+<span class="text-[10px] font-bold text-slate-400 mt-2">Collection</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Guide Card 2 -->
+<div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase px-2 py-0.5 rounded">Updated for 2024</span>
+<span class="text-slate-400 text-xs font-medium">Updated 1 week ago</span>
+</div>
+<h3 class="text-xl font-extrabold text-slate-900">Personal PAN Registration (Online)</h3>
+<p class="text-slate-500 text-sm mt-1">Free online process for obtaining your Taxpayer Identification Number.</p>
+</div>
+<button class="bg-primary text-white text-sm font-bold px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors">Start Guide</button>
+</div>
+<!-- Step Indicators -->
+<div class="mt-8 flex items-center">
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold z-10">1</div>
+<span class="text-[10px] font-bold text-primary mt-2">Online Form</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary/20 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold z-10">2</div>
+<span class="text-[10px] font-bold text-slate-400 mt-2">IRO Selection</span>
+</div>
+<div class="h-0.5 flex-1 bg-primary/20 -mt-6"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="w-8 h-8 rounded-full bg-slate-100 text-slate-400 border border-slate-200 flex items-center justify-center text-xs font-bold z-10">3</div>
+<span class="text-[10px] font-bold text-slate-400 mt-2">Verification</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Latest Rule Changes Ticker -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-amber-600">notification_important</span>
+<h2 class="text-2xl font-black text-slate-900">Latest Updates</h2>
+</div>
+<div class="bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-6 shadow-sm">
+<!-- Update 1 -->
+<div class="flex flex-col gap-2 pb-6 border-b border-slate-100">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-black text-amber-600 uppercase tracking-widest">Fee Change</span>
+<span class="text-slate-400 text-xs">Jan 12, 2024</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 leading-snug">New Passport Fees for 2024 effective from Baisakh 1.</h4>
+<p class="text-slate-500 text-xs">Department of Passport (DoP) has announced revised fees for express services.</p>
+<a class="text-primary text-xs font-bold mt-1 flex items-center" href="#">Read Official Notice <span class="material-symbols-outlined text-xs">open_in_new</span></a>
+</div>
+<!-- Update 2 -->
+<div class="flex flex-col gap-2 pb-6 border-b border-slate-100">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Rule Update</span>
+<span class="text-slate-400 text-xs">Dec 28, 2023</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 leading-snug">National ID (NID) now mandatory for License Renewal.</h4>
+<p class="text-slate-500 text-xs">DOTM implements mandatory NID verification for all smart license processes.</p>
+<a class="text-primary text-xs font-bold mt-1 flex items-center" href="#">Check Requirements <span class="material-symbols-outlined text-xs">open_in_new</span></a>
+</div>
+<!-- Update 3 -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-black text-blue-600 uppercase tracking-widest">Notice</span>
+<span class="text-slate-400 text-xs">Dec 15, 2023</span>
+</div>
+<h4 class="text-base font-bold text-slate-900 leading-snug">Lok Sewa Aayog Kharidar vacancy 2080/81 out.</h4>
+<p class="text-slate-500 text-xs">Over 400 positions announced across various provinces.</p>
+<a class="text-primary text-xs font-bold mt-1 flex items-center" href="#">View Vacancy <span class="material-symbols-outlined text-xs">open_in_new</span></a>
+</div>
+</div>
+<!-- Trust Banner -->
+<div class="bg-primary/5 rounded-xl border border-primary/10 p-5">
+<h5 class="text-primary text-sm font-black mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">verified_user</span> 
+                                    Verified Information
+                                </h5>
+<p class="text-slate-600 text-[11px] leading-relaxed">
+                                    SajiloSathi content is cross-verified with official government portals (gov.np). We are an independent guide platform aimed at improving citizen access to information.
+                                </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white border-t border-slate-100 py-12 px-6 md:px-20">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-primary rounded-lg text-white">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+</div>
+<h2 class="text-primary text-lg font-black">SajiloSathi</h2>
+</div>
+<p class="text-slate-500 text-sm leading-relaxed mb-6">
+                            Helping Nepali citizens navigate government services with clarity, speed, and confidence.
+                        </p>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+<a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">language</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-slate-900 font-black text-sm uppercase tracking-widest mb-6">Process Guides</h4>
+<ul class="flex flex-col gap-4 text-sm text-slate-500 font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Passport (E-Passport)</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Driving License</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">National ID Card</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Marriage Registration</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 font-black text-sm uppercase tracking-widest mb-6">Resources</h4>
+<ul class="flex flex-col gap-4 text-sm text-slate-500 font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Fee Calculator</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Document Checklist</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Office Map Locator</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Downloads &amp; Forms</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-slate-900 font-black text-sm uppercase tracking-widest mb-6">Help &amp; Support</h4>
+<ul class="flex flex-col gap-4 text-sm text-slate-500 font-medium">
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1400px] mx-auto mt-12 pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-400 text-xs font-medium">© 2024 SajiloSathi Tech Pvt. Ltd. All rights reserved.</p>
+<div class="flex items-center gap-2 text-slate-400 text-[10px] font-bold uppercase tracking-tighter">
+<span>Built for</span>
+<div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded">
+<span class="w-2 h-2 rounded-full bg-red-600"></span>
+<span class="w-2 h-2 rounded-full bg-blue-700"></span>
+<span class="ml-1">Digital Nepal</span>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

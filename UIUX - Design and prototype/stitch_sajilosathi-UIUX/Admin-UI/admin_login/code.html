@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi Admin Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .checkbox-custom:checked {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-background-dark text-[#121417] min-h-screen flex flex-col font-display">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-[#f1f2f4] dark:border-white/10 px-6 py-4 lg:px-12 bg-white dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 text-primary dark:text-white">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-[#121417] dark:text-white">SajiloSathi Admin</h1>
+</div>
+<div class="flex items-center gap-6">
+<a class="hidden sm:block text-sm font-medium text-[#687382] hover:text-primary transition-colors" href="#">Main Website</a>
+<button class="flex items-center gap-2 px-4 py-2 bg-background-light dark:bg-white/5 rounded-lg text-sm font-semibold text-[#121417] dark:text-white border border-[#dde0e4] dark:border-white/10">
+<span class="material-symbols-outlined text-sm">help</span>
+                Support
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex items-center justify-center p-6 bg-background-light dark:bg-background-dark/50">
+<!-- Login Card -->
+<div class="w-full max-w-[440px] bg-white dark:bg-background-dark rounded-xl shadow-xl shadow-primary/5 border border-[#dde0e4] dark:border-white/10 p-8 lg:p-10">
+<div class="mb-8 text-center sm:text-left">
+<h2 class="text-3xl font-black text-[#121417] dark:text-white tracking-tight mb-2">Welcome Back</h2>
+<p class="text-[#687382] dark:text-gray-400 text-sm">Enter your credentials to access the admin portal.</p>
+</div>
+<form class="space-y-5">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="text-sm font-semibold text-[#121417] dark:text-gray-300" for="email">Email Address</label>
+<div class="relative group">
+<input class="w-full h-12 px-4 rounded-lg border-[#dde0e4] dark:border-white/10 bg-white dark:bg-white/5 text-[#121417] dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="email" placeholder="e.g., admin@sajilosathi.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="text-sm font-semibold text-[#121417] dark:text-gray-300" for="password">Password</label>
+<a class="text-xs font-medium text-primary dark:text-blue-400 hover:underline" href="#">Forgot Password?</a>
+</div>
+<div class="relative flex items-center">
+<input class="w-full h-12 px-4 pr-12 rounded-lg border-[#dde0e4] dark:border-white/10 bg-white dark:bg-white/5 text-[#121417] dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 text-[#687382] hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me -->
+<div class="flex items-center gap-3 py-1">
+<input class="checkbox-custom h-5 w-5 rounded border-[#dde0e4] border-2 bg-transparent text-primary focus:ring-0 focus:ring-offset-0 transition-all cursor-pointer" id="remember" type="checkbox"/>
+<label class="text-sm font-medium text-[#121417] dark:text-gray-300 cursor-pointer select-none" for="remember">Remember this device</label>
+</div>
+<!-- Sign In Button -->
+<button class="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 mt-4" type="submit">
+<span>Sign In</span>
+<span class="material-symbols-outlined text-lg">login</span>
+</button>
+</form>
+<!-- Bottom Note -->
+<div class="mt-8 pt-6 border-t border-[#f1f2f4] dark:border-white/10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-green-600 text-sm">verified_user</span>
+<p class="text-[11px] uppercase tracking-widest font-bold text-[#687382] dark:text-gray-500">Secure Admin Access Only</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="py-6 px-12 border-t border-[#f1f2f4] dark:border-white/10 bg-white dark:bg-background-dark text-center">
+<p class="text-xs text-[#687382] dark:text-gray-500">
+            © 2024 SajiloSathi Inc. All rights reserved. 
+            <span class="mx-2">|</span>
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<span class="mx-2">|</span>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</p>
+</footer>
+</body></html>

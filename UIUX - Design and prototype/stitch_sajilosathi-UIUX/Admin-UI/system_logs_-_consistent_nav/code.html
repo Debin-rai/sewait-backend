@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi Admin - System Audit Logs</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dde0e4;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#121417]">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 bg-white border-r border-[#dde0e4] flex flex-col h-full">
+<div class="p-6 flex flex-col h-full">
+<div class="flex items-center gap-3 mb-8"><div class="bg-primary rounded-lg size-10 flex items-center justify-center text-white">
+<span class="material-symbols-outlined">grid_view</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-primary text-base font-bold leading-tight">SajiloSathi</h1>
+<p class="text-[#687382] text-xs font-medium uppercase tracking-wider">ADMIN PANEL</p>
+</div></div>
+<nav class="flex-1 flex flex-col gap-1"><a class="flex items-center gap-3 px-3 py-3 text-[#121417] hover:bg-primary/5 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#121417] hover:bg-primary/5 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#121417] hover:bg-primary/5 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="text-sm font-medium">Content Manager</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#121417] hover:bg-primary/5 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">equal_height</span>
+<span class="text-sm font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-[#121417] hover:bg-primary/5 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-sm font-medium">Admin Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 bg-[#dde0e4]/50 text-primary rounded-lg transition-colors border-l-4 border-primary" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="text-sm font-bold">System Logs</span>
+</a></nav>
+<div class="mt-auto border-t border-[#dde0e4] pt-4">
+<button class="flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 w-full rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-sm font-bold">Logout</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Header Section -->
+<header class="bg-white border-b border-[#dde0e4] px-8 py-6 flex-shrink-0">
+<div class="flex flex-wrap items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-black tracking-tight text-[#121417]">System Audit Logs</h2>
+<p class="text-[#687382] text-base mt-1">Monitor administrative activity and security events across the platform</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-4 bg-background-light px-4 py-3 rounded-xl border border-[#dde0e4]">
+<div>
+<p class="text-[10px] font-bold text-[#687382] uppercase tracking-wider">Total Logs Today</p>
+<div class="flex items-baseline gap-2">
+<span class="text-xl font-bold text-primary">1,284</span>
+<span class="text-[11px] font-bold text-green-600">+12%</span>
+</div>
+</div>
+<div class="w-px h-8 bg-[#dde0e4]"></div>
+<div>
+<p class="text-[10px] font-bold text-[#687382] uppercase tracking-wider">Security Alerts</p>
+<div class="flex items-baseline gap-2">
+<span class="text-xl font-bold text-red-600">12</span>
+<span class="text-[11px] font-bold text-red-500">-5%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Filters Section -->
+<div class="bg-white border-b border-[#dde0e4] px-8 py-4 flex-shrink-0 flex items-center justify-between gap-4">
+<div class="flex items-center gap-3 flex-1 max-w-2xl">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#687382] text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-background-light border border-[#dde0e4] rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="Search by Admin, Action, or IP..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-2 bg-white border border-[#dde0e4] rounded-lg text-sm font-semibold text-[#121417] hover:bg-background-light">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Date Range</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-2 bg-white border border-[#dde0e4] rounded-lg text-sm font-semibold text-[#121417] hover:bg-background-light">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Action Type</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 text-sm font-bold text-primary bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">Clear Filters</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-[#f1f2f4] text-[#121417] rounded-lg text-sm font-bold hover:bg-[#e5e7eb]">
+<span class="material-symbols-outlined text-[18px]">csv</span>
+<span>Download CSV</span>
+</button>
+</div>
+</div>
+<!-- Scrollable Table Section -->
+<div class="flex-1 overflow-auto bg-background-light p-8">
+<div class="bg-white border border-[#dde0e4] rounded-xl overflow-hidden shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="bg-primary text-white sticky top-0 z-10">
+<tr>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest">Timestamp</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest">Admin User</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest">Action</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-center">IP Address</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-widest text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#dde0e4]">
+<!-- Row 1 -->
+<tr class="hover:bg-background-light transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#687382]">
+<div class="font-medium text-[#121417]">Oct 24, 2023</div>
+<div class="text-xs">14:20:45</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs" data-alt="Avatar for admin user Abhishek Sharma" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBocWihOv9d_HzKpNdHKjVBlGhtswn50HM9EyjkcNTcT8VWej9pokoNrQolEZEI6HmJjYWbWwOn5H5SUU0mnW1VgrbUNWq4T_bXPVdcHYpQnO8weeFQDaKbAgZxD9tT1CVUiGmcXlFCSjqHYFfGe8xJqKBXBe-SglH370LRWfYPMLtS4r1VXkiVEZ8iIpLSE8FiUXgzUdbFmsqUUEfcoUvTRJKC3bkVUGUL30YR4_wi4fNRas2kGZLl8ZossVDTurw_iA0a3DswHa8"); background-size: cover;'>AS</div>
+<div>
+<div class="text-sm font-bold text-[#121417]">Abhishek Sharma</div>
+<div class="text-xs text-[#687382]">Super Admin</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">trending_up</span>
+<span class="text-sm font-medium text-[#121417]">Updated Gold Rate</span>
+</div>
+<div class="text-xs text-[#687382] mt-0.5">Changed 24K rate from 110,000 to 112,500 NPR</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<code class="text-xs font-mono bg-[#f1f2f4] px-2 py-1 rounded text-[#121417]">192.168.1.45</code>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold border border-green-200">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                        Success
+                                    </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-background-light transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#687382]">
+<div class="font-medium text-[#121417]">Oct 24, 2023</div>
+<div class="text-xs">13:55:12</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-xs" data-alt="Avatar for admin user Rita Neupane" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBq_OA-65sztpNXgsSHZTo02kMfE8YqLj4GeAmULSiWovSORGg1j-uAKNln4TiuXIZt7vdH4CVJWseJ418QUme-hWeqFkRCHO1jKbC3bmWlBQMHfc0-jjhOXHlxk7uIiU07KEQc5SQVzRFBhd_6tho38nVRu8LHuGv3uzZ4gq2qxN4WwMJrsuzjc0VNft9sqMQCMVeonfsiQICRPYZm4NfxKfu_L61_ty9lYzl0uGGW1aEvR_VzbTt1GWdVb_kV7FyXaF7Od1YAL8E"); background-size: cover;'>RN</div>
+<div>
+<div class="text-sm font-bold text-[#121417]">Rita Neupane</div>
+<div class="text-xs text-[#687382]">Security Manager</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-red-600">person_remove</span>
+<span class="text-sm font-medium text-[#121417]">Deleted User Account</span>
+</div>
+<div class="text-xs text-[#687382] mt-0.5">UID: user_88291 (Suspicious activity)</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<code class="text-xs font-mono bg-[#f1f2f4] px-2 py-1 rounded text-[#121417]">103.24.190.11</code>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold border border-green-200">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                        Success
+                                    </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-background-light transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#687382]">
+<div class="font-medium text-[#121417]">Oct 24, 2023</div>
+<div class="text-xs">12:10:04</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-orange-100 flex items-center justify-center text-orange-700 font-bold text-xs" data-alt="Avatar for admin user Krishna Poudel" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJESSTMfn_KWl_P1yY-RCtR03jGmEDRgXP1STH2deDx7oPWIzyeoIUeg4nqmzxmNR2izbzKBuQievuqoQOTK6GgjHCqgtiPo8VB3lF9qckGlfVHrbEcFqAKBamOPPAaTHz2k062352rjkydBL1Xo7xCUvXH-XuWonK230oYr5HjPgITYHrf8-7gbbmibxl1zt6paDbo75YeqWgCFJQukyhXCbdZtb0hEOxLFo9PknqBfm4vRffW-QwlvS518yFlX_LWxM1zk7xdKk"); background-size: cover;'>KP</div>
+<div>
+<div class="text-sm font-bold text-[#121417]">Krishna Poudel</div>
+<div class="text-xs text-[#687382]">Junior Admin</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-orange-600">login</span>
+<span class="text-sm font-medium text-[#121417]">Failed Login Attempt</span>
+</div>
+<div class="text-xs text-[#687382] mt-0.5">3 consecutive failures from this IP</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<code class="text-xs font-mono bg-red-50 px-2 py-1 rounded text-red-600 border border-red-100 font-bold">45.201.2.33</code>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 bg-red-50 text-red-700 px-2.5 py-1 rounded-full text-xs font-bold border border-red-200">
+<span class="size-1.5 rounded-full bg-red-500"></span>
+                                        Failed
+                                    </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-background-light transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#687382]">
+<div class="font-medium text-[#121417]">Oct 24, 2023</div>
+<div class="text-xs">11:42:30</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs" data-alt="System process avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC9RW05xBwFpDyRkI7trQ6fYXf5PpnL6rnYlEiFJb41d4wOGplfQ3D9NXwGS7YIJBK562wF3hzsdEpVoD-hWg38pfW0uTb-jzKf7sS6GiEECtt07_PU0g1iBk-mzMIPdcVOfT7tRkpyYyLUJVbsKWV3mHdDjMj0hkEviTHPM4GqwHUqbO5LaENHj_gQ2sj_gNUHPJH4WhDDQeQRHLFGHkVi6jve0LoudioNizcQ1gO39xkG4c07SX_Dt3YJyzLvkOq8-hsp3wmS0PY"); background-size: cover;'>S</div>
+<div>
+<div class="text-sm font-bold text-[#121417]">System Process</div>
+<div class="text-xs text-[#687382]">Automated</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-blue-600">settings_backup_restore</span>
+<span class="text-sm font-medium text-[#121417]">Backup Completed</span>
+</div>
+<div class="text-xs text-[#687382] mt-0.5">Full daily database backup (4.2 GB)</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<code class="text-xs font-mono bg-[#f1f2f4] px-2 py-1 rounded text-[#121417]">internal-vpc</code>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full text-xs font-bold border border-blue-200">
+<span class="size-1.5 rounded-full bg-blue-500"></span>
+                                        Info
+                                    </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-background-light transition-colors group">
+<td class="px-6 py-4 whitespace-nowrap text-sm text-[#687382]">
+<div class="font-medium text-[#121417]">Oct 24, 2023</div>
+<div class="text-xs">09:15:22</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xs" data-alt="Avatar for admin user Abhishek Sharma" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA1vQSsvaB9rbtNZANXaDqSzsy_Fc4n69Da-zs6JRwIkNGvunhF4fU66SfZeDYhaHRfJxZj9CpIlrnBhx3391gDS2knCzz7ICMQAFZFkATr-qV1YCZlH0E46s9iJvk9Wt0REJ7PHRfXeBog2hL7Y0GGO7hVXQp1VLUg9KT3ZMFsBknVCU9coyS2rvn5TOtx8R0kphM64Q_KEOvZw0BBlFn7VPQgTlDROwvrhGPEse6ZW60efFZTe95vr28tnWck1MWMGLvZnd-ll8g"); background-size: cover;'>AS</div>
+<div>
+<div class="text-sm font-bold text-[#121417]">Abhishek Sharma</div>
+<div class="text-xs text-[#687382]">Super Admin</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">security</span>
+<span class="text-sm font-medium text-[#121417]">Enabled 2FA Enforcement</span>
+</div>
+<div class="text-xs text-[#687382] mt-0.5">Applied to all 'Merchant' role users</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-center">
+<code class="text-xs font-mono bg-[#f1f2f4] px-2 py-1 rounded text-[#121417]">192.168.1.45</code>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right">
+<span class="inline-flex items-center gap-1 bg-green-50 text-green-700 px-2.5 py-1 rounded-full text-xs font-bold border border-green-200">
+<span class="size-1.5 rounded-full bg-green-500"></span>
+                                        Success
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="mt-6 flex items-center justify-between">
+<p class="text-sm text-[#687382]">
+                        Showing <span class="font-bold text-[#121417]">1</span> to <span class="font-bold text-[#121417]">10</span> of <span class="font-bold text-[#121417]">1,284</span> entries
+                    </p>
+<div class="flex items-center gap-2">
+<button class="size-9 flex items-center justify-center bg-white border border-[#dde0e4] rounded-lg text-[#687382] hover:bg-background-light disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-9 flex items-center justify-center bg-primary text-white rounded-lg font-bold text-sm">1</button>
+<button class="size-9 flex items-center justify-center bg-white border border-[#dde0e4] rounded-lg text-sm font-medium text-[#687382] hover:bg-background-light">2</button>
+<button class="size-9 flex items-center justify-center bg-white border border-[#dde0e4] rounded-lg text-sm font-medium text-[#687382] hover:bg-background-light">3</button>
+<span class="px-1 text-[#687382]">...</span>
+<button class="size-9 flex items-center justify-center bg-white border border-[#dde0e4] rounded-lg text-sm font-medium text-[#687382] hover:bg-background-light">129</button>
+<button class="size-9 flex items-center justify-center bg-white border border-[#dde0e4] rounded-lg text-[#687382] hover:bg-background-light">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi Admin - Content Management</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col fixed h-full z-20">
+<div class="p-6 flex items-center gap-3 mb-4">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-white text-2xl">hub</span>
+</div>
+<div>
+<h1 class="text-lg font-bold text-primary leading-none">SajiloSathi</h1>
+<p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Admin Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">dashboard</span>
+<span class="font-semibold text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">group</span>
+<span class="font-semibold text-sm">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-100 text-primary shadow-sm" href="#">
+<span class="material-symbols-outlined">folder_managed</span>
+<span class="font-semibold text-sm">Content Manager</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">analytics</span>
+<span class="font-semibold text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">settings</span>
+<span class="font-semibold text-sm">Admin Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary">history_edu</span>
+<span class="font-semibold text-sm">System Logs</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-100">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-red-500 hover:bg-red-50 transition-colors group" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-bold text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-64 p-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<div class="flex items-center gap-2 text-sm text-slate-500 mb-1">
+<a class="hover:text-primary" href="#">Admin</a>
+<span class="material-symbols-outlined text-xs leading-none">chevron_right</span>
+<span class="text-primary font-medium">Content Management</span>
+</div>
+<h2 class="text-3xl font-black tracking-tight text-primary">Content Directory</h2>
+<p class="text-slate-500 mt-1">Manage and update dynamic data modules for the SajiloSathi platform.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2 bg-white dark:bg-background-dark/50 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-800">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-xs font-medium text-slate-600 dark:text-slate-400">System Status: Active</span>
+</div>
+<button class="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm shadow-lg hover:bg-primary/90 transition-all">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                        Global Refresh
+                    </button>
+</div>
+</header>
+<!-- Stats Overview (Quick Glance) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Active Modules</p>
+<p class="text-2xl font-black text-primary">12</p>
+</div>
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Pending Sync</p>
+<p class="text-2xl font-black text-amber-500">2</p>
+</div>
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Total Updates (Today)</p>
+<p class="text-2xl font-black text-primary">148</p>
+</div>
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm">
+<p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">API Health</p>
+<p class="text-2xl font-black text-emerald-500">99.9%</p>
+</div>
+</div>
+<!-- Content Modules Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-4 gap-6">
+<!-- News Snippets -->
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+<div class="h-32 bg-slate-100 dark:bg-slate-900 flex items-center justify-center relative">
+<img alt="News Feed" class="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Close up of a digital newspaper or news application interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBi70vFfrpmcdxbYYuLllu0WkBA0chrDwnLNqLgEB_Xu3WuHiWKEIYZHGJTlottZnnCyotXn6kiFMso2DwMfgrjkLkSouaYzh_3Id411q4SDEYPiGDsgAOKiI1JYRN0TuVkJDpnnv3lE3a2vMY56sCFUrvxg3iGo6eWqxhSiLkKKk70F_fpZcgKnXjMZXT7lfnX1N_xfO24IYNt7VMSgLzj7oQiuxEyS0q8YiBodTt5L8EIlasz6JT74ZcfAqYhi7VGlfEChmQBCKQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-background-dark/40 to-transparent"></div>
+<span class="material-symbols-outlined text-4xl text-primary absolute">newspaper</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-primary dark:text-white">News Snippets</h3>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-700 uppercase">Manual</span>
+</div>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Manage latest highlights, breaking news, and scrolling tickers for the home feed.</p>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">schedule</span>
+<span class="text-xs text-slate-400 font-medium">Last Updated: 10 mins ago</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">Edit Content</button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Calendar Events -->
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+<div class="h-32 bg-slate-100 dark:bg-slate-900 flex items-center justify-center relative">
+<img alt="Calendar" class="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Minimalist desk calendar with aesthetic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsV8p9mwOgqMUgUuSWjKXrN7hZq_KZkI8_A9z3M1pD3TxMuEkVCCsJ3tU_8GET87mlZioxxS1QAmJI5aADZRyR8Oj8edwgNX1SQ-XueCeg6sLAs-rk8mByuRpPPR0s1eq6dyvgNf6aKt_5I-WqWXObspgPwZzw7oWoYs4-xcNeC4ZLvPJy7gf_czi3TmJHE70D_6QEi_8T6tkezG2Bnr89lIw9HV2nQVpiQ42M6uCzzTXQ9Gu1uqv5Pt--RPlu_XeI5YvVXO2uLHI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-background-dark/40 to-transparent"></div>
+<span class="material-symbols-outlined text-4xl text-primary absolute">calendar_month</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-primary dark:text-white">Calendar Events</h3>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-primary/10 text-primary uppercase">Hybrid</span>
+</div>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Public holidays, festivals, and corporate event schedules for the public calendar.</p>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">schedule</span>
+<span class="text-xs text-slate-400 font-medium">Last Updated: 2 hours ago</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">Edit Content</button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Gold/Silver Rates -->
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+<div class="h-32 bg-slate-100 dark:bg-slate-900 flex items-center justify-center relative">
+<img alt="Gold Bullion" class="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Stacked shiny gold bullion bars in a vault" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx6ucG96W3l9QpnAcDUFzvDGEuGz-T4mi6DpZtrznvGP6uRXSAzC1tMbDLBTxNbjdHl6keOWjnsECGTwi8aveDLWoEIjncBf9BzrjZIDb6uJuhcG9eV8ZgepZOJFLQeLhhnjwlNl2aIonTF97HG1YPe-89bY2XevoD07mk_97zh4_L771DbOndiqdlSXzsJ5zzO8ixpJ2lfKeCEi2kPkEY7l6zDA4RdvcDWnXmHdNIxA0kwObOHKibwnTZZJ9MQUemUjR2B2E94QY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-background-dark/40 to-transparent"></div>
+<span class="material-symbols-outlined text-4xl text-primary absolute">payments</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-primary dark:text-white">Gold/Silver Rates</h3>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-amber-100 text-amber-700 uppercase">External API</span>
+</div>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Daily market prices. Includes manual override capability for administrative control.</p>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-slate-400 text-sm">schedule</span>
+<span class="text-xs text-slate-400 font-medium">Last Updated: 5 hours ago</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">Modify Rates</button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- NEPSE Data -->
+<div class="bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden group">
+<div class="h-32 bg-slate-100 dark:bg-slate-900 flex items-center justify-center relative">
+<img alt="Stock Market" class="w-full h-full object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500" data-alt="Professional stock market candles and line charts on a screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV7vneZeS5yXmNVIROV0uSl6WiJIxeu-icT3Avpy-uCJso5ryWh_YsczqlSkjiMUKFAn0HF1p93O2paC0lBn-bkgqgdQPmokv-JkIUbNxqsiWme8B4mt-whvynK8xs-o6mAgWOlXWLle3QYew1zJML6dlO8mHzVGY3uCqi3GFNdaJ4T6EZwfN1bTBFX5fj_361yKZyr2YRK-Ox4hhhoHTSpmkJJtr8NpL9YejCIYh1L9NuWrLcQlk5lP_W5J5CjY6vzT-XHQSPqic"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-background-dark/40 to-transparent"></div>
+<span class="material-symbols-outlined text-4xl text-primary absolute">query_stats</span>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-lg font-bold text-primary dark:text-white">NEPSE Data</h3>
+<span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-emerald-100 text-emerald-700 uppercase">Live Feed</span>
+</div>
+<p class="text-slate-500 text-sm mb-6 leading-relaxed">Stock market data feed management. Monitor and fix syncing issues from exchange.</p>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-emerald-500 text-sm">check_circle</span>
+<span class="text-xs text-emerald-600 font-bold tracking-tight">Synced 1 min ago</span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">Manage Feed</button>
+<button class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined text-sm">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Module Status Table -->
+<div class="mt-12 bg-white dark:bg-background-dark/40 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+<h3 class="font-bold text-primary dark:text-white">Detailed Module Health</h3>
+<button class="text-primary text-xs font-bold hover:underline">View System Logs</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-[11px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50/50 dark:bg-background-dark/20">
+<th class="px-6 py-3">Module Name</th>
+<th class="px-6 py-3">Source Type</th>
+<th class="px-6 py-3">Latency</th>
+<th class="px-6 py-3">Status</th>
+<th class="px-6 py-3 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">feed</span>
+<span class="text-sm font-semibold">Nepal News API</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">External JSON</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">240ms</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">
+<span class="w-1 h-1 rounded-full bg-emerald-700"></span>
+                                        Healthy
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary">settings_applications</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">database</span>
+<span class="text-sm font-semibold">Foreign Exchange</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">NRB Scraper</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">1.2s</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-700">
+<span class="w-1 h-1 rounded-full bg-amber-700"></span>
+                                        Degraded
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary">settings_applications</button>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 text-lg">cloud_sync</span>
+<span class="text-sm font-semibold">Weather Feed</span>
+</div>
+</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">OpenWeather</td>
+<td class="px-6 py-4 text-xs font-medium text-slate-500">310ms</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700">
+<span class="w-1 h-1 rounded-full bg-emerald-700"></span>
+                                        Healthy
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="material-symbols-outlined text-slate-400 hover:text-primary">settings_applications</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Footer Meta -->
+<footer class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-400 text-sm">
+<p>© 2024 SajiloSathi Platform. All rights reserved.</p>
+<div class="flex items-center gap-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">code</span> v2.4.1-stable</span>
+<a class="hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="hover:text-primary transition-colors" href="#">Support Ticket</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Notification Toast (Static for Design) -->
+<div class="fixed bottom-6 right-6 z-50 animate-bounce">
+<div class="bg-primary text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-4 border border-white/10">
+<span class="material-symbols-outlined text-emerald-400">check_circle</span>
+<div>
+<p class="font-bold text-sm leading-none mb-1">Update Successful</p>
+<p class="text-xs text-white/70 font-medium">NEPSE feed was manually refreshed.</p>
+</div>
+<button class="material-symbols-outlined text-white/50 hover:text-white text-sm">close</button>
+</div>
+</div>
+</body></html>

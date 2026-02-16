@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SajiloSathi Admin Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1a355b",
+                        "accent-gold": "#d4af37",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#13181f",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav {
+            background-color: rgba(26, 53, 91, 0.1);
+            border-left: 4px solid #1a355b;
+        }
+    </style>
+</head>
+<body class="bg-background-light font-display text-slate-900">
+<div class="flex min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-white border-r border-slate-200 flex flex-col fixed h-full">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">dashboard_customize</span>
+</div>
+<div>
+<h1 class="font-bold text-primary text-lg leading-none">SajiloSathi</h1>
+<span class="text-xs text-slate-500 font-medium uppercase tracking-wider">Admin Panel</span>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">grid_view</span>
+<span class="text-sm font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">group</span>
+<span class="text-sm font-semibold">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">article</span>
+<span class="text-sm font-semibold">Content Manager</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">analytics</span>
+<span class="text-sm font-semibold">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-primary active-nav rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">settings</span>
+<span class="text-sm font-semibold">Admin Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-50 rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">history</span>
+<span class="text-sm font-semibold">System Logs</span>
+</a>
+</nav>
+<div class="p-4 border-t border-slate-100">
+<button class="flex w-full items-center gap-3 px-3 py-2.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[22px]">logout</span>
+<span class="text-sm font-semibold">Logout</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 p-8">
+<header class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Admin Settings</h2>
+<p class="text-slate-500 mt-1">Configure your application behavior, security, and external integrations.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 font-bold rounded-lg hover:bg-slate-50 transition-all shadow-sm">
+                        Discard
+                    </button>
+<button class="px-5 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-slate-800 transition-all shadow-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">save</span>
+                        Save All Changes
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Section: General App Settings -->
+<section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">tune</span>
+<div>
+<h3 class="font-bold text-lg text-slate-900">General App Settings</h3>
+<p class="text-xs text-slate-500">Enable or disable core application modules</p>
+</div>
+</div>
+<div class="space-y-1">
+<label class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col">
+<span class="font-semibold text-slate-800">Weather Module</span>
+<span class="text-xs text-slate-500">Display real-time weather updates to users</span>
+</div>
+<input checked="" class="w-11 h-6 bg-slate-200 checked:bg-primary rounded-full appearance-none transition-colors relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-5 before:transition-transform cursor-pointer" type="checkbox"/>
+</label>
+<div class="h-px bg-slate-100 mx-3"></div>
+<label class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col">
+<span class="font-semibold text-slate-800">NEPSE (Stock Market)</span>
+<span class="text-xs text-slate-500">Show latest Nepal Stock Exchange data</span>
+</div>
+<input checked="" class="w-11 h-6 bg-slate-200 checked:bg-primary rounded-full appearance-none transition-colors relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-5 before:transition-transform cursor-pointer" type="checkbox"/>
+</label>
+<div class="h-px bg-slate-100 mx-3"></div>
+<label class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col">
+<span class="font-semibold text-slate-800">News Feed</span>
+<span class="text-xs text-slate-500">Aggregate local and international news stories</span>
+</div>
+<input class="w-11 h-6 bg-slate-200 checked:bg-primary rounded-full appearance-none transition-colors relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-5 before:transition-transform cursor-pointer" type="checkbox"/>
+</label>
+<div class="h-px bg-slate-100 mx-3"></div>
+<label class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col">
+<span class="font-semibold text-slate-800">Currency Converter</span>
+<span class="text-xs text-slate-500">Allow users to convert foreign currencies to NPR</span>
+</div>
+<input checked="" class="w-11 h-6 bg-slate-200 checked:bg-primary rounded-full appearance-none transition-colors relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-5 before:transition-transform cursor-pointer" type="checkbox"/>
+</label>
+</div>
+</section>
+<!-- Section: API Configurations -->
+<section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">api</span>
+<div>
+<h3 class="font-bold text-lg text-slate-900">API Configurations</h3>
+<p class="text-xs text-slate-500">Manage external service credentials</p>
+</div>
+</div>
+<div class="space-y-5">
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-700 flex justify-between">
+                                OpenWeatherMap API Key
+                                <span class="text-[10px] text-green-600 font-bold uppercase tracking-widest bg-green-50 px-2 py-0.5 rounded">Connected</span>
+</label>
+<div class="relative">
+<input class="w-full bg-slate-50 border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all" type="password" value="••••••••••••••••••••••••"/>
+<button class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-700 flex justify-between">
+                                NEPSE Scraper Endpoints
+                                <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-50 px-2 py-0.5 rounded">Optional</span>
+</label>
+<input class="w-full bg-slate-50 border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all" type="text" value="https://api.nepse.com.np/v2/latest"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-700">SMS Gateway Secret Key</label>
+<div class="relative">
+<input class="w-full bg-slate-50 border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all" type="password" value="••••••••••••••••••••••••"/>
+<button class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Security & Authentication -->
+<section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">security</span>
+<div>
+<h3 class="font-bold text-lg text-slate-900">Security &amp; Authentication</h3>
+<p class="text-xs text-slate-500">Protect the admin portal and user accounts</p>
+</div>
+</div>
+<div class="space-y-6">
+<div class="p-4 bg-slate-50 rounded-lg border border-dashed border-slate-200">
+<div class="flex justify-between items-center mb-4">
+<div>
+<h4 class="font-bold text-slate-800 text-sm">Two-Factor Authentication (2FA)</h4>
+<p class="text-xs text-slate-500">Add an extra layer of security to admin accounts</p>
+</div>
+<span class="px-2 py-1 bg-accent-gold/20 text-accent-gold text-[10px] font-bold rounded uppercase">Recommended</span>
+</div>
+<button class="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors">
+                                Set Up 2FA Now
+                            </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-700">Session Timeout</label>
+<select class="w-full bg-slate-50 border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all">
+<option>15 Minutes</option>
+<option selected="">30 Minutes</option>
+<option>1 Hour</option>
+<option>4 Hours</option>
+</select>
+</div>
+<div class="space-y-2 flex flex-col justify-end">
+<button class="w-full py-2.5 border border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary/5 transition-colors">
+                                    Change Password
+                                </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section: Backup & Logs -->
+<section class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">storage</span>
+<div>
+<h3 class="font-bold text-lg text-slate-900">Backup &amp; Logs</h3>
+<p class="text-xs text-slate-500">System maintenance and activity tracking</p>
+</div>
+</div>
+<div class="flex gap-3 mb-8">
+<button class="flex-1 flex flex-col items-center justify-center p-4 bg-accent-gold/10 border border-accent-gold/20 rounded-xl hover:bg-accent-gold/20 transition-all group">
+<span class="material-symbols-outlined text-accent-gold mb-2 group-hover:scale-110 transition-transform">cloud_download</span>
+<span class="text-sm font-bold text-accent-gold">Manual Backup</span>
+<span class="text-[10px] text-accent-gold/70 mt-1">Last: 2 hrs ago</span>
+</button>
+<button class="flex-1 flex flex-col items-center justify-center p-4 bg-slate-50 border border-slate-200 rounded-xl hover:bg-slate-100 transition-all group">
+<span class="material-symbols-outlined text-slate-500 mb-2 group-hover:scale-110 transition-transform">mop</span>
+<span class="text-sm font-bold text-slate-700">Clear Cache</span>
+<span class="text-[10px] text-slate-400 mt-1">45.2 MB cached</span>
+</button>
+</div>
+<h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 px-1">Recent Admin Activity</h4>
+<div class="space-y-4">
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px] text-slate-500">edit</span>
+</div>
+<div>
+<p class="text-sm text-slate-800"><span class="font-bold">Admin Samip</span> updated NEPSE API endpoints</p>
+<p class="text-[11px] text-slate-400 font-medium">14 minutes ago • IP: 192.168.1.1</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px] text-slate-500">backup</span>
+</div>
+<div>
+<p class="text-sm text-slate-800"><span class="font-bold">System</span> automatically performed database backup</p>
+<p class="text-[11px] text-slate-400 font-medium">2 hours ago • Automated Task</p>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px] text-slate-500">settings</span>
+</div>
+<div>
+<p class="text-sm text-slate-800"><span class="font-bold">Admin Rohan</span> disabled News Feed module</p>
+<p class="text-[11px] text-slate-400 font-medium">5 hours ago • IP: 103.1.25.42</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-bold text-primary hover:underline flex items-center justify-center gap-1">
+                            View Full Audit Log
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Section: Government Services Guides -->
+<section class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">account_balance</span>
+<div>
+<h3 class="font-bold text-lg text-slate-900">Government Services Guides</h3>
+<p class="text-xs text-slate-500">Manage citizen service guides and documentation</p>
+</div>
+</div>
+<div class="space-y-6">
+<label class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition-colors cursor-pointer group">
+<div class="flex flex-col">
+<span class="font-semibold text-slate-800">Enable Module</span>
+<span class="text-xs text-slate-500">Show government guides in the user app</span>
+</div>
+<input checked="" class="w-11 h-6 bg-slate-200 checked:bg-primary rounded-full appearance-none transition-colors relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:rounded-full before:top-1 before:left-1 checked:before:translate-x-5 before:transition-transform cursor-pointer" type="checkbox"/>
+</label>
+<div class="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+<div class="space-y-2">
+<label class="text-sm font-bold text-slate-700">Featured Guides Count</label>
+<input class="w-full bg-slate-50 border-slate-200 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all" max="10" min="1" type="number" value="4"/>
+</div>
+<div class="space-y-2 flex flex-col justify-end">
+<button class="w-full py-2.5 border border-primary text-primary text-sm font-bold rounded-lg hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                    Manage Guides
+                </button>
+</div>
+</div>
+</div>
+</section></div>
+<footer class="mt-12 text-center text-slate-400 text-xs pb-8">
+                © 2024 SajiloSathi Admin Portal • Build v2.4.1-stable • System Status: 
+                <span class="text-green-500 font-bold inline-flex items-center gap-1">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Optimal
+                </span>
+</footer>
+</main>
+</div>
+</body></html>
