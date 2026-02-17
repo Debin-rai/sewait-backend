@@ -36,9 +36,9 @@ export default function ServicesGrid() {
 
     return (
         <section className="mb-16">
-            <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
-                <h2 className="text-2xl font-bold text-primary relative inline-block">
-                    Government Guides & Services <span className="nepali-font text-lg text-primary/60">सरकारी गाइड</span>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 border-b border-slate-100 pb-4 gap-3">
+                <h2 className="text-xl md:text-2xl font-bold text-primary relative inline-block">
+                    Government Guides & Services <span className="nepali-font text-base md:text-lg text-primary/60">सरकारी गाइड</span>
                     <div className="absolute -bottom-4 left-0 w-20 h-1 bg-primary rounded-full"></div>
                 </h2>
                 <Link href="/guides" className="text-sm font-bold text-primary hover:text-primary-light flex items-center gap-1 transition-colors">
