@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json();
-        const { title, slug, category, content } = body;
+        const { title, slug, category, department, content, status, icon } = body;
 
         // --- Audit Log ---
         console.log(`[AUDIT] Admin (${session.user?.email}) created GUIDE: ${title}`);
@@ -20,7 +20,10 @@ export async function POST(request: Request) {
                 title,
                 slug,
                 category,
+                department,
                 content,
+                status: status || "Draft",
+                icon,
             },
         });
 
@@ -31,11 +34,6 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-    const session = await verifyAdmin();
-    if (!session) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
         const guides = await prisma.guide.findMany({
             orderBy: { updatedAt: 'desc' }
@@ -43,5 +41,60 @@ export async function GET() {
         return NextResponse.json(guides);
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch guides' }, { status: 500 });
+    }
+}
+
+export async function PATCH(request: Request) {
+    const session = await verifyAdmin();
+    if (!session) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    try {
+        const body = await request.json();
+        const { id, title, slug, category, department, content, status, icon } = body;
+
+        console.log(`[AUDIT] Admin (${session.user?.email}) updated GUIDE ID: ${id}`);
+
+        const guide = await prisma.guide.update({
+            where: { id },
+            data: {
+                title,
+                slug,
+                category,
+                department,
+                content,
+                status,
+                icon,
+            },
+        });
+
+        return NextResponse.json(guide);
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to update guide' }, { status: 500 });
+    }
+}
+
+export async function DELETE(request: Request) {
+    const session = await verifyAdmin();
+    if (!session) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    try {
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
+
+        if (!id) return NextResponse.json({ error: 'ID required' }, { status: 400 });
+
+        console.log(`[AUDIT] Admin (${session.user?.email}) deleted GUIDE ID: ${id}`);
+
+        await prisma.guide.delete({
+            where: { id },
+        });
+
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to delete guide' }, { status: 500 });
     }
 }

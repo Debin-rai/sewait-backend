@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { decrypt, SESSION_COOKIE_NAME } from "@/lib/auth";
+import { decrypt, SESSION_COOKIE_NAME, updateSession } from "@/lib/auth";
 
 // Protected routes pattern
 const SECRET_ADMIN_PATH = "/sewait-portal-99";
@@ -24,20 +24,18 @@ export async function middleware(request: NextRequest) {
         pathname === route
     );
 
-    // --- Strict Zero Trust IP Check (ALL ENVIRONMENTS) ---
-    if (isProtectedRoute) {
-        const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0] || 'unknown';
-        if (!ALLOWED_IPS.includes(clientIp)) {
+    // --- Strict Zero Trust IP Check (applies to ALL admin routes including login) ---
+    if (isProtectedRoute || isAuthRoute) {
+        const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+        if (process.env.NODE_ENV === 'production' && !ALLOWED_IPS.includes(clientIp)) {
             console.warn(`🚫 BLOCKED unauthorized admin access from IP: ${clientIp}`);
-            return new NextResponse(null, { status: 404 }); // Return 404 to make path look non-existent
+            return new NextResponse(null, { status: 404 });
         }
-        console.log(`✅ ALLOWED admin access from authorized IP: ${clientIp}`);
     }
 
-    const session = request.cookies.get(SESSION_COOKIE_NAME)?.value;
-
-    // 2. Auth Route Logic (Redirect to admin if already logged in)
+    // 2. Auth Route Logic (Redirect to admin dashboard if already logged in)
     if (isAuthRoute) {
+        const session = request.cookies.get(SESSION_COOKIE_NAME)?.value;
         if (session) {
             const payload = await decrypt(session);
             if (payload && payload.user?.role === "ADMIN") {
@@ -51,6 +49,7 @@ export async function middleware(request: NextRequest) {
 
     // 3. Protected Route Logic (Redirect to login if not logged in or not admin)
     if (isProtectedRoute) {
+        const session = request.cookies.get(SESSION_COOKIE_NAME)?.value;
         if (!session) {
             const url = request.nextUrl.clone();
             url.pathname = `${SECRET_ADMIN_PATH}/login`;
@@ -63,22 +62,16 @@ export async function middleware(request: NextRequest) {
             url.pathname = `${SECRET_ADMIN_PATH}/login`;
             return NextResponse.redirect(url);
         }
+
+        // Sliding Expiration: Refresh the session cookie on activity
+        return await updateSession(request);
     }
 
     return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        /*
-         * Match all request paths except for the ones starting with:
-         * - api (API routes)
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         * - assets (public assets)
-         */
         "/((?!api|_next/static|_next/image|favicon.ico|assets).*)",
     ],
 };

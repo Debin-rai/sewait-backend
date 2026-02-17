@@ -7,28 +7,112 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// --- 1. Core System & Security ---
+
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String?
-  role      String   @default("ADMIN")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String      @id @default(cuid())
+  email          String      @unique
+  password       String
+  name           String?
+  role           String      @default("ADMIN") // SUPER_ADMIN, MODERATOR
+  status         String      @default("ACTIVE") // ACTIVE, INACTIVE
+  twoFactorSecret String?
+  failedAttempts Int         @default(0)
+  lockoutUntil   DateTime?
+  lastLogin      DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  auditLogs      AuditLog[]
 }
 
-model Festival {
+model SystemConfig {
+  key         String   @id
+  value       String   // "true", "https://api...", etc.
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  details   String?
+  ipAddress String?
+  status    String   @default("SUCCESS") // SUCCESS, FAILED
+  adminId   String
+  admin     User     @relation(fields: [adminId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@index([adminId])
+}
+
+// --- 2. Advanced Nepali Calendar ---
+
+model CalendarDay {
+  id         String          @id @default(cuid())
+  bsDate     String          @unique // e.g., "2081-01-01"
+  adDate     DateTime
+  tithi      String
+  sunrise    String?         // Kathmandu standard time
+  sunset     String?
+  events     CalendarEvent[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+}
+
+model CalendarEvent {
+  id             String      @id @default(cuid())
+  name           String
+  type           String      // FESTIVAL, HOLIDAY, RITUAL
+  isPublicHoliday Boolean    @default(false)
+  dayId          String
+  day            CalendarDay @relation(fields: [dayId], references: [id], onDelete: Cascade)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@index([dayId])
+}
+
+// --- 3. Content & Market Management ---
+
+model MarketRate {
+  id           String   @id @default(cuid())
+  type         String   // GOLD_24K, GOLD_22K, SILVER, NEPSE
+  price        Float
+  change       Float    // Absolute change
+  percentChange Float?  // For NEPSE
+  trend        String   // UP, DOWN, STABLE
+  sourceType   String   @default("MANUAL") // MANUAL, API
+  date         DateTime @default(now()) // Identifying date for rate
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Guide {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  category    String
+  department  String?
+  content     String?  // HTML content (legacy support)
+  contentJson Json?    // Structured steps & docs: { "steps": [], "docs": [] }
+  status      String   @default("DRAFT") // DRAFT, PUBLISHED
+  icon        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Festival { // Legacy model support, consider migrating to CalendarEvent
   id          String   @id @default(cuid())
   name        String
-  nepaliDate  String   // e.g. "2080-07-15"
-  date        DateTime // Gregorian date
+  nepaliDate  String
+  date        DateTime
   description String?
   isHoliday   Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-model GoldRate {
+model GoldRate { // Legacy model support
   id        String   @id @default(cuid())
   date      DateTime @default(now())
   gold24    Float
@@ -38,62 +122,61 @@ model GoldRate {
   updatedAt DateTime @updatedAt
 }
 
-model NepseData {
-  id             String   @id @default(cuid())
-  date           DateTime @default(now())
-  index          Float
-  change         Float
-  percentChange  Float
-  turnover       Float?
-  status         String   @default("Closed")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+model NepseData { // Legacy model support
+  id            String   @id @default(cuid())
+  date          DateTime @default(now())
+  index         Float
+  change        Float
+  percentChange Float
+  turnover      Float?
+  status        String   @default("Closed")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
-model Guide {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  category    String   
-  department  String?  // New field: Government department
-  content     String   
-  status      String   @default("DRAFT") // DRAFT, PUBLISHED
-  icon        String?  // Material symbol name
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
+// --- 4. Ads & Analytics ---
 
-model Ad {
+model Advertisement {
   id          String   @id @default(cuid())
   name        String
-  category    String   // Retail, Tech, etc.
-  location    String   // Header, Sidebar, Home
-  startDate   DateTime
-  endDate     DateTime
-  status      String   @default("ACTIVE") // ACTIVE, SCHEDULED, EXPIRED
+  client      String?
+  position    String   // HOME_HERO, SIDEBAR, FOOTER, UTILITY_TOP
   imageUrl    String
-  targetUrl   String?
-  revenue     Float    @default(0)
+  link        String?
+  startDate   DateTime?
+  endDate     DateTime?
+  status      String   @default("ACTIVE") // ACTIVE, SCHEDULED, EXPIRED
   impressions Int      @default(0)
   clicks      Int      @default(0)
+  revenue     Float    @default(0.0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model DailyAnalytic {
+  id        String   @id @default(cuid())
+  path      String
+  date      DateTime @default(now()) // Stored as midnight for the day
+  hits      Int      @default(1)
+  
+  @@unique([path, date])
+}
+
+model VisitorAnalytic {
+  id        String   @id @default(cuid())
+  path      String
+  country   String?
+  device    String?  // MOBILE, DESKTOP
+  hits      Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model SystemLog {
   id        String   @id @default(cuid())
-  action    String   // LOGIN, UPDATE_RATE, CREATE_GUIDE, etc.
-  userId    String
+  action    String
+  admin     String
   details   String?
-  ipAddress String?
+  ip        String?
   createdAt DateTime @default(now())
-}
-
-model Analytic {
-  id        String   @id @default(cuid())
-  path      String   @unique // The page URL or module name
-  hits      Int      @default(0)
-  avgDuration Float? // In seconds
-  lastVisit DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

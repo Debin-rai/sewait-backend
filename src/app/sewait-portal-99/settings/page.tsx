@@ -1,222 +1,199 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export default function AdminSettingsPage() {
+    const [loading, setLoading] = useState(false);
+    const [configs, setConfigs] = useState<any>({});
+    const [logs, setLogs] = useState<any[]>([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const [cRes, lRes] = await Promise.all([
+                fetch("/api/sewait-portal-99/config"),
+                fetch("/api/sewait-portal-99/logs?limit=5")
+            ]);
+            setConfigs(await cRes.json());
+            const logsData = await lRes.json();
+            setLogs(Array.isArray(logsData) ? logsData : []);
+        } catch (error) {
+            console.error("Failed to fetch settings", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleSave = async () => {
+        setLoading(true);
+        try {
+            const res = await fetch("/api/sewait-portal-99/config", {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(configs),
+            });
+            if (res.ok) alert("Settings saved successfully!");
+        } catch (error) {
+            alert("Save failed");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const updateValue = (key: string, value: any) => {
+        setConfigs({ ...configs, [key]: value });
+    };
+
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
             {/* Header */}
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Admin Settings</h2>
-                    <p className="text-slate-500 mt-1">Configure your application behavior, security, and external integrations.</p>
+                    <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">System Core</h2>
+                    <p className="text-slate-500 font-medium tracking-tight">Configure core modules, API keys, and security parameters.</p>
                 </div>
                 <div className="flex gap-3">
-                    <button className="px-5 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm">
-                        Discard
-                    </button>
-                    <button className="px-5 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-slate-800 transition-all shadow-md flex items-center gap-2">
-                        <span className="material-symbols-outlined text-sm">save</span>
-                        Save All Changes
+                    <button
+                        onClick={handleSave}
+                        disabled={loading}
+                        className="px-6 py-3 bg-primary text-white font-black rounded-2xl hover:bg-slate-800 transition-all shadow-xl shadow-primary/20 flex items-center gap-2 active:scale-95 disabled:opacity-50"
+                    >
+                        <span className="material-symbols-outlined text-lg">save</span>
+                        {loading ? 'Processing...' : 'Apply Changes'}
                     </button>
                 </div>
             </header>
 
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-                {/* Section: General App Settings */}
-                <section className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">tune</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Module Settings */}
+                <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="size-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                            <span className="material-symbols-outlined font-black">tune</span>
+                        </div>
                         <div>
-                            <h3 className="font-bold text-lg text-slate-900 dark:text-white">General App Settings</h3>
-                            <p className="text-xs text-slate-500">Enable or disable core application modules</p>
+                            <h3 className="font-black text-xl text-slate-800 dark:text-white">General Modules</h3>
+                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Toggle Functional Components</p>
                         </div>
                     </div>
-                    <div className="space-y-1">
+
+                    <div className="space-y-4">
                         {[
-                            { label: "Weather Module", desc: "Display real-time weather updates to users", checked: true },
-                            { label: "NEPSE (Stock Market)", desc: "Show latest Nepal Stock Exchange data", checked: true },
-                            { label: "News Feed", desc: "Aggregate local and international news stories", checked: false },
-                            { label: "Currency Converter", desc: "Allow users to convert foreign currencies to NPR", checked: true }
-                        ].map((item, idx) => (
-                            <React.Fragment key={idx}>
-                                <label className="flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-lg transition-colors cursor-pointer group">
-                                    <div className="flex flex-col">
-                                        <span className="font-semibold text-slate-800 dark:text-slate-200">{item.label}</span>
-                                        <span className="text-xs text-slate-500">{item.desc}</span>
-                                    </div>
-                                    <div className="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" defaultChecked={item.checked} className="sr-only peer" />
-                                        <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                    </div>
-                                </label>
-                                {idx < 3 && <div className="h-px bg-slate-100 dark:bg-slate-800 mx-3"></div>}
-                            </React.Fragment>
+                            { key: "MODULE_WEATHER", label: "Weather Services", desc: "Live temperature and sky conditions" },
+                            { key: "MODULE_NEPSE", label: "Market Data (NEPSE)", desc: "Stock ticker and market status" },
+                            { key: "MODULE_GOLD", label: "Precious Metals", desc: "Gold and Silver spot prices" },
+                            { key: "MODULE_GUIDES", label: "Service Guides", desc: "Sarkari Sewa documentation" }
+                        ].map((item) => (
+                            <label key={item.key} className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all cursor-pointer group">
+                                <div>
+                                    <p className="font-black text-slate-800 dark:text-slate-200">{item.label}</p>
+                                    <p className="text-[10px] text-slate-500 font-medium">{item.desc}</p>
+                                </div>
+                                <div className="relative inline-flex items-center cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="sr-only peer"
+                                        checked={configs[item.key] === "true"}
+                                        onChange={e => updateValue(item.key, e.target.checked ? "true" : "false")}
+                                    />
+                                    <div className="w-12 h-6 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                                </div>
+                            </label>
                         ))}
                     </div>
                 </section>
 
-                {/* Section: API Configurations */}
-                <section className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">api</span>
+                {/* API Keys */}
+                <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="size-12 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-blue-500">
+                            <span className="material-symbols-outlined font-black">api</span>
+                        </div>
                         <div>
-                            <h3 className="font-bold text-lg text-slate-900 dark:text-white">API Configurations</h3>
-                            <p className="text-xs text-slate-500">Manage external service credentials</p>
+                            <h3 className="font-black text-xl text-slate-800 dark:text-white">Service Connectors</h3>
+                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Manage External API Keys</p>
                         </div>
                     </div>
-                    <div className="space-y-5">
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex justify-between">
-                                OpenWeatherMap API Key
-                                <span className="text-[10px] text-green-600 font-bold uppercase tracking-widest bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded">Connected</span>
-                            </label>
-                            <div className="relative">
-                                <input className="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all text-slate-900 dark:text-white" type="password" defaultValue="••••••••••••••••••••••••" />
-                                <button className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
-                                    <span className="material-symbols-outlined text-[20px]">visibility</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex justify-between">
-                                NEPSE Scraper Endpoints
-                                <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest bg-slate-50 dark:bg-slate-800 px-2 py-0.5 rounded">Optional</span>
-                            </label>
-                            <input className="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all text-slate-900 dark:text-white" type="text" defaultValue="https://api.nepse.com.np/v2/latest" />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-sm font-bold text-slate-700 dark:text-slate-300">SMS Gateway Secret Key</label>
-                            <div className="relative">
-                                <input className="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all text-slate-900 dark:text-white" type="password" defaultValue="••••••••••••••••••••••••" />
-                                <button className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600">
-                                    <span className="material-symbols-outlined text-[20px]">visibility_off</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
-                {/* Section: Security & Authentication */}
-                <section className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">security</span>
-                        <div>
-                            <h3 className="font-bold text-lg text-slate-900 dark:text-white">Security & Authentication</h3>
-                            <p className="text-xs text-slate-500">Protect the admin portal and user accounts</p>
-                        </div>
-                    </div>
                     <div className="space-y-6">
-                        <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-dashed border-slate-200 dark:border-slate-700">
-                            <div className="flex justify-between items-center mb-4">
-                                <div>
-                                    <h4 className="font-bold text-slate-800 dark:text-white text-sm">Two-Factor Authentication (2FA)</h4>
-                                    <p className="text-xs text-slate-500">Add an extra layer of security to admin accounts</p>
-                                </div>
-                                <span className="px-2 py-1 bg-amber-50 dark:bg-amber-900/20 text-amber-600 text-[10px] font-bold rounded uppercase">Recommended</span>
-                            </div>
-                            <button className="w-full py-2 bg-primary text-white text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors">
-                                Set Up 2FA Now
-                            </button>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">OpenWeatherMap Secret</label>
+                            <input
+                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
+                                type="password"
+                                value={configs.API_WEATHER || ""}
+                                onChange={e => updateValue("API_WEATHER", e.target.value)}
+                            />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Session Timeout</label>
-                                <select className="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all text-slate-900 dark:text-white">
-                                    <option>15 Minutes</option>
-                                    <option defaultValue="30 Minutes">30 Minutes</option>
-                                    <option>1 Hour</option>
-                                    <option>4 Hours</option>
-                                </select>
-                            </div>
-                            <div className="space-y-2 flex flex-col justify-end">
-                                <button className="w-full py-2.5 border border-primary text-primary dark:text-blue-400 text-sm font-bold rounded-lg hover:bg-primary/5 transition-colors">
-                                    Change Password
-                                </button>
-                            </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">NEPSE Scraper Endpoint</label>
+                            <input
+                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
+                                value={configs.API_NEPSE || ""}
+                                onChange={e => updateValue("API_NEPSE", e.target.value)}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">System Notification Gateway</label>
+                            <input
+                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
+                                type="password"
+                                value={configs.API_NOTIFICATION || ""}
+                                onChange={e => updateValue("API_NOTIFICATION", e.target.value)}
+                            />
                         </div>
                     </div>
                 </section>
 
-                {/* Section: Backup & Logs */}
-                <section className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
-                    <div className="p-6">
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">storage</span>
+                {/* System Logs */}
+                <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm md:col-span-2">
+                    <div className="flex items-center justify-between mb-8">
+                        <div className="flex items-center gap-4">
+                            <div className="size-12 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500">
+                                <span className="material-symbols-outlined font-black">receipt_long</span>
+                            </div>
                             <div>
-                                <h3 className="font-bold text-lg text-slate-900 dark:text-white">Backup & Logs</h3>
-                                <p className="text-xs text-slate-500">System maintenance and activity tracking</p>
+                                <h3 className="font-black text-xl text-slate-800 dark:text-white">Live System Logs</h3>
+                                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Audit Trail & Security Monitoring</p>
                             </div>
                         </div>
-                        <div className="flex gap-3 mb-8">
-                            <button className="flex-1 flex flex-col items-center justify-center p-4 bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-900/30 rounded-xl hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-all group">
-                                <span className="material-symbols-outlined text-amber-600 mb-2 group-hover:scale-110 transition-transform">cloud_download</span>
-                                <span className="text-sm font-bold text-amber-700 dark:text-amber-500">Manual Backup</span>
-                                <span className="text-[10px] text-amber-600/70 mt-1">Last: 2 hrs ago</span>
-                            </button>
-                            <button className="flex-1 flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-750 transition-all group">
-                                <span className="material-symbols-outlined text-slate-500 mb-2 group-hover:scale-110 transition-transform">mop</span>
-                                <span className="text-sm font-bold text-slate-700 dark:text-slate-300">Clear Cache</span>
-                                <span className="text-[10px] text-slate-400 mt-1">45.2 MB cached</span>
-                            </button>
-                        </div>
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-4 px-1">Recent Admin Activity</h4>
-                        <div className="space-y-4">
-                            {[
-                                { user: "Admin Samip", action: "updated NEPSE API endpoints", time: "14 minutes ago", ip: "192.168.1.1", icon: "edit" },
-                                { user: "System", action: "automatically performed database backup", time: "2 hours ago", ip: "Automated Task", icon: "backup" },
-                                { user: "Admin Rohan", action: "disabled News Feed module", time: "5 hours ago", ip: "103.1.25.42", icon: "settings" }
-                            ].map((activity, idx) => (
-                                <div key={idx} className="flex gap-4 items-start">
-                                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0">
-                                        <span className="material-symbols-outlined text-[18px] text-slate-500">{activity.icon}</span>
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-slate-800 dark:text-slate-200"><span className="font-bold">{activity.user}</span> {activity.action}</p>
-                                        <p className="text-[11px] text-slate-400 font-medium">{activity.time} • IP: {activity.ip}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <button className="w-full mt-6 py-2 text-xs font-bold text-primary dark:text-blue-400 hover:underline flex items-center justify-center gap-1">
-                            View Full Audit Log
-                            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        <button
+                            onClick={fetchData}
+                            className="text-xs font-black text-primary hover:underline uppercase tracking-widest"
+                        >
+                            Refresh Log
                         </button>
                     </div>
-                </section>
 
-                {/* Section: Government Services Guides */}
-                <section className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-lg">account_balance</span>
-                        <div>
-                            <h3 className="font-bold text-lg text-slate-900 dark:text-white">Government Services Guides</h3>
-                            <p className="text-xs text-slate-500">Manage citizen service guides and documentation</p>
-                        </div>
+                    <div className="space-y-3">
+                        {logs.length === 0 ? (
+                            <p className="text-center py-10 text-slate-400 font-bold uppercase tracking-widest text-xs">No activity recorded</p>
+                        ) : logs.map((log) => (
+                            <div key={log.id} className="p-4 bg-slate-50/50 dark:bg-slate-800/20 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+                                <div className="size-8 bg-white dark:bg-slate-800 rounded-xl flex items-center justify-center text-slate-400 text-xs font-black">
+                                    {log.action.split('_').map((w: string) => w[0]).join('').slice(0, 2)}
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-xs font-black text-slate-700 dark:text-slate-300 uppercase tracking-tighter">
+                                        {log.admin} <span className="text-slate-400 font-medium italic">performed</span> {log.action}
+                                    </p>
+                                    <p className="text-[10px] text-slate-500 font-medium">{log.details}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[10px] font-black text-slate-400 uppercase">{new Date(log.createdAt).toLocaleTimeString()}</p>
+                                    <p className="text-[9px] font-bold text-primary opacity-50">{log.ip || 'INTERNAL'}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                    <div className="space-y-6">
-                        <label className="flex items-center justify-between p-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors cursor-pointer group">
-                            <div className="flex flex-col">
-                                <span className="font-semibold text-slate-800 dark:text-slate-200">Enable Module</span>
-                                <span className="text-xs text-slate-500">Show government guides in the user app</span>
-                            </div>
-                            <div className="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" defaultChecked className="sr-only peer" />
-                                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                            </div>
-                        </label>
-                        <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Featured Guides Count</label>
-                                <input className="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2.5 text-sm focus:ring-primary focus:border-primary transition-all text-slate-900 dark:text-white" max="10" min="1" type="number" defaultValue="4" />
-                            </div>
-                            <div className="space-y-2 flex flex-col justify-end">
-                                <button className="w-full py-2.5 border border-primary text-primary dark:text-blue-400 text-sm font-bold rounded-lg hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
-                                    <span className="material-symbols-outlined text-[18px]">edit_note</span>
-                                    Manage Guides
-                                </button>
-                            </div>
-                        </div>
+                    <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-center">
+                        <a href="/sewait-portal-99/logs" className="px-6 py-2 bg-slate-100 dark:bg-slate-800 rounded-full text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-primary transition-all">
+                            View Complete Audit Log
+                        </a>
                     </div>
                 </section>
             </div>

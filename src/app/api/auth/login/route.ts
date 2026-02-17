@@ -74,6 +74,16 @@ export async function POST(request: Request) {
         // Success! Reset attempts
         loginAttempts.delete(ip);
 
+        // --- Audit Log ---
+        await prisma.systemLog.create({
+            data: {
+                action: 'LOGIN',
+                admin: user.email,
+                details: 'Admin logged in successfully',
+                ip: ip
+            }
+        });
+
         await setSession(user);
 
         return NextResponse.json({ success: true, user: { email: user.email, name: user.name } });

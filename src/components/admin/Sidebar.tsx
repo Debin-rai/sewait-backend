@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar() {
+interface SidebarProps {
+    isOpen: boolean;
+    onClose: () => void;
+}
+
+export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     const pathname = usePathname();
 
     const navLinks = [
@@ -31,19 +36,38 @@ export default function Sidebar() {
     };
 
     return (
-        <aside className="w-64 bg-white border-r border-slate-100 flex flex-col flex-shrink-0 transition-all duration-300 h-screen fixed left-0 top-0 z-50">
-            <div className="p-6 flex items-center gap-3">
-                <div className="relative w-10 h-10 overflow-hidden rounded-lg">
-                    <img
-                        src="/assets/images/Logo.jpg"
-                        alt="सेवा आईटी एडमिन"
-                        className="w-full h-full object-cover"
-                    />
+        <aside
+            className={`
+                w-64 bg-white border-r border-slate-100 flex flex-col flex-shrink-0 
+                h-screen fixed left-0 top-0 z-50
+                transition-transform duration-300 ease-in-out
+                ${isOpen ? "translate-x-0" : "-translate-x-full"}
+                md:translate-x-0
+            `}
+        >
+            {/* Header with close button on mobile */}
+            <div className="p-6 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                    <div className="relative w-10 h-10 overflow-hidden rounded-lg">
+                        <img
+                            src="/assets/images/Logo.jpg"
+                            alt="सेवा आईटी एडमिन"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="flex flex-col">
+                        <h1 className="text-lg font-bold text-primary leading-tight">सेवा आईटी</h1>
+                        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Admin Panel</span>
+                    </div>
                 </div>
-                <div className="flex flex-col">
-                    <h1 className="text-lg font-bold text-primary leading-tight">सेवा आईटी</h1>
-                    <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Admin Panel</span>
-                </div>
+                {/* Close button - visible only on mobile */}
+                <button
+                    onClick={onClose}
+                    className="md:hidden p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                    aria-label="Close sidebar"
+                >
+                    <span className="material-symbols-outlined">close</span>
+                </button>
             </div>
 
             <nav className="flex-1 px-4 py-4 space-y-1 overflow-y-auto custom-scrollbar">
@@ -54,6 +78,7 @@ export default function Sidebar() {
                             <Link
                                 key={link.href}
                                 href={link.href}
+                                onClick={onClose}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all cursor-pointer ${isActive
                                     ? "bg-slate-100 border-l-4 border-primary text-primary font-semibold"
                                     : "text-slate-600 hover:bg-slate-50 font-medium"

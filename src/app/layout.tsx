@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 };
 
 import ClientLayout from "./ClientLayout";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <ClientLayout>
           {children}
+          <AnalyticsTracker />
         </ClientLayout>
       </body>
     </html>

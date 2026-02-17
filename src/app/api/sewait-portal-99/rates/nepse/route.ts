@@ -2,6 +2,17 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyAdmin } from '@/lib/auth';
 
+export async function GET() {
+    try {
+        const latestNepse = await prisma.nepseData.findFirst({
+            orderBy: { createdAt: 'desc' },
+        });
+        return NextResponse.json(latestNepse || {});
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to fetch NEPSE data' }, { status: 500 });
+    }
+}
+
 export async function POST(request: Request) {
     const session = await verifyAdmin();
     if (!session) {
@@ -14,6 +25,13 @@ export async function POST(request: Request) {
 
         // --- Audit Log ---
         console.log(`[AUDIT] Admin (${session.user?.email}) updated NEPSE: ${index} (${change})`);
+        await prisma.systemLog.create({
+            data: {
+                action: 'UPDATE_NEPSE',
+                admin: session.user?.email || 'unknown',
+                details: `Updated NEPSE index: ${index} (${change})`,
+            }
+        });
 
         const nepse = await prisma.nepseData.create({
             data: {
