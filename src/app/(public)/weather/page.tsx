@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useState, useEffect } from "react";
+import AdSlot from "@/components/ads/AdSlot";
 
 export default function WeatherPage() {
     const { t } = useLanguage();
@@ -133,7 +134,7 @@ export default function WeatherPage() {
                                         <span className="w-12 text-sm font-black text-slate-400 uppercase tracking-widest">{getDayName(day.dt)}</span>
                                         <div className="flex-1 flex justify-center">
                                             <span className={`material-symbols-outlined text-3xl opacity-80 group-hover/day:scale-125 transition-transform duration-500 ${day.condition.toLowerCase().includes('rain') ? 'text-blue-400' :
-                                                    day.condition.toLowerCase().includes('cloud') ? 'text-slate-400' : 'text-amber-400'}`}>
+                                                day.condition.toLowerCase().includes('cloud') ? 'text-slate-400' : 'text-amber-400'}`}>
                                                 {day.condition.toLowerCase().includes('rain') ? 'rainy' :
                                                     day.condition.toLowerCase().includes('cloud') ? 'cloudy' : 'sunny'}
                                             </span>
@@ -303,6 +304,11 @@ export default function WeatherPage() {
                             </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Advertisement Slot */}
+                <div className="mt-12">
+                    <AdSlot position="WEATHER_BOTTOM" className="w-full h-[200px]" />
                 </div>
 
                 {/* Footer Disclaimer */}
