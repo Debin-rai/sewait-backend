@@ -1,13 +1,13 @@
 # SewaIT - Digital Utility Platform
 
-SewaIT (formerly Sajilo Sathi) is a modern digital utility platform designed to simplify the lives of Nepalese citizens by bringing government services, financial data, and essential tools into one unified interface.
+SewaIT is a modern digital utility platform designed to simplify the lives of Nepalese citizens by bringing government services, financial data, and essential tools into one unified interface.
 
 ## 🚀 Features
 
 -   **Government Services**: Easy access to guides and links for Passport, License, PAN, and more.
 -   **Financial Data**: Real-time NEPSE (Stock Market) data, Gold/Silver rates, and Currency Exchange rates.
 -   **Utilities**: Nepali Calendar (Bikram Sambat), Kalimati Vegetable Prices, and Weather updates.
--   **Modern Tech Stack**: Built with Next.js 14, TailwindCSS, and Prisma for a fast, responsive experience.
+-   **Modern Tech Stack**: Built with Next.js 16, TailwindCSS, and Prisma for a fast, responsive experience.
 
 ## 🛠️ Tech Stack
 
@@ -21,8 +21,8 @@ SewaIT (formerly Sajilo Sathi) is a modern digital utility platform designed to 
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Debin-rai/sajilosathi-backend.git
-    cd sajilosathi-backend
+    git clone https://github.com/Debin-rai/sewait.git
+    cd sewait
     ```
 
 2.  **Install dependencies:**
