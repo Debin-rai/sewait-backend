@@ -55,7 +55,45 @@ model Guide {
   title       String
   slug        String   @unique
   category    String   
+  department  String?  // New field: Government department
   content     String   
+  status      String   @default("DRAFT") // DRAFT, PUBLISHED
+  icon        String?  // Material symbol name
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Ad {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   // Retail, Tech, etc.
+  location    String   // Header, Sidebar, Home
+  startDate   DateTime
+  endDate     DateTime
+  status      String   @default("ACTIVE") // ACTIVE, SCHEDULED, EXPIRED
+  imageUrl    String
+  targetUrl   String?
+  revenue     Float    @default(0)
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SystemLog {
+  id        String   @id @default(cuid())
+  action    String   // LOGIN, UPDATE_RATE, CREATE_GUIDE, etc.
+  userId    String
+  details   String?
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model Analytic {
+  id        String   @id @default(cuid())
+  path      String   @unique // The page URL or module name
+  hits      Int      @default(0)
+  avgDuration Float? // In seconds
+  lastVisit DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -19,6 +19,17 @@ export default function Sidebar() {
         { href: "/sewait-portal-99/ads", label: "Ads Management", icon: "ads_click" },
     ];
 
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("/api/auth/logout", { method: "POST" });
+            if (res.ok) {
+                window.location.href = "/sewait-portal-99/login";
+            }
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
     return (
         <aside className="w-64 bg-white border-r border-slate-100 flex flex-col flex-shrink-0 transition-all duration-300 h-screen fixed left-0 top-0 z-50">
             <div className="p-6 flex items-center gap-3">
@@ -57,7 +68,10 @@ export default function Sidebar() {
             </nav>
 
             <div className="p-6 border-t border-slate-100">
-                <button className="flex items-center gap-3 w-full px-4 py-2 text-red-500 font-bold hover:bg-red-50 rounded-lg transition-colors">
+                <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 w-full px-4 py-2 text-red-500 font-bold hover:bg-red-50 rounded-lg transition-colors"
+                >
                     <span className="material-symbols-outlined">logout</span>
                     <span className="text-sm">Logout</span>
                 </button>
