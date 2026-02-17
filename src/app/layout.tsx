@@ -23,8 +23,34 @@ const notoSansDevanagari = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SewaIT - Digital Utility Platform",
-  description: "SewaIT - Bringing Nepal Government digital services to one place with modern technology.",
+  title: {
+    default: "SewaIT - Nepali Calendar, Gold Rates & Official Guides",
+    template: "%s | SewaIT by Debin Rai",
+  },
+  description: "SewaIT, founded by Debin Rai, provides today's Nepali date, Tithi, location-based weather, and official government guides for Nepalis.",
+  keywords: ["SewaIT", "Debin Rai", "Nepali Calendar", "Sarkari Guides", "Gold Price Nepal", "today's date", "tithi", "Nepal government services", "आजको मिती", "सुन चाँदी मूल्य", "NEPSE"],
+  authors: [{ name: "Debin Rai", url: "https://sewait.com.np" }],
+  creator: "Debin Rai",
+  publisher: "SewaIT",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "SewaIT - Digital Utility Platform for Nepalis",
+    description: "Your daily companion for Nepali Calendar, Gold Rates, and Government Services.",
+    url: "https://sewait.com.np",
+    siteName: "SewaIT",
+    locale: "ne_NP",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SewaIT - Digital Utility Platform",
+    description: "Founded by Debin Rai, SewaIT simplifies digital life for Nepalis.",
+    creator: "@SewaIT",
+  },
   icons: {
     icon: [
       { url: "/assets/favicon_io/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -34,6 +60,17 @@ export const metadata: Metadata = {
     apple: "/assets/favicon_io/apple-touch-icon.png",
   },
   manifest: "/assets/favicon_io/site.webmanifest",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 import ClientLayout from "./ClientLayout";
