@@ -72,7 +72,9 @@
 }
 
 .ticker {
-  display: inline-block;
+  display: inline-flex;
+  min-width: 100%;
+  width: max-content;
   animation: ticker 40s linear infinite;
 }
 

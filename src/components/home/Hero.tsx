@@ -76,7 +76,7 @@ export default function Hero() {
                         </div>
                     </div>
                     <div className="flex-1 ticker-wrap text-[10px] md:text-xs font-black tracking-widest text-white/70 overflow-hidden">
-                        <div className="ticker flex gap-12 whitespace-nowrap">
+                        <div className="ticker gap-12 whitespace-nowrap">
                             {nepse && (
                                 <span className="flex items-center gap-2">
                                     NEPSE: <span className="text-white">{nepse.index?.toLocaleString()}</span>
