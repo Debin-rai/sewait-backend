@@ -2,8 +2,35 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { useState } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Gold & Silver Price Today Nepal | सुन चाँदी मूल्य | SewaIT",
+    description: "Live Gold and Silver rates in Nepal today. Track 24K/22K Gold price per Tola, Silver rates, and historical trends on SewaIT.",
+    keywords: ["Gold Price Nepal", "Silver Price Nepal", "सुन चाँदी मूल्य", "Today Gold Rate", "1 Tola Gold Price"],
+};
 
 export default function GoldSilverPage() {
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': 'Gold (24K) - 1 Tola',
+        'image': 'https://sewait.com.np/assets/images/gold-coin.png',
+        'description': 'Current market price of 24 Karat Gold in Nepal per Tola.',
+        'brand': {
+            '@type': 'Brand',
+            'name': 'FENEGOSIDA'
+        },
+        'offers': {
+            '@type': 'Offer',
+            'url': 'https://sewait.com.np/gold-silver',
+            'priceCurrency': 'NPR',
+            'price': '118500',
+            'priceValidUntil': new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
+            'availability': 'https://schema.org/InStock',
+            'itemCondition': 'https://schema.org/NewCondition'
+        }
+    };
     const { t } = useLanguage();
     const [tolaQuantity, setTolaQuantity] = useState(1);
 
@@ -53,6 +80,10 @@ export default function GoldSilverPage() {
     return (
         <div className="bg-slate-50 min-h-screen text-slate-900 pb-12">
             <main className="max-w-[1400px] mx-auto px-6 py-10">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
                 {/* Breadcrumbs & Title */}
                 <div className="mb-10">
                     <nav className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase tracking-widest mb-6">
