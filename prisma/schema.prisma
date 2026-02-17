@@ -180,3 +180,15 @@ model SystemLog {
   ip        String?
   createdAt DateTime @default(now())
 }
+
+model PageAnalytic {
+  id           String   @id @default(cuid())
+  pageUrl      String
+  visitorHash  String   // MD5 of IP + Date for uniqueness
+  country      String?
+  date         DateTime @default(now()) // Midnight of the visit date
+  createdAt    DateTime @default(now())
+
+  @@unique([pageUrl, visitorHash, date])
+  @@index([date])
+}

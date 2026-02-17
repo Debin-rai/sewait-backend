@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyAdmin } from '@/lib/auth';
+import crypto from 'crypto';
+
+const ADMIN_IP = "27.34.111.188";
 
 export async function GET() {
     const session = await verifyAdmin();
@@ -9,18 +12,37 @@ export async function GET() {
     }
 
     try {
-        // Fetch daily analytics for charts (last 30 days)
+        // Normalize date for today (DAU)
+        const today = new Date();
+        today.setUTCHours(0, 0, 0, 0);
+
+        // Fetch daily hits (time series)
         const daily = await prisma.dailyAnalytic.findMany({
             orderBy: { date: 'desc' },
-            take: 100
+            take: 30
         });
 
+        // Fetch top pages hits
         const visitors = await prisma.visitorAnalytic.findMany({
-            orderBy: { hits: 'desc' }
+            orderBy: { hits: 'desc' },
+            take: 10
         });
 
-        return NextResponse.json({ daily, visitors });
+        // Calculate real DAU (Unique visitors today)
+        const dau = await prisma.pageAnalytic.count({
+            where: {
+                date: today
+            }
+        });
+
+        // Get total unique visitors (lifetime)
+        // This is a bit expensive if we count every row, but for now it's okay for 1k DAU scale
+        // A better way would be a separate counter for lifetime uniques
+        const totalUniques = await prisma.pageAnalytic.count();
+
+        return NextResponse.json({ daily, visitors, dau, totalUniques });
     } catch (error) {
+        console.error("Fetch analytics error:", error);
         return NextResponse.json({ error: 'Failed to fetch analytics' }, { status: 500 });
     }
 }
@@ -32,11 +54,43 @@ export async function POST(request: Request) {
 
         if (!path) return NextResponse.json({ error: 'Path required' }, { status: 400 });
 
+        // Get Client IP
+        const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '127.0.0.1';
+
+        // 1. Filter Admin IP
+        if (clientIp === ADMIN_IP) {
+            return NextResponse.json({ success: true, message: 'Admin visit ignored' });
+        }
+
         // Normalize date to midnight UTC
         const date = new Date();
         date.setUTCHours(0, 0, 0, 0);
 
-        // 1. Update Daily Analytic (for charts)
+        // Generate Anonymized Visitor Hash (IP + Date)
+        const visitorHash = crypto
+            .createHash('md5')
+            .update(`${clientIp}-${date.toISOString()}`)
+            .digest('hex');
+
+        // 2. Track Unique Daily Active User (DAU) - Unique per (path, visitorHash, date)
+        await prisma.pageAnalytic.upsert({
+            where: {
+                pageUrl_visitorHash_date: {
+                    pageUrl: path,
+                    visitorHash: visitorHash,
+                    date: date
+                }
+            },
+            update: {}, // Do nothing if already exists for today
+            create: {
+                pageUrl: path,
+                visitorHash: visitorHash,
+                date: date,
+                country: request.headers.get('x-vercel-ip-country') || 'Unknown'
+            }
+        });
+
+        // 3. Update Legacy/Chart Metrics (Total Hits)
         await prisma.dailyAnalytic.upsert({
             where: {
                 path_date: {
@@ -48,9 +102,8 @@ export async function POST(request: Request) {
             create: { path, date, hits: 1 }
         });
 
-        // 2. Update Visitor Analytic (for totals)
         await prisma.visitorAnalytic.upsert({
-            where: { id: path }, // We use path as ID for visitor totals for simplicity
+            where: { id: path },
             update: {
                 hits: { increment: 1 },
                 device: device || 'desktop',
