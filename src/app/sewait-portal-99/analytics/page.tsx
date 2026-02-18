@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function AnalyticsDashboardPage() {
     const [loading, setLoading] = useState(false);
@@ -39,13 +40,22 @@ export default function AnalyticsDashboardPage() {
                     <h2 className="text-3xl font-black text-primary dark:text-blue-400 tracking-tight">Real-Time Analytics</h2>
                     <p className="text-slate-500 font-medium">Tracking platform growth and user engagement patterns.</p>
                 </div>
-                <button
-                    onClick={fetchAnalytics}
-                    className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-50 transition-colors"
-                >
-                    <span className="material-symbols-outlined text-lg">refresh</span>
-                    <span>Sync Metrics</span>
-                </button>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/sewait-portal-99/analytics/details"
+                        className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold shadow-lg hover:bg-primary/90 transition-all"
+                    >
+                        <span className="material-symbols-outlined text-lg">insights</span>
+                        <span>View Detailed Metrics</span>
+                    </Link>
+                    <button
+                        onClick={fetchAnalytics}
+                        className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold shadow-sm hover:bg-slate-50 transition-colors"
+                    >
+                        <span className="material-symbols-outlined text-lg">refresh</span>
+                        <span>Sync Metrics</span>
+                    </button>
+                </div>
             </header>
 
             {/* main metrics */}

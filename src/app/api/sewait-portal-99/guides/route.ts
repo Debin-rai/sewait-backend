@@ -33,8 +33,19 @@ export async function POST(request: Request) {
     }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
+        const { searchParams } = new URL(request.url);
+        const id = searchParams.get('id');
+
+        if (id) {
+            const guide = await prisma.guide.findUnique({
+                where: { id }
+            });
+            if (!guide) return NextResponse.json({ error: 'Guide not found' }, { status: 404 });
+            return NextResponse.json(guide);
+        }
+
         const guides = await prisma.guide.findMany({
             orderBy: { updatedAt: 'desc' }
         });

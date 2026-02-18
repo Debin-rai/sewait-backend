@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function SarkariGuideManagementPage() {
     const [loading, setLoading] = useState(false);
@@ -63,10 +64,13 @@ export default function SarkariGuideManagementPage() {
                     <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Sarkari Guide Management</h2>
                     <p className="text-slate-500 mt-1">Manage and update government service procedures and documentation requirements.</p>
                 </div>
-                <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-sm transition-all whitespace-nowrap">
+                <Link
+                    href="/sewait-portal-99/guides/new"
+                    className="bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 shadow-sm transition-all whitespace-nowrap"
+                >
                     <span className="material-symbols-outlined">add</span>
                     Add New Guide
-                </button>
+                </Link>
             </div>
 
             {/* Filters & Search */}
@@ -144,9 +148,12 @@ export default function SarkariGuideManagementPage() {
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2">
-                                            <button className="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all">
+                                            <Link
+                                                href={`/sewait-portal-99/guides/${guide.id}/edit`}
+                                                className="p-1.5 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-md transition-all"
+                                            >
                                                 <span className="material-symbols-outlined text-[20px]">edit</span>
-                                            </button>
+                                            </Link>
                                             <button
                                                 onClick={() => handleDelete(guide.id, guide.title)}
                                                 className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-all"

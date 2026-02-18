@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 const modules = [
     {
@@ -10,7 +11,8 @@ const modules = [
         lastUpdated: "10 mins ago",
         icon: "newspaper",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBi70vFfrpmcdxbYYuLllu0WkBA0chrDwnLNqLgEB_Xu3WuHiWKEIYZHGJTlottZnnCyotXn6kiFMso2DwMfgrjkLkSouaYzh_3Id411q4SDEYPiGDsgAOKiI1JYRN0TuVkJDpnnv3lE3a2vMY56sCFUrvxg3iGo6eWqxhSiLkKKk70F_fpZcgKnXjMZXT7lfnX1N_xfO24IYNt7VMSgLzj7oQiuxEyS0q8YiBodTt5L8EIlasz6JT74ZcfAqYhi7VGlfEChmQBCKQ",
-        typeColor: "bg-emerald-100 text-emerald-700"
+        typeColor: "bg-emerald-100 text-emerald-700",
+        href: "/sewait-portal-99/content/news"
     },
     {
         name: "Calendar Events",
@@ -19,7 +21,8 @@ const modules = [
         lastUpdated: "2 hours ago",
         icon: "calendar_month",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBsV8p9mwOgqMUgUuSWjKXrN7hZq_KZkI8_A9z3M1pD3TxMuEkVCCsJ3tU_8GET87mlZioxxS1QAmJI5aADZRyR8Oj8edwgNX1SQ-XueCeg6sLAs-rk8mByuRpPPR0s1eq6dyvgNf6aKt_5I-WqWXObspgPwZzw7oWoYs4-xcNeC4ZLvPJy7gf_czi3TmJHE70D_6QEi_8T6tkezG2Bnr89lIw9HV2nQVpiQ42M6uCzzTXQ9Gu1uqv5Pt--RPlu_XeI5YvVXO2uLHI",
-        typeColor: "bg-primary/10 text-primary"
+        typeColor: "bg-primary/10 text-primary",
+        href: "/sewait-portal-99/calendar"
     },
     {
         name: "Gold/Silver Rates",
@@ -28,7 +31,8 @@ const modules = [
         lastUpdated: "5 hours ago",
         icon: "payments",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBx6ucG96W3l9QpnAcDUFzvDGEuGz-T4mi6DpZtrznvGP6uRXSAzC1tMbDLBTxNbjdHl6keOWjnsECGTwi8aveDLWoEIjncBf9BzrjZIDb6uJuhcG9eV8ZgepZOJFLQeLhhnjwlNl2aIonTF97HG1YPe-89bY2XevoD07mk_97zh4_L771DbOndiqdlSXzsJ5zzO8ixpJ2lfKeCEi2kPkEY7l6zDA4RdvcDWnXmHdNIxA0kwObOHKibwnTZZJ9MQUemUjR2B2E94QY",
-        typeColor: "bg-amber-100 text-amber-700"
+        typeColor: "bg-amber-100 text-amber-700",
+        href: "/sewait-portal-99/rates"
     },
     {
         name: "NEPSE Data",
@@ -38,7 +42,8 @@ const modules = [
         icon: "query_stats",
         image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBV7vneZeS5yXmNVIROV0uSl6WiJIxeu-icT3Avpy-uCJso5ryWh_YsczqlSkjiMUKFAn0HF1p93O2paC0lBn-bkgqgdQPmokv-JkIUbNxqsiWme8B4mt-whvynK8xs-o6mAgWOlXWLle3QYew1zJML6dlO8mHzVGY3uCqi3GFNdaJ4T6EZwfN1bTBFX5fj_361yKZyr2YRK-Ox4hhhoHTSpmkJJtr8NpL9YejCIYh1L9NuWrLcQlk5lP_W5J5CjY6vzT-XHQSPqic",
         typeColor: "bg-emerald-100 text-emerald-700",
-        isLive: true
+        isLive: true,
+        href: "/sewait-portal-99/content/nepse"
     }
 ];
 
@@ -113,7 +118,7 @@ export default function ContentDirectoryPage() {
                                 <span className={`text-xs ${mod.isLive ? 'text-emerald-600 font-bold' : 'text-slate-400 font-medium'}`}>{mod.lastUpdated}</span>
                             </div>
                             <div className="flex gap-2">
-                                <button className="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors">Edit Content</button>
+                                <Link href={mod.href} className="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-bold text-sm hover:bg-primary/90 transition-colors text-center">Edit Content</Link>
                                 <button className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                                     <span className="material-symbols-outlined text-sm">visibility</span>
                                 </button>
