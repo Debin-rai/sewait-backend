@@ -4,7 +4,7 @@ import WidgetsGrid from "@/components/home/WidgetsGrid";
 import TasksSection from "@/components/home/TasksSection";
 import AdSlot from "@/components/ads/AdSlot";
 import PersonalReminders from "@/components/PersonalReminders";
-import PremiumPlans from "@/components/home/PremiumPlans";
+import PersonalReminders from "@/components/PersonalReminders";
 
 export default function Home() {
   const jsonLd = {
@@ -59,8 +59,6 @@ export default function Home() {
             <PersonalReminders />
           </div>
         </div>
-
-        <PremiumPlans />
       </div>
     </div>
   );

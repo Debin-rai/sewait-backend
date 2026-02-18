@@ -11,7 +11,7 @@ export default function CookiePolicyPage() {
         en: {
             title: "Cookie Policy",
             subtitle: "Trust, Transparency & Security",
-            intro: "At SajiloSathi, we prioritize your privacy. This policy explains how we use cookies to provide a secure, seamless, and personalized digital experience.",
+            intro: "At SewaIT, we prioritize your privacy. This policy explains how we use cookies to provide a secure, seamless, and personalized digital experience.",
             sections: [
                 {
                     title: "1. Essential Cookies",
@@ -37,7 +37,7 @@ export default function CookiePolicyPage() {
         ne: {
             title: "कुकी नीति",
             subtitle: "विश्वास, पारदर्शिता र सुरक्षा",
-            intro: "सजिलो साथीमा, हामी तपाईंको गोपनीयतालाई प्राथमिकता दिन्छौं। यो नीतिले हामीले कसरी कुकीहरू प्रयोग गरेर सुरक्षित र व्यक्तिगत अनुभव प्रदान गर्छौं भन्ने कुरा स्पष्ट पार्छ।",
+            intro: "SewaIT मा, हामी तपाईंको गोपनीयतालाई प्राथमिकता दिन्छौं। यो नीतिले हामीले कसरी कुकीहरू प्रयोग गरेर सुरक्षित र व्यक्तिगत अनुभव प्रदान गर्छौं भन्ने कुरा स्पष्ट पार्छ।",
             sections: [
                 {
                     title: "१. अत्यावश्यक कुकीहरू",
