@@ -362,7 +362,7 @@ export default function CalendarManagementPage() {
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-1">
                                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">BS Date</label>
-                                    <input required readonly={!!activeEvent} className="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl outline-none font-bold text-sm" placeholder="2081-01-01" value={formData.bsDate} onChange={e => setFormData({ ...formData, bsDate: e.target.value })} />
+                                    <input required readOnly={!!activeEvent} className="w-full px-4 py-3 bg-slate-100 dark:bg-slate-800 rounded-xl outline-none font-bold text-sm" placeholder="2081-01-01" value={formData.bsDate} onChange={e => setFormData({ ...formData, bsDate: e.target.value })} />
                                 </div>
                                 <div className="space-y-1">
                                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">AD Equivalent</label>
