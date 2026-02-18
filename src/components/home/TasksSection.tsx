@@ -59,7 +59,7 @@ export default function TasksSection() {
                 <div className="relative z-10">
                     <h3 className="font-bold text-sm mb-2">Official Information <span className="nepali-font text-white/60">आधिकारिक जानकारी</span></h3>
                     <p className="text-[10px] text-white/80 leading-relaxed">
-                        सजिलो साथी is a platform that presents official information from various Nepal Government agencies in a simple manner.
+                        SewaIT is a platform that presents official information from various Nepal Government agencies in a simple manner.
                     </p>
                 </div>
                 <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-white/5 text-7xl rotate-12">verified_user</span>

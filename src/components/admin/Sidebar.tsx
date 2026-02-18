@@ -51,12 +51,12 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                         <img
                             src="/assets/images/Final-logo.png"
-                            alt="सजिलो साथी एडमिन"
+                            alt="SewaIT Admin"
                             className="w-full h-full object-contain"
                         />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-lg font-bold text-primary leading-tight">सजिलो साथी</h1>
+                        <h1 className="text-lg font-bold text-primary leading-tight">SewaIT</h1>
                         <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Admin Panel</span>
                     </div>
                 </div>
