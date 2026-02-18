@@ -5,11 +5,19 @@ import bcrypt from "bcryptjs";
 
 // Basic in-memory rate limiting (Production should use Redis/Upstash)
 const loginAttempts = new Map<string, { count: number; lastAttempt: number }>();
-const MAX_ATTEMPTS = 5;
-const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_ATTEMPTS = 6;
+const WINDOW_MS = 5 * 60 * 1000; // 5 minutes
+const ADMIN_IP = "27.34.111.188"; // User specified IP
 
 export async function POST(request: Request) {
     const ip = request.headers.get("x-forwarded-for")?.split(',')[0] || "unknown";
+
+    if (ip !== ADMIN_IP && ip !== "127.0.0.1" && process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+            { error: "Access Denied: IP not authorized." },
+            { status: 403 }
+        );
+    }
 
     // Clean up old entries
     const now = Date.now();
@@ -21,7 +29,7 @@ export async function POST(request: Request) {
 
     if (attempt && attempt.count >= MAX_ATTEMPTS) {
         return NextResponse.json(
-            { error: "Too many login attempts. Please try again in 15 minutes." },
+            { error: "Too many login attempts. Please try again in 5 minutes." },
             { status: 429 }
         );
     }
@@ -40,10 +48,25 @@ export async function POST(request: Request) {
             where: { email },
         });
 
+        // Check for lockout
+        if (user && user.lockoutUntil && user.lockoutUntil > new Date()) {
+            const minutesLeft = Math.ceil((user.lockoutUntil.getTime() - Date.now()) / 60000);
+            return NextResponse.json(
+                { error: `Account locked due to too many failed attempts. Try again in ${minutesLeft} minutes.` },
+                { status: 429 }
+            );
+        }
+
         if (!user) {
-            // Record failure
-            const current = loginAttempts.get(ip) || { count: 0, lastAttempt: now };
-            loginAttempts.set(ip, { count: current.count + 1, lastAttempt: now });
+            // Log failed attempts for non-existent users for security audit
+            await prisma.auditLog.create({
+                data: {
+                    action: 'AUTH_FAILURE',
+                    details: `Login attempt for non-existent user: ${email}`,
+                    ipAddress: ip,
+                    status: 'FAILED'
+                }
+            });
 
             return NextResponse.json(
                 { error: "Invalid credentials" },
@@ -54,9 +77,30 @@ export async function POST(request: Request) {
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            // Record failure
-            const current = loginAttempts.get(ip) || { count: 0, lastAttempt: now };
-            loginAttempts.set(ip, { count: current.count + 1, lastAttempt: now });
+            const newFailedAttempts = user.failedAttempts + 1;
+            let lockoutUntil = null;
+
+            if (newFailedAttempts >= 6) {
+                lockoutUntil = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+            }
+
+            await prisma.user.update({
+                where: { id: user.id },
+                data: {
+                    failedAttempts: newFailedAttempts,
+                    lockoutUntil: lockoutUntil
+                }
+            });
+
+            await prisma.auditLog.create({
+                data: {
+                    action: 'AUTH_FAILURE',
+                    details: `Failed password for user: ${email}`,
+                    ipAddress: ip,
+                    status: 'FAILED',
+                    adminId: user.id
+                }
+            });
 
             return NextResponse.json(
                 { error: "Invalid credentials" },
@@ -64,7 +108,7 @@ export async function POST(request: Request) {
             );
         }
 
-        if (user.role !== "ADMIN") {
+        if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
             return NextResponse.json(
                 { error: "Access denied. Admin role required." },
                 { status: 403 }
@@ -72,15 +116,23 @@ export async function POST(request: Request) {
         }
 
         // Success! Reset attempts
-        loginAttempts.delete(ip);
+        await prisma.user.update({
+            where: { id: user.id },
+            data: {
+                failedAttempts: 0,
+                lockoutUntil: null,
+                lastLogin: new Date()
+            }
+        });
 
         // --- Audit Log ---
-        await prisma.systemLog.create({
+        await prisma.auditLog.create({
             data: {
                 action: 'LOGIN',
-                admin: user.email,
+                adminId: user.id,
                 details: 'Admin logged in successfully',
-                ip: ip
+                ipAddress: ip,
+                status: 'SUCCESS'
             }
         });
 

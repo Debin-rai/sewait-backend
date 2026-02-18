@@ -38,8 +38,8 @@ model AuditLog {
   details   String?
   ipAddress String?
   status    String   @default("SUCCESS") // SUCCESS, FAILED
-  adminId   String
-  admin     User     @relation(fields: [adminId], references: [id])
+  adminId   String?
+  admin     User?    @relation(fields: [adminId], references: [id])
   createdAt DateTime @default(now())
 
   @@index([adminId])

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { verifyAdmin } from '@/lib/auth';
+import { verifyAdmin, getSession } from '@/lib/auth';
 import crypto from 'crypto';
 
 const ADMIN_IP = "27.34.111.188";
@@ -97,8 +97,9 @@ export async function POST(request: Request) {
         // Get Client IP
         const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || '127.0.0.1';
 
-        // 1. Filter Admin IP
-        if (clientIp === ADMIN_IP) {
+        // 1. Filter Admin IP or Session
+        const session = await getSession();
+        if (clientIp === ADMIN_IP || (session && session.user?.role === "ADMIN")) {
             return NextResponse.json({ success: true, message: 'Admin visit ignored' });
         }
 
