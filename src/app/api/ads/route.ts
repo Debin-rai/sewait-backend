@@ -11,6 +11,7 @@ export async function GET(request: Request) {
         }
 
         const now = new Date();
+        const bufferNow = new Date(now.getTime() + 1000 * 60 * 5); // 5 min buffer for clock drift
 
         // Fetch active ads for the specified position
         const ads = await prisma.advertisement.findMany({
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
                 status: 'ACTIVE',
                 OR: [
                     { startDate: null },
-                    { startDate: { lte: now } }
+                    { startDate: { lte: bufferNow } }
                 ],
                 AND: [
                     {
