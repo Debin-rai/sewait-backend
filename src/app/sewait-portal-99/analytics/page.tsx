@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AnalyticsDashboardPage() {
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<{ daily: any[], visitors: any[] }>({ daily: [], visitors: [] });
+    const [data, setData] = useState<{ daily: any[], visitors: any[], totalUniques?: number, hitsTrend?: number }>({ daily: [], visitors: [] });
 
     useEffect(() => {
         fetchAnalytics();
@@ -70,8 +70,8 @@ export default function AnalyticsDashboardPage() {
                 </div>
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border-b-4 border-[#07883b] shadow-sm hover:translate-y-[-2px] transition-transform">
                     <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Growth Trend</p>
-                    <h3 className={`text-4xl font-black mt-2 ${(data as any).hitsTrend >= 0 ? 'text-[#07883b]' : 'text-red-600'}`}>
-                        {(data as any).hitsTrend >= 0 ? '+' : ''}{(data as any).hitsTrend}%
+                    <h3 className={`text-4xl font-black mt-2 ${(data.hitsTrend || 0) >= 0 ? 'text-[#07883b]' : 'text-red-600'}`}>
+                        {(data.hitsTrend || 0) >= 0 ? '+' : ''}{data.hitsTrend || 0}%
                     </h3>
                 </div>
             </div>
