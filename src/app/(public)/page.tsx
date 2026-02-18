@@ -24,15 +24,15 @@ export default function Home() {
         '@id': 'https://sewait.up.railway.app/#organization',
         'name': 'SewaIT',
         'url': 'https://sewait.up.railway.app',
-        'logo': 'https://sewait.up.railway.app/assets/images/Logo.jpg',
+        'logo': 'https://sewait.up.railway.app/assets/images/Final-logo.png',
         'founder': {
           '@type': 'Person',
-          'name': 'Debin Rai',
+          'name': 'SewaIT',
           'url': 'https://sewait.up.railway.app/about'
         },
         'sameAs': [
-          'https://facebook.com/sewait',
-          'https://twitter.com/sewait'
+          'https://facebook.com/SewaIT',
+          'https://twitter.com/SewaIT'
         ]
       }
     ]

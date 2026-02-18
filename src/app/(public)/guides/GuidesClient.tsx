@@ -285,6 +285,9 @@ export default function GuidesClient() {
                                     Verified Information
                                 </h5>
                                 <p className="text-slate-600 text-xs leading-relaxed">
+                                    SewaIT is a platform that presents official information from various Nepal Government agencies in a simple manner.
+                                </p>
+                                <p className="text-slate-600 text-xs leading-relaxed">
                                     SewaIT content is cross-verified with official government portals (gov.np). We are an independent guide platform aimed at improving citizen access to information.
                                 </p>
                             </div>

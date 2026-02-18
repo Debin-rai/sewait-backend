@@ -12,9 +12,9 @@ export default function Footer() {
                         <div className="flex items-center gap-2 mb-6 text-slate-900">
                             <div className="relative w-8 h-8 overflow-hidden rounded-lg">
                                 <img
-                                    src="/assets/images/Logo.jpg"
+                                    src="/assets/images/Final-logo.png"
                                     alt="SewaIT Logo"
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-contain"
                                 />
                             </div>
                             <span className="text-xl font-bold">Sewa<span className="text-primary">IT</span></span>

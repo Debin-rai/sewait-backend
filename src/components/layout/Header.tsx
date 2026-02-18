@@ -24,9 +24,9 @@ export default function Header() {
                     <Link href="/" className="flex items-center gap-2">
                         <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                             <img
-                                src="/assets/images/Logo.jpg"
+                                src="/assets/images/Final-logo.png"
                                 alt="SewaIT Logo"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                             />
                         </div>
                         <h1 className="text-xl font-bold tracking-tight text-slate-800">Sewa<span className="text-primary">IT</span></h1>

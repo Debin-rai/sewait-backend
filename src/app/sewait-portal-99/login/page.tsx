@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                                 className="w-full h-12 md:h-14 px-4 rounded-xl border border-slate-200 bg-slate-50/30 text-slate-900 placeholder:text-slate-400 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all outline-none text-sm font-medium"
                                 id="email"
                                 name="email"
-                                placeholder="e.g., admin@sewait.com"
+                                placeholder="e.g., admin@SewaIT.com"
                                 type="email"
                                 required
                             />

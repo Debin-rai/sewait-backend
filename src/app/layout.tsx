@@ -53,13 +53,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/assets/favicon_io/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/assets/favicon_io/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/assets/favicon_io/favicon.ico" },
+      { url: "/assets/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/assets/favicon/favicon.ico" },
     ],
-    apple: "/assets/favicon_io/apple-touch-icon.png",
+    apple: "/assets/favicon/apple-touch-icon.png",
   },
-  manifest: "/assets/favicon_io/site.webmanifest",
+  manifest: "/assets/favicon/site.webmanifest",
   robots: {
     index: true,
     follow: true,
