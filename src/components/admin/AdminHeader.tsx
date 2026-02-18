@@ -1,4 +1,5 @@
 "use client";
+import NotificationPanel from "./NotificationPanel";
 
 interface AdminHeaderProps {
     onMenuClick: () => void;
@@ -32,10 +33,7 @@ export default function AdminHeader({ onMenuClick }: AdminHeaderProps) {
                     />
                 </div>
                 <div className="flex items-center gap-1 md:gap-3">
-                    <button className="p-2 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-lg relative">
-                        <span className="material-symbols-outlined">notifications</span>
-                        <span className="absolute top-2 right-2 size-2 bg-red-500 rounded-full ring-2 ring-white"></span>
-                    </button>
+                    <NotificationPanel />
                     <button className="p-2 text-slate-500 hover:text-primary hover:bg-slate-100 rounded-lg hidden sm:block">
                         <span className="material-symbols-outlined">help</span>
                     </button>

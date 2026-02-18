@@ -2,6 +2,7 @@
 
 import Sidebar from "@/components/admin/Sidebar";
 import AdminHeader from "@/components/admin/AdminHeader";
+import NotificationPanel from "@/components/admin/NotificationPanel";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
