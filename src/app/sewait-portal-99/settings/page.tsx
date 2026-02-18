@@ -6,6 +6,21 @@ export default function AdminSettingsPage() {
     const [loading, setLoading] = useState(false);
     const [configs, setConfigs] = useState<any>({});
     const [logs, setLogs] = useState<any[]>([]);
+    const [showKeys, setShowKeys] = useState<{ [key: string]: boolean }>({});
+
+    useEffect(() => {
+        const timers: { [key: string]: NodeJS.Timeout } = {};
+        Object.keys(showKeys).forEach(key => {
+            if (showKeys[key]) {
+                timers[key] = setTimeout(() => {
+                    setShowKeys(prev => ({ ...prev, [key]: false }));
+                }, 5000);
+            }
+        });
+        return () => {
+            Object.values(timers).forEach(clearTimeout);
+        };
+    }, [showKeys]);
 
     useEffect(() => {
         fetchData();
@@ -125,32 +140,39 @@ export default function AdminSettingsPage() {
                     </div>
 
                     <div className="space-y-6">
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">OpenWeatherMap Secret</label>
-                            <input
-                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
-                                type="password"
-                                value={configs.API_WEATHER || ""}
-                                onChange={e => updateValue("API_WEATHER", e.target.value)}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">NEPSE Scraper Endpoint</label>
-                            <input
-                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
-                                value={configs.API_NEPSE || ""}
-                                onChange={e => updateValue("API_NEPSE", e.target.value)}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">System Notification Gateway</label>
-                            <input
-                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
-                                type="password"
-                                value={configs.API_NOTIFICATION || ""}
-                                onChange={e => updateValue("API_NOTIFICATION", e.target.value)}
-                            />
-                        </div>
+                        {[
+                            { key: "API_WEATHER", label: "OpenWeatherMap Secret" },
+                            { key: "API_NEPSE", label: "NEPSE Scraper Endpoint" },
+                            { key: "API_NOTIFICATION", label: "System Notification Gateway" }
+                        ].map((field) => (
+                            <div key={field.key} className="space-y-2">
+                                <div className="flex justify-between items-center">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">{field.label}</label>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => setShowKeys(prev => ({ ...prev, [field.key]: !prev[field.key] }))}
+                                            className="text-[10px] font-bold text-primary hover:underline flex items-center gap-1"
+                                        >
+                                            <span className="material-symbols-outlined text-xs">
+                                                {showKeys[field.key] ? 'visibility_off' : 'visibility'}
+                                            </span>
+                                            {showKeys[field.key] ? 'Hide' : 'Show'}
+                                        </button>
+                                        <button className="text-[10px] font-bold text-slate-400 hover:text-slate-600 flex items-center gap-1">
+                                            <span className="material-symbols-outlined text-xs">edit</span>
+                                            Update
+                                        </button>
+                                    </div>
+                                </div>
+                                <input
+                                    className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
+                                    type={showKeys[field.key] ? "text" : "password"}
+                                    value={configs[field.key] || ""}
+                                    onChange={e => updateValue(field.key, e.target.value)}
+                                    placeholder="Enter API key or endpoint..."
+                                />
+                            </div>
+                        ))}
                     </div>
                 </section>
 

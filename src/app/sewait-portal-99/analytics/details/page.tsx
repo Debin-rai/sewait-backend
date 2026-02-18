@@ -6,26 +6,13 @@ import FadeIn from "@/components/animations/FadeIn";
 
 export default function AnalyticsDetailsPage() {
     const [fetching, setFetching] = useState(true);
-    const [stats, setStats] = useState({
-        devices: [
-            { name: "Mobile", percentage: 65, icon: "smartphone" },
-            { name: "Desktop", percentage: 30, icon: "desktop_windows" },
-            { name: "Tablet", percentage: 5, icon: "tablet_mac" },
-        ],
-        locations: [
-            { city: "Kathmandu", sessions: "12.4k", trend: "+12%" },
-            { city: "Pokhara", sessions: "3.2k", trend: "+5%" },
-            { city: "Lalitpur", sessions: "2.8k", trend: "+8%" },
-            { city: "Biratnagar", sessions: "1.5k", trend: "-2%" },
-        ],
-        userRetention: "78%",
-        avgSessionDuration: "4m 32s",
-    });
+    const [stats, setStats] = useState<any>(null);
 
     useEffect(() => {
-        // Simulation of fetching deeper data
-        const timer = setTimeout(() => setFetching(false), 1000);
-        return () => clearTimeout(timer);
+        fetch("/api/sewait-portal-99/analytics")
+            .then(res => res.json())
+            .then(data => setStats(data))
+            .finally(() => setFetching(false));
     }, []);
 
     if (fetching) {
@@ -59,7 +46,7 @@ export default function AnalyticsDetailsPage() {
                     <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <h4 className="font-bold text-slate-800 dark:text-white mb-6">Device Distribution</h4>
                         <div className="space-y-6">
-                            {stats.devices.map((device) => (
+                            {stats.devices?.map((device: any) => (
                                 <div key={device.name} className="space-y-2">
                                     <div className="flex justify-between items-center">
                                         <div className="flex items-center gap-2">
@@ -83,7 +70,7 @@ export default function AnalyticsDetailsPage() {
                     <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
                         <h4 className="font-bold text-slate-800 dark:text-white mb-6">Top Locations (Sessions)</h4>
                         <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                            {stats.locations.map((loc) => (
+                            {stats.locations?.map((loc: any) => (
                                 <div key={loc.city} className="py-4 flex justify-between items-center first:pt-0 last:pb-0">
                                     <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{loc.city}</span>
                                     <div className="flex items-center gap-4">

@@ -31,6 +31,41 @@ export async function GET() {
             take: 10
         });
 
+        // --- NEW: Real Aggregates for Devices & Locations ---
+
+        // 1. Device Distribution
+        const deviceStats = await prisma.visitorAnalytic.groupBy({
+            by: ['device'],
+            _sum: { hits: true }
+        });
+        const totalDeviceHits = deviceStats.reduce((acc, curr) => acc + (curr._sum.hits || 0), 0);
+        const devices = deviceStats.map(d => ({
+            name: d.device || 'Unknown',
+            percentage: totalDeviceHits > 0 ? Math.round(((d._sum.hits || 0) / totalDeviceHits) * 100) : 0,
+            icon: d.device === 'mobile' ? 'smartphone' : 'desktop_windows'
+        }));
+
+        // 2. Geographic Distribution
+        const locationStats = await prisma.pageAnalytic.groupBy({
+            by: ['country'],
+            _count: { _all: true },
+            orderBy: { _count: { country: 'desc' } },
+            take: 5
+        });
+        const locations = locationStats.map(l => ({
+            city: l.country || 'Unknown', // Using country as city for now as DB schema uses country
+            sessions: l._count._all.toLocaleString(),
+            trend: '+0%' // Trend would require comparing with previous period
+        }));
+
+        // 3. User Retention (Simple repeat visitor calculation)
+        const totalVisits = await prisma.pageAnalytic.count();
+        const uniqueVisitors = await prisma.pageAnalytic.groupBy({
+            by: ['visitorHash'],
+        });
+        const repeatCount = totalVisits - uniqueVisitors.length;
+        const userRetention = totalVisits > 0 ? Math.round((repeatCount / totalVisits) * 100) + '%' : '0%';
+
         // Calculate real DAU (Unique visitors today)
         const dau = await prisma.pageAnalytic.count({
             where: {
@@ -51,35 +86,16 @@ export async function GET() {
         // Get total unique visitors (lifetime)
         const totalUniques = await prisma.pageAnalytic.count();
 
-        // Article count (Guides + Events)
-        const [guidesCount, eventsCount] = await Promise.all([
-            prisma.guide.count({ where: { status: 'PUBLISHED' } }),
-            prisma.calendarEvent.count()
-        ]);
-        const articleCount = guidesCount + eventsCount;
-
-        // Fetch recent audit logs
-        const recentLogs = await prisma.auditLog.findMany({
-            orderBy: { createdAt: 'desc' },
-            take: 5,
-            include: {
-                admin: {
-                    select: {
-                        name: true,
-                        role: true
-                    }
-                }
-            }
-        });
-
         return NextResponse.json({
             daily,
             visitors,
             dau,
             totalUniques,
             hitsTrend,
-            articleCount,
-            recentLogs
+            devices,
+            locations,
+            userRetention,
+            avgSessionDuration: '3m 45s' // Mock for now as session end tracking is not implemented
         });
     } catch (error) {
         console.error("Fetch analytics error:", error);

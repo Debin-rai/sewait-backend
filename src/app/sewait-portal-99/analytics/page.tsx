@@ -65,8 +65,8 @@ export default function AnalyticsDashboardPage() {
                     <h3 className="text-4xl font-black text-slate-800 dark:text-white mt-2">{totalHits.toLocaleString()}</h3>
                 </div>
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border-b-4 border-blue-400 shadow-sm hover:translate-y-[-2px] transition-transform">
-                    <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Active Pages</p>
-                    <h3 className="text-4xl font-black text-slate-800 dark:text-white mt-2">{data.visitors.length}</h3>
+                    <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Lifetime Uniques</p>
+                    <h3 className="text-4xl font-black text-slate-800 dark:text-white mt-2">{data.totalUniques?.toLocaleString() || '0'}</h3>
                 </div>
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border-b-4 border-[#07883b] shadow-sm hover:translate-y-[-2px] transition-transform">
                     <p className="text-slate-400 text-xs font-black uppercase tracking-widest">Growth Trend</p>
