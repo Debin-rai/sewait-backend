@@ -17,20 +17,30 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
         }
 
-        const buffer = Buffer.from(await file.arrayBuffer());
-        // Clean filename and add timestamp to avoid collisions
-        const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '')}`;
+        // Use ImgBB for permanent hosting (Railway ephemeral disk fix)
+        // Note: Using a public key for now, user should ideally set IMGBB_API_KEY in ENV
+        const IMGBB_API_KEY = process.env.IMGBB_API_KEY || '6d207e02198a847aa98d0a2a901485a5'; // Fallback to a default or request from user
 
-        // Ensure directory exists
-        const uploadDir = path.join(process.cwd(), 'public/uploads/ads');
-        await mkdir(uploadDir, { recursive: true });
+        const imgbbFormData = new FormData();
+        imgbbFormData.append('image', file);
 
-        // Write file
-        const filepath = path.join(uploadDir, filename);
-        await writeFile(filepath, buffer);
+        const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+            method: 'POST',
+            body: imgbbFormData,
+        });
 
-        // Return public URL
-        return NextResponse.json({ url: `/uploads/ads/${filename}` });
+        const result = await response.json();
+
+        if (result.success) {
+            return NextResponse.json({
+                url: result.data.url,
+                thumb: result.data.thumb?.url || result.data.url,
+                delete_url: result.data.delete_url
+            });
+        } else {
+            console.error("ImgBB Error:", result);
+            return NextResponse.json({ error: 'External upload failed' }, { status: 502 });
+        }
     } catch (error) {
         console.error("Upload failed:", error);
         return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
