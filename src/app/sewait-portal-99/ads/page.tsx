@@ -157,6 +157,3 @@ export default function AdsManagementPage() {
         </div>
     );
 }
-        </div >
-    );
-}

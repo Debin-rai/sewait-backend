@@ -24,7 +24,7 @@ const notoSansDevanagari = localFont({
 
 export const metadata: Metadata = {
   title: "SewaIT – Nepali Calendar, Gold Rates & Official Guides",
-  description: "SewaIT is a Nepali utility platform providing today’s Nepali date, Tithi, gold rates, weather updates, and official government guides for Nepalis.",
+  description: "Explore SewaIT - Your ultimate Nepali utility hub featuring a live Nepali Calendar with Tithi, real-time Gold and Silver rates, accurate Weather updates, NEPSE stock data, and comprehensive official Government Service guides. Built for digital convenience in Nepal.",
   keywords: ["SewaIT", "Debin Rai", "Nepali Calendar", "Sarkari Guides", "Gold Price Nepal", "today's date", "tithi", "Nepal government services", "आजको मिती", "सुन चाँदी मूल्य", "NEPSE"],
   authors: [{ name: "Debin Rai", url: "https://sewait.up.railway.app" }],
   creator: "Debin Rai",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "SewaIT – Nepali Calendar, Gold Rates & Official Guides",
-    description: "SewaIT is a Nepali utility platform providing today’s Nepali date, Tithi, gold rates, weather updates, and official government guides for Nepalis.",
+    description: "Explore SewaIT - Your ultimate Nepali utility hub featuring a live Nepali Calendar with Tithi, real-time Gold and Silver rates, accurate Weather updates, NEPSE stock data, and comprehensive official Government Service guides. Built for digital convenience in Nepal.",
     url: "https://sewait.up.railway.app",
     siteName: "SewaIT",
     locale: "ne_NP",
@@ -51,15 +51,15 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "SewaIT – Nepali Calendar, Gold Rates & Official Guides",
-    description: "SewaIT is a Nepali utility platform providing today’s Nepali date, Tithi, gold rates, weather updates, and official government guides for Nepalis.",
+    description: "Explore SewaIT - Your ultimate Nepali utility hub featuring a live Nepali Calendar with Tithi, real-time Gold and Silver rates, accurate Weather updates, NEPSE stock data, and comprehensive official Government Service guides. Built for digital convenience in Nepal.",
     creator: "@SewaIT",
   },
   icons: {
     icon: [
+      { url: "/favicon.ico" },
       { url: "/assets/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/assets/favicon/favicon.ico" },
     ],
-    apple: "/assets/favicon/apple-touch-icon.png",
+    apple: "/apple-touch-icon.png",
   },
   manifest: "/assets/favicon/site.webmanifest",
   robots: {
@@ -100,11 +100,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "Organization",
               "name": "SewaIT",
               "url": "https://sewait.up.railway.app",
-              "logo": "https://sewait.up.railway.app/assets/favicon/web-app-manifest-512x512.png",
+              "logo": "https://sewait.up.railway.app/apple-touch-icon.png",
               "alternateName": ["Sewa IT"],
               "founder": {
                 "@type": "Person",
-                "name": "Debin Rai"
+                "name": "Debin Rai",
+                "jobTitle": "Founder & Developer",
+                "url": "https://sewait.up.railway.app",
+                "sameAs": [
+                  // Add social links here if available later
+                ]
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Debin Rai",
+              "url": "https://sewait.up.railway.app",
+              "jobTitle": "Founder of SewaIT",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "SewaIT"
               }
             })
           }}

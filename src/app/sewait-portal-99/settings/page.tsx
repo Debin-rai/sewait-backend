@@ -7,6 +7,16 @@ export default function AdminSettingsPage() {
     const [configs, setConfigs] = useState<any>({});
     const [logs, setLogs] = useState<any[]>([]);
     const [showKeys, setShowKeys] = useState<{ [key: string]: boolean }>({});
+    const [isExcluded, setIsExcluded] = useState(false);
+
+    useEffect(() => {
+        // Initialize exclusion state from cookie
+        const checkExclusion = async () => {
+            const { getCookie } = await import("@/lib/cookies");
+            setIsExcluded(getCookie('sewait_exclude_analytics') === 'true');
+        };
+        checkExclusion();
+    }, []);
 
     useEffect(() => {
         const timers: { [key: string]: NodeJS.Timeout } = {};
@@ -240,19 +250,17 @@ export default function AdminSettingsPage() {
                             </div>
                             <button
                                 onClick={async () => {
-                                    const { getCookie, setCookie } = await import("@/lib/cookies");
-                                    const isExcluded = getCookie('sewait_exclude_analytics') === 'true';
-                                    setCookie('sewait_exclude_analytics', isExcluded ? 'false' : 'true', 365);
-                                    window.location.reload();
+                                    const { setCookie } = await import("@/lib/cookies");
+                                    const nextValue = !isExcluded;
+                                    setCookie('sewait_exclude_analytics', String(nextValue), 365);
+                                    setIsExcluded(nextValue);
+                                    // Optional: reload to ensure all tracking stops immediately
+                                    // window.location.reload(); 
                                 }}
-                                className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer ${typeof document !== 'undefined' && document.cookie.includes('sewait_exclude_analytics=true')
-                                        ? 'bg-primary'
-                                        : 'bg-slate-200 dark:bg-slate-600'
+                                className={`w-12 h-6 rounded-full transition-colors relative cursor-pointer ${isExcluded ? 'bg-primary' : 'bg-slate-200 dark:bg-slate-600'
                                     }`}
                             >
-                                <div className={`absolute top-1 left-1 size-4 bg-white rounded-full transition-transform ${typeof document !== 'undefined' && document.cookie.includes('sewait_exclude_analytics=true')
-                                        ? 'translate-x-6'
-                                        : 'translate-x-0'
+                                <div className={`absolute top-1 left-1 size-4 bg-white rounded-full transition-transform ${isExcluded ? 'translate-x-6' : 'translate-x-0'
                                     }`} />
                             </button>
                         </div>
