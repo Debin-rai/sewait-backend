@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { verifyAdmin, getSession } from '@/lib/auth';
 import crypto from 'crypto';
-
-import crypto from 'crypto';
 import { startOfDay, subDays, format } from 'date-fns';
 
 const ADMIN_IP = "27.34.111.188";
