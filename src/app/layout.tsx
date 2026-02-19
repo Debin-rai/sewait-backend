@@ -102,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "@type": "Organization",
               "name": "SewaIT",
               "url": "https://sewait.up.railway.app",
-              "logo": "https://sewait.up.railway.app/apple-touch-icon.png",
+              "logo": "https://sewait.up.railway.app/web-app-manifest-512x512.png",
               "alternateName": ["Sewa IT"],
               "founder": {
                 "@type": "Person",
