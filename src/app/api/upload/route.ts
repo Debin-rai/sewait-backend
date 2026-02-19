@@ -38,11 +38,15 @@ export async function POST(request: Request) {
                 delete_url: result.data.delete_url
             });
         } else {
-            console.error("ImgBB Error:", result);
-            return NextResponse.json({ error: 'External upload failed' }, { status: 502 });
+            console.error("ImgBB API Error Details:", result);
+            const errorMessage = result.error?.message || 'External upload failed';
+            return NextResponse.json({
+                error: `ImgBB Error: ${errorMessage}`,
+                details: result.error
+            }, { status: 502 });
         }
-    } catch (error) {
-        console.error("Upload failed:", error);
-        return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    } catch (error: any) {
+        console.error("Upload proxy failure:", error);
+        return NextResponse.json({ error: `Upload proxy failure: ${error.message}` }, { status: 500 });
     }
 }
