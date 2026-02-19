@@ -12,7 +12,7 @@ export default function Footer() {
                         <div className="flex items-center gap-2 mb-6 text-slate-900">
                             <div className="relative w-8 h-8 overflow-hidden rounded-lg">
                                 <img
-                                    src="/assets/images/Final-logo.png"
+                                    src="/web-app-manifest-512x512.png"
                                     alt="SewaIT Logo"
                                     className="w-full h-full object-contain"
                                 />

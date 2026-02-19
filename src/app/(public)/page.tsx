@@ -25,7 +25,7 @@ export default function Home() {
         '@id': 'https://sewait.up.railway.app/#organization',
         'name': 'SewaIT',
         'url': 'https://sewait.up.railway.app',
-        'logo': 'https://sewait.up.railway.app/assets/images/Final-logo.png',
+        'logo': 'https://sewait.up.railway.app/web-app-manifest-512x512.png',
         'founder': {
           '@type': 'Person',
           '@id': 'https://sewait.up.railway.app/#founder',

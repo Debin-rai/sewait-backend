@@ -6,6 +6,7 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 });
 
 import { Mukta } from "next/font/google";
@@ -14,6 +15,7 @@ const mukta = Mukta({
   variable: "--font-mukta",
   subsets: ["latin", "devanagari"],
   weight: ["200", "300", "400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 const notoSansDevanagari = localFont({

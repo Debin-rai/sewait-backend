@@ -50,7 +50,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <div className="flex items-center gap-3">
                     <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                         <img
-                            src="/assets/images/Final-logo.png"
+                            src="/web-app-manifest-512x512.png"
                             alt="SewaIT Admin"
                             className="w-full h-full object-contain"
                         />

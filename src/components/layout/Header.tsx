@@ -25,7 +25,7 @@ export default function Header() {
                     <Link href="/" className="flex items-center gap-2">
                         <div className="relative w-10 h-10 overflow-hidden rounded-lg">
                             <img
-                                src="/assets/images/Final-logo.png"
+                                src="/web-app-manifest-512x512.png"
                                 alt="SewaIT Logo"
                                 className="w-full h-full object-contain"
                             />
