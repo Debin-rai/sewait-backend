@@ -12,6 +12,7 @@ const themeConfig: Record<HeroTheme, {
     pillBg: string;
     pillBorder: string;
     bottomBorder: string;
+    accentGold: string;
 }> = {
     blue: {
         gradient: "linear-gradient(135deg, #1F3A5F 0%, #274C77 100%)",
@@ -20,30 +21,34 @@ const themeConfig: Record<HeroTheme, {
         pillBg: "bg-slate-100/10",
         pillBorder: "border-white/20",
         bottomBorder: "border-white/5",
+        accentGold: "text-white/90",
     },
     red: {
         gradient: "radial-gradient(circle at center, #ef4444 0%, #b91c1c 100%)",
         tickerBg: "rgba(0,0,0,0.3)",
-        accentText: "text-amber-300",
-        pillBg: "bg-amber-400/15",
-        pillBorder: "border-amber-300/30",
+        accentText: "text-amber-400",
+        pillBg: "bg-amber-400/20",
+        pillBorder: "border-amber-400/40",
         bottomBorder: "border-white/10",
+        accentGold: "text-[#fbbf24]",
     },
     pink: {
         gradient: "linear-gradient(135deg, #ec4899 0%, #be185d 100%)",
         tickerBg: "rgba(0,0,0,0.15)",
         accentText: "text-pink-200",
         pillBg: "bg-white/10",
-        pillBorder: "border-pink-300/30",
+        pillBorder: "border-pink-200/30",
         bottomBorder: "border-white/10",
+        accentGold: "text-pink-100",
     },
     green: {
         gradient: "linear-gradient(135deg, #16a34a 0%, #15803d 100%)",
         tickerBg: "rgba(0,0,0,0.15)",
         accentText: "text-emerald-200",
         pillBg: "bg-emerald-100/10",
-        pillBorder: "border-emerald-300/30",
+        pillBorder: "border-emerald-200/30",
         bottomBorder: "border-white/10",
+        accentGold: "text-emerald-100",
     },
 };
 
@@ -130,7 +135,8 @@ export default function Hero() {
                             <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white mb-1 md:mb-2 transition-colors duration-500">
                                 {nepaliDate ? (
                                     <>
-                                        <span className="nepali-font">{nepaliDate.year} {nepaliDate.month} {nepaliDate.day},</span> <span className="text-white/90 nepali-font">{nepaliDate.dayName}</span>
+                                        <span className="nepali-font">{nepaliDate.year} {nepaliDate.month} </span>
+                                        <span className={`nepali-font ${config.accentGold}`}>{nepaliDate.day}, {nepaliDate.dayName}</span>
                                     </>
                                 ) : (
                                     <span className="opacity-0">Loading...</span>
