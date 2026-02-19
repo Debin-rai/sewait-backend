@@ -45,3 +45,31 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }
+
+export async function DELETE(request: Request) {
+    const session = await verifyAdmin();
+    if (!session) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    try {
+        const { ids } = await request.json();
+
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return NextResponse.json({ error: "Invalid IDs provided" }, { status: 400 });
+        }
+
+        await prisma.auditLog.deleteMany({
+            where: {
+                id: {
+                    in: ids
+                }
+            }
+        });
+
+        return NextResponse.json({ message: "Logs deleted successfully" });
+    } catch (error) {
+        console.error("Delete Logs Error:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}
