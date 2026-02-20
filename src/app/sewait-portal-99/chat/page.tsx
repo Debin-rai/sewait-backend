@@ -8,6 +8,9 @@ export default function AIChatHistory() {
     const [stats, setStats] = useState({ totalSessions: 0, messagesToday: 0 });
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [selectedSession, setSelectedSession] = useState<any>(null);
+    const [messages, setMessages] = useState<any[]>([]);
+    const [loadingMessages, setLoadingMessages] = useState(false);
 
     const fetchSessions = async () => {
         setLoading(true);
@@ -23,9 +26,27 @@ export default function AIChatHistory() {
         }
     };
 
+    const fetchSessionDetails = async (sessionId: string) => {
+        setLoadingMessages(true);
+        try {
+            const res = await fetch(`/api/sewait-portal-99/chat/${sessionId}`);
+            const data = await res.json();
+            setMessages(data.messages || []);
+        } catch (error) {
+            console.error("Failed to fetch session messages:", error);
+        } finally {
+            setLoadingMessages(false);
+        }
+    };
+
     useEffect(() => {
         fetchSessions();
     }, []);
+
+    const handleSessionClick = (session: any) => {
+        setSelectedSession(session);
+        fetchSessionDetails(session.id);
+    };
 
     const handleDelete = async (sessionId?: string, all = false) => {
         if (!confirm(`Are you sure you want to ${all ? 'DELETE ALL' : 'delete this'} chat history?`)) return;
@@ -36,7 +57,10 @@ export default function AIChatHistory() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ sessionId, deleteAll: all }),
             });
-            if (res.ok) fetchSessions();
+            if (res.ok) {
+                if (sessionId === selectedSession?.id) setSelectedSession(null);
+                fetchSessions();
+            }
         } catch (error) {
             console.error("Delete failed:", error);
         }
@@ -48,7 +72,7 @@ export default function AIChatHistory() {
     );
 
     return (
-        <div className="space-y-8 animate-in fade-in duration-500">
+        <div className="space-y-8 animate-in fade-in duration-500 min-h-screen pb-20">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex flex-col gap-1">
                     <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">AI Chat History</h2>
@@ -88,75 +112,135 @@ export default function AIChatHistory() {
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4 justify-between items-center">
-                    <div className="relative w-full md:w-96">
-                        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                        <input
-                            type="text"
-                            placeholder="Search sessions..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-slate-50 dark:bg-slate-800 text-sm pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 outline-none focus:ring-2 focus:ring-primary/20"
-                        />
+            {!selectedSession ? (
+                <div className="space-y-6">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4">
+                        <div className="relative w-full max-w-md">
+                            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                            <input
+                                type="text"
+                                placeholder="Search sessions by ID or title..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full bg-slate-50 dark:bg-slate-800 text-sm pl-10 pr-4 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 outline-none focus:ring-2 focus:ring-primary/20"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Session ID</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Topic / Title</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">Messages</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider">Started At</th>
-                                <th className="px-6 py-4 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                            {loading ? (
-                                <tr>
-                                    <td colSpan={5} className="px-6 py-12 text-center text-slate-400 font-bold uppercase text-xs tracking-widest">Loading history...</td>
-                                </tr>
-                            ) : filteredSessions.length === 0 ? (
-                                <tr>
-                                    <td colSpan={5} className="px-6 py-12 text-center text-slate-400 italic">No chat sessions found.</td>
-                                </tr>
-                            ) : (
-                                filteredSessions.map((session) => (
-                                    <tr key={session.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
-                                        <td className="px-6 py-4">
-                                            <span className="text-xs font-mono font-bold text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded tracking-tighter">#{session.id.substring(session.id.length - 8).toUpperCase()}</span>
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <p className="text-sm font-bold text-slate-700 dark:text-slate-200 truncate max-w-xs">{session.title}</p>
-                                        </td>
-                                        <td className="px-6 py-4 text-center">
-                                            <span className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold">{session.messageCount}</span>
-                                        </td>
-                                        <td className="px-6 py-4 text-xs font-medium text-slate-500">
-                                            {new Date(session.createdAt).toLocaleString()}
-                                        </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <div className="flex justify-end gap-2">
-                                                <button className="p-2 text-slate-400 hover:text-primary transition-colors">
-                                                    <span className="material-symbols-outlined text-xl">visibility</span>
-                                                </button>
-                                                <button
-                                                    onClick={() => handleDelete(session.id)}
-                                                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
-                                                >
-                                                    <span className="material-symbols-outlined text-xl">delete</span>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
+                    {loading ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {[1, 2, 3, 4, 5, 6].map(i => (
+                                <div key={i} className="h-40 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-xl" />
+                            ))}
+                        </div>
+                    ) : filteredSessions.length === 0 ? (
+                        <div className="text-center py-20 bg-white dark:bg-slate-900 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                            <span className="material-symbols-outlined text-4xl text-slate-300 mb-2">forum</span>
+                            <p className="text-slate-400 font-bold uppercase text-xs tracking-widest">No chat sessions found</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {filteredSessions.map((session) => (
+                                <button
+                                    key={session.id}
+                                    onClick={() => handleSessionClick(session)}
+                                    className="group bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-primary transition-all text-left flex flex-col gap-4 relative overflow-hidden active:scale-[0.98]"
+                                >
+                                    <div className="flex justify-between items-start">
+                                        <div className="bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg">
+                                            <span className="text-[11px] font-mono font-black text-slate-500 dark:text-slate-400 tracking-tighter">
+                                                USER #{session.id.substring(session.id.length - 8).toUpperCase()}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-1 bg-primary/5 px-2 py-1 rounded-full">
+                                            <span className="material-symbols-outlined text-[10px] text-primary">chat</span>
+                                            <span className="text-[10px] font-black text-primary">{session.messageCount}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <h4 className="text-sm font-black text-slate-800 dark:text-white line-clamp-2 group-hover:text-primary transition-colors mb-1">
+                                            {session.title || "New Conversation"}
+                                        </h4>
+                                        <p className="text-[10px] text-slate-400 font-medium">
+                                            {new Date(session.createdAt).toLocaleDateString()} • {new Date(session.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </p>
+                                    </div>
+
+                                    <div className="flex items-center justify-between pt-2 border-t border-slate-50 dark:border-slate-800">
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest group-hover:text-primary">View Chat</span>
+                                        <span className="material-symbols-outlined text-sm text-slate-300 group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    )}
                 </div>
-            </div>
+            ) : (
+                <FadeIn className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden flex flex-col h-[70vh]">
+                    <div className="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                            <button
+                                onClick={() => setSelectedSession(null)}
+                                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors text-slate-400"
+                            >
+                                <span className="material-symbols-outlined">arrow_back</span>
+                            </button>
+                            <div>
+                                <h3 className="text-sm font-black text-slate-800 dark:text-white">
+                                    USER #{selectedSession.id.substring(selectedSession.id.length - 8).toUpperCase()}
+                                </h3>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{selectedSession.title}</p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => handleDelete(selectedSession.id)}
+                            className="p-2 text-red-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                        >
+                            <span className="material-symbols-outlined">delete</span>
+                        </button>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 bg-slate-50/30 dark:bg-slate-900/50">
+                        {loadingMessages ? (
+                            <div className="space-y-4">
+                                {[1, 2, 3].map(i => (
+                                    <div key={i} className="flex gap-3">
+                                        <div className="size-8 rounded-lg bg-slate-200 animate-pulse" />
+                                        <div className="h-10 w-48 bg-slate-100 animate-pulse rounded-lg" />
+                                    </div>
+                                ))}
+                            </div>
+                        ) : messages.length === 0 ? (
+                            <div className="text-center py-20 text-slate-400 text-xs font-bold uppercase tracking-widest">No messages found</div>
+                        ) : (
+                            messages.map((m, i) => (
+                                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                                    <div className={`flex gap-3 max-w-[85%] md:max-w-[70%] ${m.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                                        <div className={`size-8 rounded-xl flex items-center justify-center flex-shrink-0 ${m.role === "user" ? "bg-primary text-white" : "bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-primary"
+                                            }`}>
+                                            <span className="material-symbols-outlined text-sm">
+                                                {m.role === "user" ? "person" : "smart_toy"}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <div className={`p-4 rounded-2xl text-xs leading-relaxed whitespace-pre-wrap ${m.role === "user"
+                                                    ? "bg-primary text-white font-medium rounded-tr-none"
+                                                    : "bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium rounded-tl-none shadow-sm"
+                                                }`}>
+                                                {m.content}
+                                            </div>
+                                            <span className="text-[8px] font-black text-slate-400 mt-1 block uppercase tracking-tighter">
+                                                {m.role === "user" ? "User" : "Sewa AI"} • {new Date(m.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </FadeIn>
+            )}
         </div>
     );
 }

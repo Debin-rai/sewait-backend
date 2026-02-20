@@ -18,18 +18,18 @@ export default function SewaAIClient() {
     const [chatHistory, setChatHistory] = useState<{ id: string, title: string, createdAt: string }[]>([]);
     const scrollRef = useRef<HTMLDivElement>(null);
 
+    const fetchHistory = async () => {
+        try {
+            const res = await fetch("/api/sewait-portal-99/chat");
+            const data = await res.json();
+            setChatHistory(data.sessions || []);
+        } catch (error) {
+            console.error("Failed to fetch history:", error);
+        }
+    };
+
     // Initialize with welcome message and load history
     useEffect(() => {
-        const fetchHistory = async () => {
-            try {
-                const res = await fetch("/api/sewait-portal-99/chat");
-                const data = await res.json();
-                setChatHistory(data.sessions || []);
-            } catch (error) {
-                console.error("Failed to fetch history:", error);
-            }
-        };
-
         const savedMessages = localStorage.getItem("sewa_ai_messages");
         if (savedMessages) {
             const parsed = JSON.parse(savedMessages);
@@ -88,6 +88,8 @@ export default function SewaAIClient() {
 
             if (data.sessionId && !sessionId) {
                 setSessionId(data.sessionId);
+                // Re-fetch history to show the new session in the sidebar
+                fetchHistory();
             }
 
             const aiMessage: Message = {
@@ -155,6 +157,14 @@ export default function SewaAIClient() {
         <div className="flex flex-col lg:flex-row h-screen bg-slate-50 overflow-hidden fixed inset-0 z-[100]">
             {/* Sidebar - Desktop Only */}
             <aside className="hidden lg:flex flex-col w-80 bg-white border-r border-slate-200 p-6">
+                <Link
+                    href="/"
+                    className="flex items-center gap-3 p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-all text-left mb-2"
+                >
+                    <span className="material-symbols-outlined">arrow_back</span>
+                    Back to Home
+                </Link>
+
                 <button
                     onClick={clearChat}
                     className="w-full bg-primary text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-8 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95"
@@ -175,7 +185,8 @@ export default function SewaAIClient() {
                                 >
                                     <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">history</span>
                                     <div className="flex flex-col min-w-0">
-                                        <span className="text-xs font-bold truncate">{item.title}</span>
+                                        <span className="text-[9px] font-black text-slate-400 tracking-tighter">USER #{item.id.substring(item.id.length - 8).toUpperCase()}</span>
+                                        <span className="text-xs font-bold truncate text-slate-700">{item.title}</span>
                                         <span className="text-[8px] text-slate-400">{new Date(item.createdAt).toLocaleDateString()}</span>
                                     </div>
                                 </button>
@@ -197,6 +208,9 @@ export default function SewaAIClient() {
                 {/* Chat Header */}
                 <header className="bg-white border-b border-slate-200 p-4 flex items-center justify-between z-10">
                     <div className="flex items-center gap-3">
+                        <Link href="/" className="lg:hidden p-2 -ml-2 text-slate-400 hover:text-primary transition-colors">
+                            <span className="material-symbols-outlined">arrow_back</span>
+                        </Link>
                         <div className="size-10 bg-primary/10 rounded-xl flex items-center justify-center">
                             <span className="material-symbols-outlined text-primary">smart_toy</span>
                         </div>
@@ -221,7 +235,7 @@ export default function SewaAIClient() {
                 {/* Messages */}
                 <div
                     ref={scrollRef}
-                    className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth pb-32"
+                    className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth pb-48"
                 >
                     {messages.map((m, i) => (
                         <FadeIn key={i} delay={0} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
@@ -263,7 +277,7 @@ export default function SewaAIClient() {
                 </div>
 
                 {/* Input area */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-slate-50 via-slate-50 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-4 pt-10 bg-gradient-to-t from-slate-50 via-slate-50 via-70% to-transparent z-10">
                     <div className="max-w-4xl mx-auto space-y-4">
                         {/* Quick Actions - Only show if conversation hasn't really started */}
                         {messages.length <= 1 && (
@@ -312,6 +326,6 @@ export default function SewaAIClient() {
                     </div>
                 </div>
             </main>
-        </div>
+        </div >
     );
 }
