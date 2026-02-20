@@ -20,11 +20,24 @@ export default function Chatbot({ id }: { id?: string }) {
             s1.async = true;
             s1.src = `https://embed.tawk.to/${id}`;
             s1.charset = 'UTF-8';
-            s1.setAttribute('crossorigin', '*');
             if (s0 && s0.parentNode) {
                 s0.parentNode.insertBefore(s1, s0);
             }
         })();
+
+        // Custom styling to avoid overlapping with MobileBottomNav
+        (window as any).Tawk_API.customStyle = {
+            visibility: {
+                desktop: {
+                    xOffset: '20px',
+                    yOffset: '20px'
+                },
+                mobile: {
+                    xOffset: '10px',
+                    yOffset: '75px' // Shifting up above bottom nav
+                }
+            }
+        };
 
         return () => {
             if (s1 && s1.parentNode) {
