@@ -92,6 +92,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "dp_oL0KNsg0OGz0oNnciIxqsjzUw_QsFVzmTywxd8NU",
+    other: {
+      "p:domain_verify": ["a6c38a52a848545cb91e45f102f55d46"],
+    },
   },
 };
 
