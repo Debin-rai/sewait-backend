@@ -197,3 +197,10 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Force Tawk.to chatbot offset on mobile to clear bottom nav */
+@media (max-width: 768px) {
+  iframe[title="chat widget"] {
+    bottom: 85px !important;
+  }
+}
