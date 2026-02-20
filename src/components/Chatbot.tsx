@@ -17,10 +17,12 @@ export default function Chatbot({ id }: { id?: string }) {
         (window as any).Tawk_API.customStyle = {
             visibility: {
                 desktop: {
+                    position: 'br',
                     xOffset: '20px',
                     yOffset: '20px'
                 },
                 mobile: {
+                    position: 'br',
                     xOffset: '10px',
                     yOffset: '85px' // Shifting up above bottom nav (increased to 85px to be safe)
                 }
