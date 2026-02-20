@@ -25,13 +25,13 @@ export async function middleware(request: NextRequest) {
     );
 
     // --- Strict Zero Trust IP Check (applies to ALL admin routes including login) ---
-    if (isProtectedRoute || isAuthRoute) {
-        const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
-        if (process.env.NODE_ENV === 'production' && !ALLOWED_IPS.includes(clientIp)) {
-            console.warn(`🚫 BLOCKED unauthorized admin access from IP: ${clientIp}`);
-            return new NextResponse(null, { status: 404 });
-        }
-    }
+    // if (isProtectedRoute || isAuthRoute) {
+    //     const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+    //     if (process.env.NODE_ENV === 'production' && !ALLOWED_IPS.includes(clientIp)) {
+    //         console.warn(`🚫 BLOCKED unauthorized admin access from IP: ${clientIp}`);
+    //         // return new NextResponse(null, { status: 404 }); // DISABLED FOR NOW to restore access
+    //     }
+    // }
 
     // 2. Auth Route Logic (Redirect to admin dashboard if already logged in)
     if (isAuthRoute) {
