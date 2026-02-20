@@ -101,7 +101,20 @@ import SmoothScroll from "@/components/SmoothScroll";
 import PwaPrompt from "@/components/PwaPrompt";
 import CookieConsent from "@/components/CookieConsent";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+import prisma from "@/lib/prisma";
+import Chatbot from "@/components/Chatbot";
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  let chatbotId = "";
+  try {
+    const config = await prisma.systemConfig.findUnique({
+      where: { key: 'API_CHATBOT_ID' }
+    });
+    chatbotId = config?.value || "";
+  } catch (e) {
+    console.warn("Chatbot config load failed", e);
+  }
+
   return (
     <html lang="ne" className="light" suppressHydrationWarning>
       <head>
@@ -150,6 +163,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ClientLayout>
             {children}
             <AnalyticsTracker />
+            <Chatbot id={chatbotId} />
             <PwaPrompt />
             <CookieConsent />
           </ClientLayout>

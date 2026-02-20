@@ -197,7 +197,8 @@ export default function AdminSettingsPage() {
                             { key: "API_WEATHER", label: "OpenWeatherMap Secret" },
                             { key: "API_NEPSE", label: "NEPSE Scraper Endpoint" },
                             { key: "API_GITHUB", label: "GitHub Access Token (repo, read:user)" },
-                            { key: "API_NOTIFICATION", label: "System Notification Gateway" }
+                            { key: "API_NOTIFICATION", label: "System Notification Gateway" },
+                            { key: "API_CHATBOT_ID", label: "Chatbot Widget ID (Tawk.to)" }
                         ].map((field) => (
                             <div key={field.key} className="space-y-2">
                                 <div className="flex justify-between items-center">
