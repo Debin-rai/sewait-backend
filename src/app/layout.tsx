@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
