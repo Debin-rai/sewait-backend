@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { Renderer, Camera, Vec2, Vec3, Polyline, Color, Transform, Mesh } from 'ogl';
+import { Renderer, Camera, Vec2, Vec3, Polyline, Color, Transform } from 'ogl';
 
 export default function FluidCursor() {
     const pathname = usePathname();
@@ -14,6 +14,67 @@ export default function FluidCursor() {
             return;
         }
 
+        const vertex = /* glsl */ `
+            precision highp float;
+
+            attribute vec3 position;
+            attribute vec3 next;
+            attribute vec3 prev;
+            attribute vec2 uv;
+            attribute float side;
+
+            uniform vec2 uResolution;
+            uniform float uDPR;
+            uniform float uThickness;
+
+            vec4 getPosition() {
+                vec4 current = vec4(position, 1);
+
+                vec2 aspect = vec2(uResolution.x / uResolution.y, 1);
+                vec2 nextScreen = next.xy * aspect;
+                vec2 prevScreen = prev.xy * aspect;
+
+                // Calculate the tangent direction
+                vec2 tangent = normalize(nextScreen - prevScreen);
+
+                // Rotate 90 degrees to get the normal
+                vec2 normal = vec2(-tangent.y, tangent.x);
+                normal /= aspect;
+
+                // Taper the line to be fatter in the middle, and skinny at the ends using the uv.y
+                // In our case, uv.x goes from 0 at the head to 1 at the tail.
+                // We want it to be thick at the head and taper at the tail.
+                normal *= mix(1.0, 0.1, pow(uv.x, 2.0));
+
+                // When the points are on top of each other, shrink the line to avoid artifacts.
+                float dist = length(nextScreen - prevScreen);
+                normal *= smoothstep(0.0, 0.02, dist);
+
+                float pixelWidthRatio = 1.0 / (uResolution.y / uDPR);
+                float pixelWidth = current.w * pixelWidthRatio;
+                normal *= pixelWidth * uThickness;
+                current.xy -= normal * side;
+
+                return current;
+            }
+
+            void main() {
+                gl_Position = getPosition();
+            }
+        `;
+
+        const fragment = /* glsl */ `
+            precision highp float;
+            uniform vec3 uColor1;
+            uniform vec3 uColor2;
+            varying vec2 vUv;
+            void main() {
+                // Gradient from uColor1 to uColor2 along the trail
+                vec3 color = mix(uColor1, uColor2, vUv.x);
+                gl_FragColor = vec4(color, (1.0 - vUv.x) * 0.9);
+            }
+        `;
+
         const renderer = new Renderer({ dpr: 2, alpha: true, antialias: true });
         const gl = renderer.gl;
         document.body.appendChild(gl.canvas);
@@ -22,7 +83,7 @@ export default function FluidCursor() {
         gl.canvas.style.top = '0';
         gl.canvas.style.left = '0';
         gl.canvas.style.pointerEvents = 'none';
-        gl.canvas.style.zIndex = '99999'; // Super high z-index
+        gl.canvas.style.zIndex = '99999';
 
         const camera = new Camera(gl);
         camera.position.z = 3;
@@ -30,95 +91,58 @@ export default function FluidCursor() {
         const scene = new Transform();
 
         const mouse = new Vec3();
-        const targetMouse = new Vec3();
         let initialized = false;
-
-        const resolution = { value: new Vec2() };
 
         function resize() {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-            resolution.value.set(gl.canvas.width, gl.canvas.height);
+            if (line.polyline) line.polyline.resize();
         }
         window.addEventListener('resize', resize, false);
-        resize();
 
-        // Detect if dark mode is active to choose vibrant colors
-        const color1 = new Color('#ef4444'); // Vibrant Red
-        const color2 = new Color('#3b82f6'); // Vibrant Blue
+        // Store values for the line's spring movement
+        const line: {
+            spring: number;
+            friction: number;
+            mouseVelocity: Vec3;
+            points: Vec3[];
+            polyline: any;
+        } = {
+            spring: 0.05,
+            friction: 0.8,
+            mouseVelocity: new Vec3(),
+            points: [],
+            polyline: null,
+        };
 
-        const count = 45; // More points for smoother trail
-        const points: Vec3[] = [];
-        for (let i = 0; i < count; i++) points.push(new Vec3(0, 0, 0));
+        const count = 40;
+        for (let i = 0; i < count; i++) line.points.push(new Vec3());
 
-        const polyline = new Polyline(gl, {
-            points,
-            vertex: `
-                attribute vec3 position;
-                attribute vec3 next;
-                attribute vec3 prev;
-                attribute vec2 uv;
-                attribute float side;
-
-                uniform vec2 uResolution;
-                uniform float uThickness;
-
-                varying vec2 vUv;
-
-                void main() {
-                    vUv = uv;
-                    vec2 aspect = vec2(uResolution.x / uResolution.y, 1.0);
-                    vec2 p = position.xy * aspect;
-                    vec2 n = next.xy * aspect;
-                    
-                    vec2 diff = n - p;
-                    float len = length(diff);
-                    
-                    vec2 dir;
-                    if (len < 0.0001) {
-                        dir = vec2(1.0, 0.0);
-                    } else {
-                        dir = diff / len;
-                    }
-
-                    vec2 normal = vec2(-dir.y, dir.x);
-                    
-                    normal /= aspect;
-                    normal *= uThickness * (1.0 - uv.x);
-                    
-                    gl_Position = vec4(position.xy + normal * side, 0.0, 1.0);
-                }
-            `,
-            fragment: `
-                precision highp float;
-                uniform vec3 uColor1;
-                uniform vec3 uColor2;
-                varying vec2 vUv;
-                void main() {
-                    vec3 color = mix(uColor1, uColor2, vUv.x);
-                    gl_FragColor = vec4(color, (1.0 - vUv.x) * 0.8);
-                }
-            `,
+        line.polyline = new Polyline(gl, {
+            points: line.points,
+            vertex,
+            fragment,
             uniforms: {
-                uColor1: { value: color1 },
-                uColor2: { value: color2 },
-                uThickness: { value: 0.025 },
-                uResolution: resolution,
+                uColor1: { value: new Color('#ef4444') }, // Vibrant Red
+                uColor2: { value: new Color('#3b82f6') }, // Vibrant Blue
+                uThickness: { value: 35 },
             },
         });
 
-        const mesh = new Mesh(gl, { geometry: polyline.geometry, program: polyline.program });
-        mesh.setParent(scene);
+        line.polyline.mesh.setParent(scene);
+
+        resize();
 
         const handleMouseMove = (e: MouseEvent) => {
-            targetMouse.set(
-                (e.clientX / window.innerWidth) * 2 - 1,
-                (e.clientY / window.innerHeight) * -2 + 1,
+            // Get mouse value in -1 to 1 range, with y flipped
+            mouse.set(
+                (e.clientX / gl.renderer.width) * 2 - 1,
+                (e.clientY / gl.renderer.height) * -2 + 1,
                 0
             );
 
             if (!initialized) {
-                points.forEach(p => p.copy(targetMouse));
+                line.points.forEach(p => p.copy(mouse));
                 initialized = true;
             }
         };
@@ -126,23 +150,28 @@ export default function FluidCursor() {
         window.addEventListener('mousemove', handleMouseMove, false);
 
         let request: number;
-        function update(t: number) {
+        const tmp = new Vec3();
+
+        function update() {
             request = requestAnimationFrame(update);
 
             if (!initialized) return;
 
-            // Smoothly move points with differentiated damping for 'flowing' effect
-            for (let i = points.length - 1; i >= 0; i--) {
+            // Update polyline input points with spring physics
+            for (let i = line.points.length - 1; i >= 0; i--) {
                 if (i === 0) {
-                    points[i].lerp(targetMouse, 0.15);
+                    // For the first point, spring ease it to the mouse position
+                    tmp.copy(mouse).sub(line.points[i]).multiply(line.spring);
+                    line.mouseVelocity.add(tmp).multiply(line.friction);
+                    line.points[i].add(line.mouseVelocity);
                 } else {
-                    // Gradual follow-the-leader effect
-                    points[i].lerp(points[i - 1], 0.25);
+                    // The rest of the points ease to the point in front of them
+                    line.points[i].lerp(line.points[i - 1], 0.85);
                 }
             }
 
-            polyline.updateGeometry();
-            renderer.render({ scene, camera });
+            line.polyline.updateGeometry();
+            renderer.render({ scene });
         }
         request = requestAnimationFrame(update);
 
