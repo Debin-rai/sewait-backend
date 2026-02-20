@@ -2,12 +2,15 @@
 
 import { useState, useEffect, useRef } from "react";
 import FadeIn from "@/components/animations/FadeIn";
+import StreamingText from "@/components/animations/StreamingText";
 import Link from "next/link";
+import { Menu, X, Plus, History, ArrowLeft, Send, Mic, Paperclip, Share2, Bot, User } from "lucide-react";
 
 interface Message {
     role: "user" | "assistant";
     content: string;
     timestamp: Date;
+    isNew?: boolean; // For streaming animation
 }
 
 export default function SewaAIClient() {
@@ -16,6 +19,7 @@ export default function SewaAIClient() {
     const [isLoading, setIsLoading] = useState(false);
     const [sessionId, setSessionId] = useState<string | null>(null);
     const [chatHistory, setChatHistory] = useState<{ id: string, title: string, createdAt: string }[]>([]);
+    const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const fetchHistory = async () => {
@@ -33,13 +37,14 @@ export default function SewaAIClient() {
         const savedMessages = localStorage.getItem("sewa_ai_messages");
         if (savedMessages) {
             const parsed = JSON.parse(savedMessages);
-            setMessages(parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp) })));
+            setMessages(parsed.map((m: any) => ({ ...m, timestamp: new Date(m.timestamp), isNew: false })));
         } else {
             setMessages([
                 {
                     role: "assistant",
                     content: "Namaste! I'm Sewa AI, your personal guide to everything Nepali. I can help you with gold rates, public service guides, weather updates, or even explain complex government procedures.\n\nHow can I assist you today?",
                     timestamp: new Date(),
+                    isNew: true
                 },
             ]);
         }
@@ -50,10 +55,14 @@ export default function SewaAIClient() {
     // Scroll to bottom when messages change
     useEffect(() => {
         if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+            const scrollContainer = scrollRef.current;
+            scrollContainer.scrollTo({
+                top: scrollContainer.scrollHeight,
+                behavior: messages.length <= 1 ? "auto" : "smooth"
+            });
         }
         if (messages.length > 0) {
-            localStorage.setItem("sewa_ai_messages", JSON.stringify(messages));
+            localStorage.setItem("sewa_ai_messages", JSON.stringify(messages.map(m => ({ ...m, isNew: false }))));
         }
     }, [messages]);
 
@@ -88,7 +97,6 @@ export default function SewaAIClient() {
 
             if (data.sessionId && !sessionId) {
                 setSessionId(data.sessionId);
-                // Re-fetch history to show the new session in the sidebar
                 fetchHistory();
             }
 
@@ -96,6 +104,7 @@ export default function SewaAIClient() {
                 role: "assistant",
                 content: data.message.content,
                 timestamp: new Date(),
+                isNew: true
             };
 
             setMessages((prev) => [...prev, aiMessage]);
@@ -106,6 +115,7 @@ export default function SewaAIClient() {
                     role: "assistant",
                     content: `Sorry, I encountered an error: ${error.message}. Please make sure the AI API key is configured in Admin Settings.`,
                     timestamp: new Date(),
+                    isNew: true
                 },
             ]);
         } finally {
@@ -115,16 +125,16 @@ export default function SewaAIClient() {
 
     const handleHistoryClick = async (session: any) => {
         setIsLoading(true);
+        setIsHistoryOpen(false);
         try {
-            // In a real app, you'd have an API to get full transcript for a session
-            // For now, we'll try to fetch messages for this session
             const res = await fetch(`/api/sewait-portal-99/chat/${session.id}`);
             const data = await res.json();
             if (data.messages) {
                 setMessages(data.messages.map((m: any) => ({
                     role: m.role,
                     content: m.content,
-                    timestamp: new Date(m.createdAt)
+                    timestamp: new Date(m.createdAt),
+                    isNew: false
                 })));
                 setSessionId(session.id);
             }
@@ -140,54 +150,57 @@ export default function SewaAIClient() {
             role: "assistant",
             content: "Namaste! I'm Sewa AI, your personal guide to everything Nepali. I can help you with gold rates, public service guides, weather updates, or even explain complex government procedures.\n\nHow can I assist you today?",
             timestamp: new Date(),
+            isNew: true
         };
         setMessages([initialMessage]);
         setSessionId(null);
         localStorage.removeItem("sewa_ai_messages");
+        setIsHistoryOpen(false);
     };
 
     const quickActions = [
-        { label: "Check Gold Rates", icon: "payments" },
-        { label: "Today's Tithi", icon: "calendar_month" },
-        { label: "Passport Guide", icon: "description" },
-        { label: "Weather Update", icon: "partly_cloudy_day" },
+        { label: "Check Gold Rates", icon: <History className="size-4" /> },
+        { label: "Today's Tithi", icon: <Bot className="size-4" /> },
+        { label: "Passport Guide", icon: <Plus className="size-4" /> },
+        { label: "Weather Update", icon: <Send className="size-4" /> },
     ];
 
     return (
-        <div className="flex flex-col lg:flex-row h-screen bg-slate-50 overflow-hidden fixed inset-0 z-[100]">
-            {/* Sidebar - Desktop Only */}
-            <aside className="hidden lg:flex flex-col w-80 bg-white border-r border-slate-200 p-6">
+        <div className="flex flex-col lg:flex-row h-screen bg-white dark:bg-slate-950 overflow-hidden fixed inset-0 z-[100]">
+            {/* Desktop Sidebar */}
+            <aside className="hidden lg:flex flex-col w-80 bg-slate-50 dark:bg-slate-900/50 border-r border-slate-200 dark:border-slate-800 p-6">
                 <Link
                     href="/"
-                    className="flex items-center gap-3 p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-all text-left mb-2"
+                    className="flex items-center gap-3 p-3 rounded-2xl text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-all text-left mb-6 font-bold"
                 >
-                    <span className="material-symbols-outlined">arrow_back</span>
+                    <ArrowLeft className="size-5" />
                     Back to Home
                 </Link>
 
                 <button
                     onClick={clearChat}
-                    className="w-full bg-primary text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-8 hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 active:scale-95"
+                    className="w-full bg-primary hover:bg-primary-dark text-white font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-3 mb-8 transition-all shadow-xl shadow-primary/20 active:scale-95"
                 >
-                    <span className="material-symbols-outlined">add</span>
-                    New Chat
+                    <Plus className="size-5" strokeWidth={3} />
+                    NEW CHAT
                 </button>
 
-                <div className="flex-1 overflow-y-auto space-y-6">
+                <div className="flex-1 overflow-y-auto space-y-8 no-scrollbar">
                     <div>
-                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Recent</h3>
+                        <h3 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] mb-4 px-2">Recent Sessions</h3>
                         <div className="space-y-1">
                             {chatHistory.map((item) => (
                                 <button
                                     key={item.id}
                                     onClick={() => handleHistoryClick(item)}
-                                    className={`w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 text-slate-600 hover:text-primary transition-all text-left group ${sessionId === item.id ? 'bg-slate-50 border-l-4 border-primary' : ''}`}
+                                    className={`w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all text-left group ${sessionId === item.id ? 'bg-white dark:bg-slate-800 shadow-sm ring-1 ring-primary/10' : ''}`}
                                 >
-                                    <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">history</span>
+                                    <div className={`p-2 rounded-xl transition-colors ${sessionId === item.id ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-slate-700 text-slate-400 group-hover:bg-primary/5 group-hover:text-primary'}`}>
+                                        <History className="size-4" />
+                                    </div>
                                     <div className="flex flex-col min-w-0">
-                                        <span className="text-[9px] font-black text-slate-400 tracking-tighter">USER #{item.id.substring(item.id.length - 8).toUpperCase()}</span>
-                                        <span className="text-xs font-bold truncate text-slate-700">{item.title}</span>
-                                        <span className="text-[8px] text-slate-400">{new Date(item.createdAt).toLocaleDateString()}</span>
+                                        <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 tracking-tighter uppercase mb-0.5">#{item.id.substring(item.id.length - 8).toUpperCase()}</span>
+                                        <span className="text-xs font-bold truncate pr-2">{item.title}</span>
                                     </div>
                                 </button>
                             ))}
@@ -195,66 +208,118 @@ export default function SewaAIClient() {
                     </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100">
-                    <button className="w-full flex items-center gap-3 p-3 rounded-xl text-slate-500 hover:bg-slate-50 transition-all text-left">
-                        <span className="material-symbols-outlined text-slate-400">help</span>
-                        <span className="text-xs font-bold">Help & Feedback</span>
+                <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
+                    <button className="w-full flex items-center gap-3 p-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-white dark:hover:bg-slate-800 transition-all text-left">
+                        <Bot className="size-5" />
+                        <span className="text-xs font-bold tracking-tight">Debin C. Rai • Sewa AI v2.0</span>
                     </button>
                 </div>
             </aside>
 
+            {/* Mobile History Drawer Overlay */}
+            {isHistoryOpen && (
+                <div className="lg:hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[110] animate-in fade-in duration-300" onClick={() => setIsHistoryOpen(false)}>
+                    <div
+                        className="absolute left-0 top-0 bottom-0 w-[85%] max-w-[320px] bg-white dark:bg-slate-900 p-6 shadow-2xl animate-in slide-in-from-left duration-500 ease-out"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <div className="flex items-center justify-between mb-8">
+                            <h2 className="text-xl font-black text-slate-800 dark:text-white tracking-tighter">History</h2>
+                            <button onClick={() => setIsHistoryOpen(false)} className="p-2 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-400">
+                                <X size={20} />
+                            </button>
+                        </div>
+
+                        <button
+                            onClick={clearChat}
+                            className="w-full bg-primary text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 mb-8 shadow-lg shadow-primary/20"
+                        >
+                            <Plus size={20} strokeWidth={3} />
+                            NEW CHAT
+                        </button>
+
+                        <div className="space-y-4 overflow-y-auto max-h-[calc(100vh-250px)] no-scrollbar">
+                            {chatHistory.map((item) => (
+                                <button
+                                    key={item.id}
+                                    onClick={() => handleHistoryClick(item)}
+                                    className={`w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-800 border ${sessionId === item.id ? 'border-primary bg-primary/5' : 'border-slate-100 dark:border-slate-800'}`}
+                                >
+                                    <History className="size-5 text-slate-400" />
+                                    <div className="flex flex-col min-w-0">
+                                        <span className="text-[10px] font-black text-slate-400 uppercase">#{item.id.substring(item.id.length - 8).toUpperCase()}</span>
+                                        <span className="text-sm font-bold truncate text-slate-700 dark:text-slate-200">{item.title}</span>
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="absolute bottom-10 left-6 right-6">
+                            <Link href="/" className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold">
+                                <ArrowLeft size={18} />
+                                Back to Home
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Main Chat Area */}
             <main className="flex-1 flex flex-col relative h-full">
                 {/* Chat Header */}
-                <header className="bg-white border-b border-slate-200 p-4 flex items-center justify-between z-10">
-                    <div className="flex items-center gap-3">
-                        <Link href="/" className="lg:hidden p-2 -ml-2 text-slate-400 hover:text-primary transition-colors">
-                            <span className="material-symbols-outlined">arrow_back</span>
-                        </Link>
-                        <div className="size-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                            <span className="material-symbols-outlined text-primary">smart_toy</span>
-                        </div>
-                        <div>
-                            <h2 className="text-sm font-black text-slate-800">Sewa AI</h2>
-                            <div className="flex items-center gap-1.5">
-                                <div className="size-1.5 bg-green-500 rounded-full animate-pulse" />
-                                <span className="text-[10px] font-bold text-slate-400">Your Nepali Assistant</span>
+                <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 h-20 flex items-center justify-between z-10 shrink-0">
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => setIsHistoryOpen(true)} className="lg:hidden p-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-500 hover:text-primary transition-all">
+                            <Menu size={22} strokeWidth={2.5} />
+                        </button>
+                        <div className="flex items-center gap-3">
+                            <div className="size-11 bg-primary/10 rounded-2xl flex items-center justify-center overflow-hidden border border-primary/10">
+                                <Bot className="text-primary size-6 animate-pulse" />
+                            </div>
+                            <div>
+                                <h2 className="text-base font-black text-slate-900 dark:text-white tracking-tight -mb-1 text-left">Sewa AI</h2>
+                                <div className="flex items-center gap-1.5">
+                                    <div className="size-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active • v2.0</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all">
-                            <span className="material-symbols-outlined text-xl">share</span>
+                        <button className="hidden sm:flex size-10 items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-primary transition-all">
+                            <Share2 size={18} />
                         </button>
-                        <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-all lg:hidden" onClick={clearChat}>
-                            <span className="material-symbols-outlined text-xl">add</span>
+                        <button className="hidden sm:flex size-10 items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-primary transition-all" onClick={clearChat}>
+                            <Plus size={20} strokeWidth={3} />
                         </button>
                     </div>
                 </header>
 
-                {/* Messages */}
+                {/* Messages Container */}
                 <div
                     ref={scrollRef}
-                    className="flex-1 overflow-y-auto p-4 md:p-8 space-y-6 scroll-smooth pb-48"
+                    className="flex-1 overflow-y-auto px-4 pt-8 md:px-10 space-y-8 scroll-smooth pb-52 touch-pan-y"
                 >
                     {messages.map((m, i) => (
                         <FadeIn key={i} delay={0} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                            <div className={`flex gap-3 max-w-[85%] md:max-w-[70%] ${m.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
-                                <div className={`size-8 md:size-10 rounded-xl flex items-center justify-center flex-shrink-0 ${m.role === "user" ? "bg-primary text-white" : "bg-white border border-slate-200 text-primary"
+                            <div className={`flex gap-4 max-w-[92%] md:max-w-[80%] ${m.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                                <div className={`size-10 md:size-12 rounded-[1.2rem] flex items-center justify-center flex-shrink-0 shadow-lg ${m.role === "user" ? "bg-primary text-white shadow-primary/20" : "bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-primary shadow-slate-200/50 dark:shadow-none"
                                     }`}>
-                                    <span className="material-symbols-outlined text-lg md:text-xl">
-                                        {m.role === "user" ? "person" : "smart_toy"}
-                                    </span>
+                                    {m.role === "user" ? <User size={20} strokeWidth={2.5} /> : <Bot size={20} strokeWidth={2.5} />}
                                 </div>
-                                <div>
-                                    <div className={`p-4 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap ${m.role === "user"
-                                        ? "bg-primary text-white font-medium rounded-tr-none shadow-lg shadow-primary/20"
-                                        : "bg-white border border-slate-100 text-slate-700 font-medium rounded-tl-none shadow-sm"
+                                <div className="flex flex-col">
+                                    <div className={`p-5 rounded-[1.8rem] text-[15px] leading-relaxed relative ${m.role === "user"
+                                        ? "bg-primary text-white font-bold rounded-tr-none shadow-xl shadow-primary/20"
+                                        : "bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-100 font-bold rounded-tl-none border border-slate-100/50 dark:border-slate-700/50"
                                         }`}>
-                                        {m.content}
+                                        {m.role === "assistant" && m.isNew ? (
+                                            <StreamingText text={m.content} speed={10} />
+                                        ) : (
+                                            m.content
+                                        )}
                                     </div>
-                                    <span className="text-[9px] font-bold text-slate-400 mt-1.5 block uppercase tracking-tighter">
-                                        {m.role === "user" ? "You" : "Sewa AI"} • {m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    <span className={`text-[9px] font-black mt-2 uppercase tracking-widest ${m.role === "user" ? "text-right mr-2 text-primary" : "text-left ml-2 text-slate-400"}`}>
+                                        {m.role === "user" ? "YOU" : "SEWA AI"} • {m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </span>
                                 </div>
                             </div>
@@ -262,70 +327,77 @@ export default function SewaAIClient() {
                     ))}
                     {isLoading && (
                         <div className="flex justify-start">
-                            <div className="flex gap-3">
-                                <div className="size-8 md:size-10 rounded-xl bg-white border border-slate-200 text-primary flex items-center justify-center">
-                                    <span className="material-symbols-outlined animate-bounce">smart_toy</span>
+                            <div className="flex gap-4">
+                                <div className="size-10 md:size-12 rounded-[1.2rem] bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-primary flex items-center justify-center shadow-lg shadow-slate-200/50">
+                                    <Bot className="animate-bounce size-5" />
                                 </div>
-                                <div className="bg-white border border-slate-100 p-4 rounded-2xl shadow-sm flex gap-1 items-center">
-                                    <div className="w-1 h-1 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
-                                    <div className="w-1 h-1 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
-                                    <div className="w-1 h-1 bg-primary/40 rounded-full animate-bounce" />
+                                <div className="bg-slate-50 dark:bg-slate-800 p-5 rounded-2xl flex gap-1.5 items-center">
+                                    <div className="size-1.5 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                                    <div className="size-1.5 bg-primary/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                                    <div className="size-1.5 bg-primary/40 rounded-full animate-bounce" />
                                 </div>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* Input area */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 pt-10 bg-gradient-to-t from-slate-50 via-slate-50 via-70% to-transparent z-10">
-                    <div className="max-w-4xl mx-auto space-y-4">
+                {/* Sticky Input Bar */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 pb-8 md:p-8 md:pb-12 bg-gradient-to-t from-white dark:from-slate-950 via-white/95 dark:via-slate-950/95 via-40% to-transparent z-10">
+                    <div className="max-w-4xl mx-auto space-y-6">
                         {/* Quick Actions - Only show if conversation hasn't really started */}
                         {messages.length <= 1 && (
-                            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none animate-in fade-in slide-in-from-bottom-2">
+                            <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-1">
                                 {quickActions.map((action, i) => (
                                     <button
                                         key={i}
                                         onClick={() => handleSend(action.label)}
-                                        className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-200 rounded-full text-[10px] font-black text-slate-600 hover:border-primary hover:text-primary transition-all whitespace-nowrap shadow-sm active:scale-95"
+                                        className="flex items-center gap-2.5 px-5 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-[11px] font-black text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary dark:hover:text-primary transition-all whitespace-nowrap shadow-sm active:scale-95"
                                     >
-                                        <span className="material-symbols-outlined text-sm">{action.icon}</span>
-                                        {action.label}
+                                        <div className="text-primary">{action.icon}</div>
+                                        {action.label.toUpperCase()}
                                     </button>
                                 ))}
                             </div>
                         )}
 
-                        {/* Input Bar */}
-                        <div className="relative flex items-center gap-2">
-                            <div className="flex-1 relative group">
-                                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">attachment</span>
-                                <input
-                                    type="text"
+                        {/* Refined Input Bar */}
+                        <div className="flex items-end gap-3 glass-morphism-dark">
+                            <div className="flex-1 group relative flex items-center">
+                                <div className="absolute left-4 size-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-400 group-focus-within:text-primary transition-colors cursor-pointer hover:bg-slate-200">
+                                    <Paperclip size={18} />
+                                </div>
+                                <textarea
+                                    rows={1}
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                    placeholder="Ask Sewa AI anything about Nepal..."
-                                    className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-12 py-4 text-sm font-medium focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all shadow-sm"
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" && !e.shiftKey) {
+                                            e.preventDefault();
+                                            handleSend();
+                                        }
+                                    }}
+                                    placeholder="Type your message..."
+                                    className="w-full bg-slate-50/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-[2rem] pl-16 pr-14 py-4 text-[15px] font-bold focus:ring-4 focus:ring-primary/5 focus:border-primary/50 outline-none transition-all resize-none shadow-sm dark:text-white"
                                 />
-                                <button className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors group">
-                                    <span className="material-symbols-outlined">mic</span>
+                                <button className="absolute right-4 text-slate-400 hover:text-primary transition-colors">
+                                    <Mic size={22} />
                                 </button>
                             </div>
                             <button
                                 onClick={() => handleSend()}
                                 disabled={!input.trim() || isLoading}
-                                className="size-14 bg-primary text-white rounded-2xl flex items-center justify-center hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 disabled:opacity-50 disabled:shadow-none active:scale-90"
+                                className="size-14 bg-primary text-white rounded-[1.6rem] flex items-center justify-center hover:bg-primary-dark transition-all shadow-xl shadow-primary/30 disabled:opacity-40 disabled:shadow-none active:scale-90"
                             >
-                                <span className="material-symbols-outlined">send</span>
+                                <Send size={24} strokeWidth={2.5} />
                             </button>
                         </div>
 
-                        <p className="text-[9px] text-center font-bold text-slate-400 uppercase tracking-tighter">
-                            Sewa AI can make mistakes. Check important info.
+                        <p className="text-[10px] text-center font-black text-slate-400 dark:text-slate-600 uppercase tracking-widest">
+                            Sewa AI can make mistakes • Created by <span className="text-slate-600 dark:text-slate-400">Debin C. Rai</span>
                         </p>
                     </div>
                 </div>
             </main>
-        </div >
+        </div>
     );
 }

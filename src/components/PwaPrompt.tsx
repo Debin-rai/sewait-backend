@@ -1,32 +1,45 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Download } from "lucide-react";
+import { Download, Share, PlusSquare, X } from "lucide-react";
 
 export default function PwaPrompt() {
     const [show, setShow] = useState(false);
+    const [isIOS, setIsIOS] = useState(false);
     const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
     useEffect(() => {
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (!isMobile) return;
+        const ua = navigator.userAgent;
+        const ios = /iPhone|iPad|iPod/i.test(ua);
+        const android = /Android/i.test(ua);
+
+        setIsIOS(ios);
+
+        if (!ios && !android) return;
 
         // Check if already installed
         const isStandalone = window.matchMedia("(display-mode: standalone)").matches
             || (window.navigator as any).standalone === true;
+
         if (isStandalone) return;
 
         const handleBeforeInstallPrompt = (e: any) => {
             e.preventDefault();
             setDeferredPrompt(e);
 
-            // Show the custom prompt only when the browser event fires
             const isDismissed = localStorage.getItem("pwa_prompt_dismissed");
             if (!isDismissed) {
-                // Small delay so it doesn't overlap cookie consent or theme picker
-                setTimeout(() => setShow(true), 3000);
+                setTimeout(() => setShow(true), 4000);
             }
         };
+
+        // For iOS, we show it manually since beforeinstallprompt isn't supported
+        if (ios) {
+            const isDismissed = localStorage.getItem("pwa_prompt_dismissed");
+            if (!isDismissed) {
+                setTimeout(() => setShow(true), 5000);
+            }
+        }
 
         window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
@@ -48,47 +61,74 @@ export default function PwaPrompt() {
 
     const handleDismiss = () => {
         setShow(false);
-        // Don't set permanent dismissal so it appears again next session
-        // But avoid re-showing in the same page load
+        // Set temporary dismissal for the session
         localStorage.setItem("pwa_prompt_dismissed", "true");
     };
 
-    if (!show || !deferredPrompt) return null;
+    if (!show) return null;
 
     return (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-[100] animate-in fade-in slide-in-from-bottom-5 duration-700">
-            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-2xl border border-white/20 dark:border-slate-800 rounded-[2rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] p-5 flex items-center gap-5 relative overflow-hidden group">
-                <div className="absolute top-0 left-0 w-1.5 h-full bg-primary shadow-[0_0_20px_rgba(var(--primary),0.5)]"></div>
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[94%] max-w-md z-[100] animate-in fade-in slide-in-from-bottom-10 duration-1000">
+            <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-3xl border border-white/20 dark:border-slate-800 rounded-[2.5rem] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] p-6 relative overflow-hidden group">
+                <button
+                    onClick={handleDismiss}
+                    className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                >
+                    <X size={18} />
+                </button>
 
-                <div className="size-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-500">
-                    <img
-                        src="/web-app-manifest-192x192.png"
-                        alt="App Icon"
-                        className="size-8 object-contain drop-shadow-lg"
-                    />
+                <div className="flex items-center gap-5 mb-6">
+                    <div className="size-16 rounded-[1.5rem] bg-gradient-to-br from-primary to-primary-dark p-0.5 shadow-xl shadow-primary/20">
+                        <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[1.4rem] flex items-center justify-center overflow-hidden">
+                            <img
+                                src="/web-app-manifest-192x192.png"
+                                alt="App Icon"
+                                className="size-10 object-contain"
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className="font-black text-lg text-slate-900 dark:text-white leading-tight tracking-tight">SewaIT Official App</h3>
+                        <p className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest">Experience Nepal in your pocket</p>
+                    </div>
                 </div>
 
-                <div className="flex-1 min-w-0">
-                    <h3 className="font-black text-sm text-slate-900 dark:text-white mb-1 tracking-tight">SewaIT Web App</h3>
-                    <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold leading-tight uppercase tracking-wider">
-                        Install through <span className="text-primary">Chrome</span> for the best experience.
-                    </p>
-                </div>
+                {!isIOS ? (
+                    <div className="space-y-4">
+                        <p className="text-xs font-medium text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Install the SewaIT web app for faster access and an immersive full-screen experience.
+                        </p>
+                        <button
+                            onClick={handleInstall}
+                            disabled={!deferredPrompt}
+                            className="w-full bg-primary hover:bg-primary-dark text-white font-black py-4 rounded-2xl transition-all active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-primary/30 disabled:opacity-50"
+                        >
+                            <Download size={18} strokeWidth={3} />
+                            INSTALL APP
+                        </button>
+                    </div>
+                ) : (
+                    <div className="space-y-4">
+                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-2 text-center">How to Install on iOS</p>
+                        <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 space-y-3">
+                            <div className="flex items-center gap-3">
+                                <div className="size-8 rounded-lg bg-white dark:bg-slate-700 shadow-sm flex items-center justify-center text-primary">
+                                    <Share size={16} />
+                                </div>
+                                <p className="text-xs font-bold text-slate-700 dark:text-slate-200">1. Tap the <span className="text-primary italic">Share</span> button below</p>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <div className="size-8 rounded-lg bg-white dark:bg-slate-700 shadow-sm flex items-center justify-center text-primary">
+                                    <PlusSquare size={16} />
+                                </div>
+                                <p className="text-xs font-bold text-slate-700 dark:text-slate-200">2. Select <span className="text-primary italic">"Add to Home Screen"</span></p>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-                <div className="flex flex-col gap-2 shrink-0">
-                    <button
-                        onClick={handleInstall}
-                        className="bg-primary hover:bg-primary-light text-white text-[10px] font-black px-4 py-2.5 rounded-xl transition-all active:scale-90 uppercase tracking-[0.2em] flex items-center gap-2 shadow-lg shadow-primary/30"
-                    >
-                        <Download size={14} strokeWidth={3} />
-                        Install
-                    </button>
-                    <button
-                        onClick={handleDismiss}
-                        className="text-[9px] font-black text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-center uppercase tracking-widest transition-colors"
-                    >
-                        Dismiss
-                    </button>
+                <div className="mt-4 flex justify-center">
+                    <div className="h-1 w-12 bg-slate-200 dark:bg-slate-700 rounded-full" />
                 </div>
             </div>
         </div>
