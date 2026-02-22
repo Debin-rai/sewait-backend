@@ -10,17 +10,6 @@ export default function FluidCursor() {
     const { showCursor } = useHeroTheme();
 
     useEffect(() => {
-        // Extensive bot/crawler detection to save resources and avoid WebGL stalls in Search Console
-        const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse|headless|chrome-lighthouse/i.test(navigator.userAgent) ||
-            navigator.webdriver ||
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // Exclude admin routes, bots, or if cursor is disabled
-        const isAdmin = pathname?.startsWith('/sewait-portal-99');
-        if (isAdmin || !showCursor || isBot) {
-            return;
-        }
-
         const vertex = /* glsl */ `
             precision highp float;
 
@@ -85,119 +74,113 @@ export default function FluidCursor() {
             }
         `;
 
-        const renderer = new Renderer({
-            dpr: window.devicePixelRatio > 1 ? 2 : 1,
-            alpha: true,
-            antialias: false, // Disabling antialias for performance, less likely to stall
-            powerPreference: 'low-power' // Prefer battery life/low heat
-        });
-        const gl = renderer.gl;
-        document.body.appendChild(gl.canvas);
-
-        gl.canvas.style.position = 'fixed';
-        gl.canvas.style.top = '0';
-        gl.canvas.style.left = '0';
-        gl.canvas.style.pointerEvents = 'none';
-        gl.canvas.style.zIndex = '99999';
-
-        const camera = new Camera(gl);
-        camera.position.z = 3;
-
-        const scene = new Transform();
-
-        const mouse = new Vec3();
+        let renderer: Renderer;
+        let gl: any;
+        let scene: Transform;
+        let camera: Camera;
+        let line: any;
+        let request: number;
         let initialized = false;
-
-        function resize() {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-            if (line.polyline) line.polyline.resize();
-        }
-        window.addEventListener('resize', resize, false);
-
-        // Store values for the line's spring movement
-        const line: {
-            spring: number;
-            friction: number;
-            mouseVelocity: Vec3;
-            points: Vec3[];
-            polyline: any;
-        } = {
-            spring: 0.05,
-            friction: 0.8,
-            mouseVelocity: new Vec3(),
-            points: [],
-            polyline: null,
-        };
-
-        const count = 40;
-        for (let i = 0; i < count; i++) line.points.push(new Vec3());
-
-        line.polyline = new Polyline(gl, {
-            points: line.points,
-            vertex,
-            fragment,
-            uniforms: {
-                uColor1: { value: new Color('#ef4444') }, // Vibrant Red
-                uColor2: { value: new Color('#3b82f6') }, // Vibrant Blue
-                uThickness: { value: 35 },
-            },
-        });
-
-        line.polyline.mesh.setParent(scene);
-
-        resize();
+        const mouse = new Vec3();
 
         const handleMouseMove = (e: MouseEvent) => {
-            // Get mouse value in -1 to 1 range, with y flipped
-            mouse.set(
-                (e.clientX / gl.renderer.width) * 2 - 1,
-                (e.clientY / gl.renderer.height) * -2 + 1,
-                0
-            );
-
             if (!initialized) {
-                line.points.forEach(p => p.copy(mouse));
+                // Extensive bot/crawler detection to save resources and avoid WebGL stalls
+                const isBot = /bot|googlebot|crawler|spider|robot|crawling|lighthouse|headless|chrome-lighthouse/i.test(navigator.userAgent) ||
+                    navigator.webdriver ||
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                if (isBot) return;
+
+                // Initialize OGL only on first interaction
+                renderer = new Renderer({
+                    dpr: window.devicePixelRatio > 1 ? 2 : 1,
+                    alpha: true,
+                    antialias: false,
+                    powerPreference: 'low-power'
+                });
+                gl = renderer.gl;
+                document.body.appendChild(gl.canvas);
+
+                gl.canvas.style.position = 'fixed';
+                gl.canvas.style.top = '0';
+                gl.canvas.style.left = '0';
+                gl.canvas.style.pointerEvents = 'none';
+                gl.canvas.style.zIndex = '99999';
+
+                camera = new Camera(gl);
+                camera.position.z = 3;
+
+                scene = new Transform();
+
+                const Points: Vec3[] = [];
+                const count = 40;
+                for (let i = 0; i < count; i++) Points.push(new Vec3());
+
+                line = {
+                    spring: 0.05,
+                    friction: 0.8,
+                    mouseVelocity: new Vec3(),
+                    points: Points,
+                    polyline: new Polyline(gl, {
+                        points: Points,
+                        vertex,
+                        fragment,
+                        uniforms: {
+                            uColor1: { value: new Color('#ef4444') },
+                            uColor2: { value: new Color('#3b82f6') },
+                            uThickness: { value: 35 },
+                        },
+                    })
+                };
+
+                line.polyline.mesh.setParent(scene);
+
+                const resize = () => {
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                    camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+                    if (line.polyline) line.polyline.resize();
+                };
+                window.addEventListener('resize', resize, false);
+
+                resize();
+
+                const update = () => {
+                    request = requestAnimationFrame(update);
+                    const tmp = new Vec3();
+                    for (let i = line.points.length - 1; i >= 0; i--) {
+                        if (i === 0) {
+                            tmp.copy(mouse).sub(line.points[i]).multiply(line.spring);
+                            line.mouseVelocity.add(tmp).multiply(line.friction);
+                            line.points[i].add(line.mouseVelocity);
+                        } else {
+                            line.points[i].lerp(line.points[i - 1], 0.85);
+                        }
+                    }
+                    line.polyline.updateGeometry();
+                    renderer.render({ scene });
+                };
+                request = requestAnimationFrame(update);
+
                 initialized = true;
+            }
+
+            // Update mouse position
+            if (gl && gl.renderer) {
+                mouse.set(
+                    (e.clientX / gl.renderer.width) * 2 - 1,
+                    (e.clientY / gl.renderer.height) * -2 + 1,
+                    0
+                );
             }
         };
 
         window.addEventListener('mousemove', handleMouseMove, false);
 
-        let request: number;
-        const tmp = new Vec3();
-
-        function update() {
-            if (!initialized) {
-                request = requestAnimationFrame(update);
-                return;
-            }
-
-            request = requestAnimationFrame(update);
-
-            // Update polyline input points with spring physics
-            for (let i = line.points.length - 1; i >= 0; i--) {
-                if (i === 0) {
-                    // For the first point, spring ease it to the mouse position
-                    tmp.copy(mouse).sub(line.points[i]).multiply(line.spring);
-                    line.mouseVelocity.add(tmp).multiply(line.friction);
-                    line.points[i].add(line.mouseVelocity);
-                } else {
-                    // The rest of the points ease to the point in front of them
-                    line.points[i].lerp(line.points[i - 1], 0.85);
-                }
-            }
-
-            line.polyline.updateGeometry();
-            renderer.render({ scene });
-        }
-        request = requestAnimationFrame(update);
-
         return () => {
-            window.removeEventListener('resize', resize);
             window.removeEventListener('mousemove', handleMouseMove);
-            cancelAnimationFrame(request);
-            if (gl.canvas.parentElement) {
+            if (request) cancelAnimationFrame(request);
+            if (gl && gl.canvas && gl.canvas.parentElement) {
                 gl.canvas.parentElement.removeChild(gl.canvas);
             }
         };
