@@ -121,7 +121,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               "@type": "WebSite",
               "name": "SewaIT",
               "alternateName": ["Sewa IT"],
-              "url": "https://sewait.up.railway.app"
+              "url": "https://sewait.up.railway.app",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://sewait.up.railway.app/guides?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
             })
           }}
         />
@@ -140,8 +145,29 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 "name": "Debin C. Rai",
                 "jobTitle": "SewaIT Founder & Developer",
                 "url": "https://sewait.up.railway.app",
-                "sameAs": []
-              }
+                "sameAs": [
+                  "https://github.com/Debin-rai",
+                  "https://twitter.com/SewaIT",
+                  "https://facebook.com/SewaIT"
+                ]
+              },
+              "hasPart": [
+                {
+                  "@type": "Service",
+                  "name": "Sewa AI",
+                  "url": "https://sewait.up.railway.app/sewa-ai"
+                },
+                {
+                  "@type": "Service",
+                  "name": "Nepali Calendar",
+                  "url": "https://sewait.up.railway.app/calendar"
+                },
+                {
+                  "@type": "Service",
+                  "name": "Gold & Silver Daily",
+                  "url": "https://sewait.up.railway.app/gold-silver"
+                }
+              ]
             })
           }}
         />
@@ -154,6 +180,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               "name": "Debin C. Rai",
               "url": "https://sewait.up.railway.app",
               "jobTitle": "SewaIT Founder",
+              "sameAs": [
+                "https://github.com/Debin-rai",
+                "https://twitter.com/SewaIT",
+                "https://facebook.com/SewaIT"
+              ],
               "worksFor": {
                 "@type": "Organization",
                 "name": "SewaIT"

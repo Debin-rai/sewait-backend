@@ -8,24 +8,43 @@ export const metadata: Metadata = {
 };
 
 export default function CalendarPage() {
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'Event',
-        'name': 'Today in Nepali Calendar',
-        'startDate': new Date().toISOString().split('T')[0],
-        'eventStatus': 'https://schema.org/EventScheduled',
-        'eventAttendanceMode': 'https://schema.org/OnlineEventAttendanceMode',
-        'location': {
-            '@type': 'VirtualLocation',
-            'url': 'https://sewait.up.railway.app/calendar'
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            'name': 'Nepali Calendar 2081',
+            'operatingSystem': 'Any',
+            'applicationCategory': 'UtilityApplication',
+            'description': 'Live Nepali Calendar with Tithi, festivals, and today\'s date in BS.',
+            'creator': {
+                '@type': 'Organization',
+                'name': 'SewaIT'
+            },
+            'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'NPR'
+            }
         },
-        'description': 'Daily Panchang, Tithi, and Auspicious timestamps for today.',
-        'organizer': {
-            '@type': 'Organization',
-            'name': 'SewaIT',
-            'url': 'https://sewait.up.railway.app'
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {
+                    '@type': 'ListItem',
+                    'position': 1,
+                    'name': 'Home',
+                    'item': 'https://sewait.up.railway.app'
+                },
+                {
+                    '@type': 'ListItem',
+                    'position': 2,
+                    'name': 'Nepali Calendar',
+                    'item': 'https://sewait.up.railway.app/calendar'
+                }
+            ]
         }
-    };
+    ];
 
     return (
         <>

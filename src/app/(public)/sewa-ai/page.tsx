@@ -12,5 +12,51 @@ export const metadata: Metadata = {
 };
 
 export default function SewaAIPage() {
-    return <SewaAIClient />;
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            'name': 'Sewa AI',
+            'operatingSystem': 'Any',
+            'applicationCategory': 'UtilityApplication',
+            'description': 'AI-powered assistant providing Nepali gold prices, weather, and government service guides.',
+            'creator': {
+                '@type': 'Organization',
+                'name': 'SewaIT'
+            },
+            'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'NPR'
+            }
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {
+                    '@type': 'ListItem',
+                    'position': 1,
+                    'name': 'Home',
+                    'item': 'https://sewait.up.railway.app'
+                },
+                {
+                    '@type': 'ListItem',
+                    'position': 2,
+                    'name': 'Sewa AI',
+                    'item': 'https://sewait.up.railway.app/sewa-ai'
+                }
+            ]
+        }
+    ];
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <SewaAIClient />
+        </>
+    );
 }

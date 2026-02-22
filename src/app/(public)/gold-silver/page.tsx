@@ -8,25 +8,43 @@ export const metadata: Metadata = {
 };
 
 export default function GoldSilverPage() {
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': 'Gold (24K) - 1 Tola',
-        'description': 'Current market price of 24 Karat Gold in Nepal per Tola.',
-        'brand': {
-            '@type': 'Brand',
-            'name': 'FENEGOSIDA'
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'SoftwareApplication',
+            'name': 'Gold & Silver Rates Nepal',
+            'operatingSystem': 'Any',
+            'applicationCategory': 'FinanceApplication',
+            'description': 'Live daily price of Gold and Silver in Nepal with interactive charts and historical data.',
+            'creator': {
+                '@type': 'Organization',
+                'name': 'SewaIT'
+            },
+            'offers': {
+                '@type': 'Offer',
+                'price': '0',
+                'priceCurrency': 'NPR'
+            }
         },
-        'offers': {
-            '@type': 'Offer',
-            'url': 'https://sewait.up.railway.app/gold-silver',
-            'priceCurrency': 'NPR',
-            'price': '118500',
-            'priceValidUntil': new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-            'availability': 'https://schema.org/InStock',
-            'itemCondition': 'https://schema.org/NewCondition'
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            'itemListElement': [
+                {
+                    '@type': 'ListItem',
+                    'position': 1,
+                    'name': 'Home',
+                    'item': 'https://sewait.up.railway.app'
+                },
+                {
+                    '@type': 'ListItem',
+                    'position': 2,
+                    'name': 'Gold & Silver Rates',
+                    'item': 'https://sewait.up.railway.app/gold-silver'
+                }
+            ]
         }
-    };
+    ];
 
     return (
         <>
