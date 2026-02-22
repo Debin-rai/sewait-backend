@@ -7,9 +7,9 @@
   --color-gov-blue: #003893;
   --color-background-light: #F8FAFC;
   --color-background-dark: #0F172A;
-  --font-display: var(--font-mukta), var(--font-inter), sans-serif;
-  --font-body: var(--font-inter), sans-serif;
-  --font-nepali: var(--font-mukta), var(--font-noto-sans-devanagari), sans-serif;
+  --font-display: var(--font-mukta), sans-serif;
+  --font-body: var(--font-mukta), sans-serif;
+  --font-nepali: var(--font-mukta), sans-serif;
 }
 
 /* Custom Utilities for Nepali Font which might be used in the design */

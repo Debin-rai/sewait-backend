@@ -2,29 +2,14 @@ import type { Metadata } from "next";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-import { Inter } from "next/font/google";
-import localFont from "next/font/local";
-import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 import { Mukta } from "next/font/google";
+import "./globals.css";
 
 const mukta = Mukta({
   variable: "--font-mukta",
   subsets: ["latin", "devanagari"],
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-});
-
-const notoSansDevanagari = localFont({
-  src: "../../public/assets/fonts/NotoSansDevanagari.ttf",
-  variable: "--font-noto-sans-devanagari",
-  weight: "100 900",
 });
 
 export const metadata: Metadata = {
@@ -125,6 +110,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="ne" className="light" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <meta name="google-site-verification" content="dp_oL0KNsg0OGz0oNnciIxqsjzUw_QsFVzmTywxd8NU" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
         <script
@@ -177,7 +163,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body
-        className={`${inter.variable} ${mukta.variable} ${notoSansDevanagari.variable} antialiased bg-background-light text-slate-800 font-body`}
+        className={`${mukta.variable} antialiased bg-background-light text-slate-800 font-body`}
       >
         <SmoothScroll>
           <ClientLayout>
