@@ -2,11 +2,71 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
     const pathname = usePathname();
+    const router = useRouter();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [results, setResults] = useState<any[]>([]);
+    const [isSearching, setIsSearching] = useState(false);
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Animated Placeholder Logic
+    const placeholders = [
+        "Search services...",
+        "guide passport",
+        "guide pan card",
+        "Sewa AI Assistant",
+        "Nepali Calendar 2081",
+        "Gold & Silver prices",
+        "Debin Rai"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+        }, 3500);
+        return () => clearInterval(interval);
+    }, []);
+
+    // Real-time Search Logic
+    useEffect(() => {
+        const fetchResults = async () => {
+            if (searchQuery.length < 1) {
+                setResults([]);
+                return;
+            }
+            setIsSearching(true);
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+                const data = await res.json();
+                setResults(data);
+            } catch (err) {
+                console.error("Search error:", err);
+            } finally {
+                setIsSearching(false);
+            }
+        };
+
+        const timer = setTimeout(fetchResults, 300);
+        return () => clearTimeout(timer);
+    }, [searchQuery]);
+
+    // Click Outside listener
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setResults([]);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const navLinks = [
         { href: "/", label: "Home" },
@@ -59,22 +119,85 @@ export default function Header() {
                 </div>
                 <div className="flex items-center gap-4 lg:gap-8 flex-1 justify-end">
                     {/* Desktop Search */}
-                    <div className="relative w-full max-w-[320px] hidden sm:flex items-center">
+                    <div className="relative w-full max-w-[320px] hidden sm:flex items-center bg-slate-50 border border-slate-200 focus-within:ring-2 focus-within:ring-primary/5 focus-within:border-primary rounded-xl transition-all" ref={dropdownRef}>
                         <div className="absolute left-3 w-5 h-5 flex items-center justify-center overflow-hidden pointer-events-none">
                             <span className="material-symbols-outlined text-slate-400 text-xl notranslate">search</span>
+                        </div>
+                        <div className="absolute left-10 right-20 pointer-events-none overflow-hidden h-full flex items-center">
+                            <AnimatePresence mode="wait">
+                                {!searchQuery && (
+                                    <motion.span
+                                        key={placeholderIndex}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                                        className="text-slate-400 text-xs whitespace-nowrap"
+                                    >
+                                        {placeholders[placeholderIndex]}
+                                    </motion.span>
+                                )}
+                            </AnimatePresence>
                         </div>
                         <input
                             id="search-desktop"
                             name="q"
-                            className="w-full bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-primary/5 focus:border-primary rounded-xl pl-10 pr-20 text-xs py-2 transition-all outline-none"
-                            placeholder="Search services..."
+                            className="w-full bg-transparent pl-10 pr-20 text-xs py-2 transition-all outline-none relative z-10"
                             type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && searchQuery) {
+                                    router.push(`/guides?q=${encodeURIComponent(searchQuery)}`);
+                                    setResults([]);
+                                }
+                            }}
                             aria-label="Search services"
                             autoComplete="off"
                         />
-                        <button className="absolute right-1 bg-primary text-white text-[9px] font-bold px-3 py-1.5 rounded-lg hover:bg-primary-light transition-all duration-300 hover:shadow-md active:scale-95">
-                            GO
-                        </button>
+                        <div className="absolute right-1 flex items-center gap-1">
+                            {isSearching && (
+                                <div className="w-3 h-3 border-2 border-primary border-t-transparent rounded-full animate-spin mr-1"></div>
+                            )}
+                            <button
+                                onClick={() => {
+                                    if (searchQuery) {
+                                        router.push(`/guides?q=${encodeURIComponent(searchQuery)}`);
+                                        setResults([]);
+                                    }
+                                }}
+                                className="bg-primary text-white text-[9px] font-bold px-3 py-1.5 rounded-lg hover:bg-primary-light transition-all duration-300 hover:shadow-md active:scale-95"
+                            >
+                                GO
+                            </button>
+                        </div>
+
+                        {/* Search Results Dropdown */}
+                        {results.length > 0 && (
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-slate-100 rounded-xl shadow-2xl z-[60] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div className="max-h-[400px] overflow-y-auto p-2 space-y-1">
+                                    {results.map((res) => (
+                                        <Link
+                                            key={res.id}
+                                            href={res.url}
+                                            onClick={() => {
+                                                setResults([]);
+                                                setSearchQuery("");
+                                            }}
+                                            className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg transition-colors group"
+                                        >
+                                            <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary/10 transition-colors">
+                                                <span className="material-symbols-outlined text-lg">{res.icon}</span>
+                                            </div>
+                                            <div className="flex flex-col min-w-0">
+                                                <span className="text-xs font-bold text-slate-800 truncate">{res.title}</span>
+                                                <span className="text-[10px] text-slate-400 font-medium truncate">{res.category}</span>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                     {/* Mobile Menu Button */}
                     <button
@@ -136,20 +259,66 @@ export default function Header() {
 
                     {/* Mobile Search */}
                     <div className="mt-8">
-                        <div className="relative">
+                        <div className="relative bg-slate-50 border border-slate-200 focus-within:ring-2 focus-within:ring-primary/5 focus-within:border-primary rounded-lg transition-all overflow-hidden flex items-center">
                             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">
                                 search
                             </span>
+                            <div className="absolute inset-y-0 left-10 flex items-center pointer-events-none">
+                                <AnimatePresence mode="wait">
+                                    {!searchQuery && (
+                                        <motion.span
+                                            key={placeholderIndex}
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -5 }}
+                                            transition={{ duration: 0.4 }}
+                                            className="text-slate-400 text-sm"
+                                        >
+                                            {placeholders[placeholderIndex]}
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                            </div>
                             <input
                                 id="search-mobile"
                                 name="q"
-                                className="w-full bg-slate-50 border border-slate-200 focus:ring-2 focus:ring-primary/5 focus:border-primary rounded-lg pl-10 pr-4 py-3 text-sm outline-none"
-                                placeholder="Search services..."
+                                className="w-full bg-transparent pl-10 pr-4 py-3 text-sm outline-none relative z-10"
                                 type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" && searchQuery) {
+                                        setMobileMenuOpen(false);
+                                        router.push(`/guides?q=${encodeURIComponent(searchQuery)}`);
+                                        setResults([]);
+                                    }
+                                }}
                                 aria-label="Search services"
                                 autoComplete="off"
                             />
                         </div>
+                        {results.length > 0 && searchQuery.length > 0 && (
+                            <div className="mt-2 bg-white border border-slate-100 rounded-xl shadow-lg p-2 space-y-1 overflow-hidden">
+                                {results.map((res) => (
+                                    <Link
+                                        key={res.id}
+                                        href={res.url}
+                                        onClick={() => {
+                                            setMobileMenuOpen(false);
+                                            setResults([]);
+                                            setSearchQuery("");
+                                        }}
+                                        className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg"
+                                    >
+                                        <span className="material-symbols-outlined text-primary">{res.icon}</span>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-bold text-slate-800">{res.title}</span>
+                                            <span className="text-[10px] text-slate-400 font-medium uppercase">{res.category}</span>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

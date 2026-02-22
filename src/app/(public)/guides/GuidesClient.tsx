@@ -2,12 +2,30 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AdSlot from "@/components/ads/AdSlot";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function GuidesClient() {
     const { t } = useLanguage();
     const [searchQuery, setSearchQuery] = useState("");
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
+
+    const placeholders = [
+        "Apply for Passport",
+        "National ID Card",
+        "License Renewal",
+        "PAN Registration",
+        "Bluebook Renewal",
+        "Birth Registration"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setPlaceholderIndex((prev) => (prev + 1) % placeholders.length);
+        }, 3500);
+        return () => clearInterval(interval);
+    }, []);
 
     const categories = [
         {
@@ -83,18 +101,33 @@ export default function GuidesClient() {
                             SewaIT is a platform that presents official information from various Nepal Government agencies in a simple manner.
                         </p>
                         <div className="w-full max-w-2xl mt-4">
-                            <div className="relative group">
-                                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary">
+                            <div className="relative group bg-white rounded-xl shadow-2xl overflow-hidden flex items-center h-16 ring-4 ring-white/10 focus-within:ring-white/30 transition-all">
+                                <div className="absolute left-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-primary z-20">
                                     <span className="material-symbols-outlined text-2xl">search</span>
+                                </div>
+                                <div className="absolute inset-y-0 left-12 flex items-center pointer-events-none select-none z-10">
+                                    <AnimatePresence mode="wait">
+                                        {!searchQuery && (
+                                            <motion.span
+                                                key={placeholderIndex}
+                                                initial={{ opacity: 0, x: -10 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: 10 }}
+                                                transition={{ duration: 0.5 }}
+                                                className="text-slate-400 text-lg"
+                                            >
+                                                Search for a service (e.g., '{placeholders[placeholderIndex]}')
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                                 <input
                                     type="text"
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full h-16 pl-12 pr-32 rounded-xl border-none ring-4 ring-white/10 focus:ring-white/30 text-slate-800 placeholder:text-slate-400 text-lg shadow-2xl transition-all outline-none"
-                                    placeholder="Search for a service (e.g., 'Apply for Passport')"
+                                    className="w-full h-full pl-12 pr-32 text-slate-800 bg-transparent text-lg outline-none relative z-20"
                                 />
-                                <button className="absolute right-2 top-2 bottom-2 bg-primary text-white px-8 rounded-lg font-bold text-sm hover:bg-slate-800 transition-colors">
+                                <button className="absolute right-2 top-2 bottom-2 bg-primary text-white px-8 rounded-lg font-bold text-sm hover:bg-slate-800 transition-colors z-30">
                                     Search
                                 </button>
                             </div>
