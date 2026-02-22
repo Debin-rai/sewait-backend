@@ -10,9 +10,12 @@ export default function FluidCursor() {
     const { showCursor } = useHeroTheme();
 
     useEffect(() => {
-        // Exclude admin routes or if cursor is disabled
+        // Detect bots/crawlers to save resources and avoid WebGL stalls in Search Console
+        const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+
+        // Exclude admin routes, bots, or if cursor is disabled
         const isAdmin = pathname?.startsWith('/sewait-portal-99');
-        if (isAdmin || !showCursor) {
+        if (isAdmin || !showCursor || isBot) {
             return;
         }
 
@@ -80,7 +83,12 @@ export default function FluidCursor() {
             }
         `;
 
-        const renderer = new Renderer({ dpr: 2, alpha: true, antialias: true });
+        const renderer = new Renderer({
+            dpr: window.devicePixelRatio > 1 ? 2 : 1,
+            alpha: true,
+            antialias: false, // Disabling antialias for performance, less likely to stall
+            powerPreference: 'low-power' // Prefer battery life/low heat
+        });
         const gl = renderer.gl;
         document.body.appendChild(gl.canvas);
 
@@ -158,9 +166,12 @@ export default function FluidCursor() {
         const tmp = new Vec3();
 
         function update() {
-            request = requestAnimationFrame(update);
+            if (!initialized) {
+                request = requestAnimationFrame(update);
+                return;
+            }
 
-            if (!initialized) return;
+            request = requestAnimationFrame(update);
 
             // Update polyline input points with spring physics
             for (let i = line.points.length - 1; i >= 0; i--) {
