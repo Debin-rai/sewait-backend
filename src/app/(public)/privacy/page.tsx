@@ -24,20 +24,20 @@ export default function PrivacyPage() {
                     <section className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                         <div className="space-y-4">
                             <h3 className="font-black text-[#1a355b] flex items-center gap-2">
-                                <span className="material-symbols-outlined text-indigo-500">analytics</span>
-                                Aggregate Analytics
+                                <span className="material-symbols-outlined text-indigo-500">auto_awesome</span>
+                                Document Generation Data
                             </h3>
                             <p className="leading-relaxed opacity-80 font-medium">
-                                We monitor Daily Active Users and traffic origin (such as visitor counts by country) to improve our service, but we do not collect personally identifiable information (PII) from our general users.
+                                We process the information you provide for document generation strictly on the server. Your personal details (like Names, addresses, or IDs) are used only to generate the PDF and are not permanently stored or used for AI training.
                             </p>
                         </div>
                         <div className="space-y-4">
                             <h3 className="font-black text-[#1a355b] flex items-center gap-2">
-                                <span className="material-symbols-outlined text-indigo-500">dns</span>
-                                Server-Side Security
+                                <span className="material-symbols-outlined text-indigo-500">payments</span>
+                                Payment Privacy (Khalti)
                             </h3>
                             <p className="leading-relaxed opacity-80 font-medium">
-                                By utilizing Next.js SSR and Laravel, all data processing and API fetching happen on the server. This means your interactions are handled privately, and no sensitive logic is exposed to your browser.
+                                Subscription payments are handled by Khalti. SewaIT does not store your credit card or wallet credentials. We only receive a transaction confirmation to activate your premium access.
                             </p>
                         </div>
                     </section>

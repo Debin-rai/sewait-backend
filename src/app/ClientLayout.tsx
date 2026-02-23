@@ -7,10 +7,8 @@ import ThemePickerPopup from "@/components/ThemePickerPopup";
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     return (
         <LanguageProvider>
-            <ThemeProvider>
-                {children}
-                <ThemePickerPopup />
-            </ThemeProvider>
+            {children}
         </LanguageProvider>
+
     );
 }

@@ -16,8 +16,8 @@ export default function CookiePolicyPage() {
                 {
                     title: "1. Essential Cookies",
                     icon: <Lock className="size-5 text-primary" />,
-                    desc: "Mandatory for the platform to function securely. These handle administrator sessions, CSRF protection, and secure data transmission.",
-                    items: ["Admin Session & Timeout", "CSRF Security Tokens", "Basic App Routing"]
+                    desc: "Mandatory for the platform to function securely. These handle administrator sessions, user subscriptions, and CSRF protection.",
+                    items: ["Admin Session & Timeout", "Premium Subscription Key", "CSRF Security Tokens"]
                 },
                 {
                     title: "2. Personalization Cookies",

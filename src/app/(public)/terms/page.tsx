@@ -19,44 +19,46 @@ export default function TermsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                         <section className="space-y-4">
                             <h2 className="text-sm font-black text-[#1a355b] uppercase tracking-[0.2em] flex items-center gap-2">
-                                <span className="material-symbols-outlined text-amber-500 text-base">analytics</span>
-                                Informational Purposes
+                                <span className="material-symbols-outlined text-amber-500 text-base">auto_awesome</span>
+                                AI Document Generation
                             </h2>
                             <p className="text-sm leading-relaxed opacity-90 font-medium">
-                                Market data for Gold and Silver is provided for informational use; while we update these daily to ensure accuracy, we recommend verifying rates with official associations before major transactions.
+                                Our AI Document Generator is designed to assist you in drafting official Nepali documents. While we strive for legal accuracy, these documents are templates and should be reviewed by a legal professional for specific legal cases.
+                            </p>
+                        </section>
+
+                        <section className="space-y-4">
+                            <h2 className="text-sm font-black text-[#1a355b] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <span className="material-symbols-outlined text-amber-500 text-base">payments</span>
+                                Subscription & Billing
+                            </h2>
+                            <p className="text-sm leading-relaxed opacity-90 font-medium">
+                                Premium features require an active subscription. Payments are processed securely via Khalti. Subscriptions are manual or auto-renew based on your selection; failure to renew will result in loss of premium access.
+                            </p>
+                        </section>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <section className="space-y-4">
+                            <h2 className="text-sm font-black text-[#1a355b] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <span className="material-symbols-outlined text-amber-500 text-base">verified_user</span>
+                                License & Ownership
+                            </h2>
+                            <p className="text-sm leading-relaxed opacity-90 font-medium">
+                                You own the content of the documents you generate. SewaIT retains ownership of the underlying AI logic, templates, and platform infrastructure.
                             </p>
                         </section>
 
                         <section className="space-y-4">
                             <h2 className="text-sm font-black text-[#1a355b] uppercase tracking-[0.2em] flex items-center gap-2">
                                 <span className="material-symbols-outlined text-amber-500 text-base">description</span>
-                                Guide Usage
+                                Official Context
                             </h2>
                             <p className="text-sm leading-relaxed opacity-90 font-medium">
-                                Our Sarkari Guides are provided as a helpful resource. Users should always check the "Last Updated" date and the provided Official source link to ensure they have the latest requirements from the relevant government department.
+                                SewaIT is a private platform and is NOT affiliated with the Government of Nepal. Our tools are utility-focused implementations based on public document formats and guidelines.
                             </p>
                         </section>
                     </div>
-
-                    <section className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 space-y-4">
-                        <h2 className="text-sm font-black text-red-500 uppercase tracking-[0.2em] flex items-center gap-2">
-                            <span className="material-symbols-outlined">shield</span>
-                            Security & Integrity
-                        </h2>
-                        <p className="text-sm leading-relaxed font-medium">
-                            Unauthorized attempts to scrape our Nepali Calendar data or bypass our security architecture (including our IP restrictions) are strictly prohibited.
-                        </p>
-                    </section>
-
-                    <section>
-                        <h2 className="text-sm font-black text-[#1a355b] uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
-                            <span className="material-symbols-outlined text-amber-500 text-base">admin_panel_settings</span>
-                            Admin Authority
-                        </h2>
-                        <p className="text-sm leading-relaxed opacity-90 font-medium">
-                            Access to the SewaIT Admin Panel—the "brain" of our application—is strictly limited to authorized personnel and is monitored through comprehensive Activity Logs.
-                        </p>
-                    </section>
                 </div>
             </div>
         </div>

@@ -125,20 +125,12 @@ export default function AdminSettingsPage() {
                                 info: "When ON, enables the Sewa AI chat page and home teaser card."
                             },
                             {
-                                key: "MODULE_GOLD",
-                                label: "Precious Metals",
-                                desc: "Gold and Silver spot prices",
-                                icon: 'payments',
-                                color: 'text-amber-600',
-                                info: "When ON, displays current gold and silver rates from Nepal Federation."
-                            },
-                            {
                                 key: "MODULE_GUIDES",
-                                label: "Service Guides",
-                                desc: "Sarkari Sewa documentation",
+                                label: "Official Document AI",
+                                desc: "Sarkari Document Generator",
                                 icon: 'description',
                                 color: 'text-blue-500',
-                                info: "When ON, enables the public 'Gov. Services' section and home calendar."
+                                info: "Enables/Disables the AI document generator and the assistant."
                             },
                             {
                                 key: 'ENABLE_ADS',
@@ -180,6 +172,43 @@ export default function AdminSettingsPage() {
                     </div>
                 </section>
 
+                {/* Marquee Settings */}
+                <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div className="flex items-center gap-4 mb-8">
+                        <div className="size-12 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center text-amber-600">
+                            <span className="material-symbols-outlined font-black">reorder</span>
+                        </div>
+                        <div>
+                            <h3 className="font-black text-xl text-slate-800 dark:text-white">Marquee Control</h3>
+                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Homepage Document Scroller</p>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Document Titles (Comma Separated)</label>
+                            <textarea
+                                className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold min-h-[100px]"
+                                value={configs.MARQUEE_ITEMS || ""}
+                                onChange={e => updateValue("MARQUEE_ITEMS", e.target.value)}
+                                placeholder="Letter, Character Certificate, ..."
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Scroll Speed (Pixels/sec)</label>
+                            <div className="flex items-center gap-4">
+                                <input
+                                    className="flex-1 px-4 py-3 bg-slate-50 dark:bg-slate-800 rounded-xl border-none focus:ring-2 focus:ring-primary/20 outline-none text-sm font-bold"
+                                    type="number"
+                                    value={configs.MARQUEE_SPEED || 30}
+                                    onChange={e => updateValue("MARQUEE_SPEED", e.target.value)}
+                                />
+                                <span className="text-xs font-bold text-slate-400">High = Faster</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* API Keys */}
                 <section className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
                     <div className="flex items-center gap-4 mb-8">
@@ -195,10 +224,9 @@ export default function AdminSettingsPage() {
                     <div className="space-y-6">
                         {[
                             { key: "API_WEATHER", label: "OpenWeatherMap Secret" },
-                            { key: "API_SEWA_AI", label: "SewaAI API Key (OpenRouter)" },
-                            { key: "API_GITHUB", label: "GitHub Access Token (repo, read:user)" },
+                            { key: "API_SEWA_AI", label: "SarkariAI API Key (DeepSeek/OpenRouter)" },
+                            { key: "API_GITHUB", label: "GitHub Access Token" },
                             { key: "API_NOTIFICATION", label: "System Notification Gateway" },
-                            { key: "API_CHATBOT_ID", label: "Chatbot Widget ID (Tawk.to)" }
                         ].map((field) => (
                             <div key={field.key} className="space-y-2">
                                 <div className="flex justify-between items-center">

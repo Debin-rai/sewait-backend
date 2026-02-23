@@ -21,9 +21,9 @@ export default function Header() {
         "Search services...",
         "guide passport",
         "guide pan card",
-        "Sewa AI Assistant",
+        "Sarkari AI Assistant",
         "Nepali Calendar 2081",
-        "Gold & Silver prices",
+        "Official Documents",
         "Debin Rai"
     ];
 
@@ -71,9 +71,7 @@ export default function Header() {
     const navLinks = [
         { href: "/", label: "Home" },
         { href: "/calendar", label: "Calendar" },
-        { href: "/weather", label: "Weather" },
-        { href: "/gold-silver", label: "Gold & Silver" },
-        { href: "/sewa-ai", label: "Sewa AI", isNew: true },
+        { href: "/sewa-ai", label: "Sarkari AI", isNew: true },
         { href: "/guides", label: "Gov. Services" },
         { href: "/premium", label: "Premium", isNew: true },
         { href: "/about", label: "About" },

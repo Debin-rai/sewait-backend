@@ -14,7 +14,6 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     const navLinks = [
         { href: "/sewait-portal-99", label: "Dashboard", icon: "dashboard" },
         { href: "/sewait-portal-99/users", label: "User Management", icon: "group" },
-        { href: "/sewait-portal-99/rates", label: "Daily Rates", icon: "monitoring" },
         { href: "/sewait-portal-99/calendar", label: "Calendar", icon: "calendar_month" },
         { href: "/sewait-portal-99/content", label: "Content Manager", icon: "description" },
         { href: "/sewait-portal-99/analytics", label: "Analytics", icon: "analytics" },
