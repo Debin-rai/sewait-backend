@@ -10,6 +10,7 @@ import ThemePicker from "./ThemePicker";
 
 export default function Header() {
     const pathname = usePathname();
+    const router = useRouter();
     const { language } = useLanguage();
     const { theme } = useTheme();
     const [scrolled, setScrolled] = useState(false);
