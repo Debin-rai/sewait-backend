@@ -13,6 +13,7 @@ export default function SarkariAssistant() {
     const [messages, setMessages] = useState<Message[]>([
         { role: "assistant", content: "नमस्ते! म सरकारी एआई सहायक हुँ। म तपाईंलाई सरकारी कागजातहरू तयार गर्न वा कुनै पनि सेवाको बारेमा जानकारी दिन मद्दत गर्न सक्छु। म कसरी मद्दत गरौं?" }
     ]);
+    const [sessionId, setSessionId] = useState<string | null>(null);
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -27,19 +28,31 @@ export default function SarkariAssistant() {
         if (!input.trim() || loading) return;
 
         const userMsg = input.trim();
+        const newMessages: Message[] = [...messages, { role: "user", content: userMsg }];
+
         setInput("");
-        setMessages(prev => [...prev, { role: "user", content: userMsg }]);
+        setMessages(newMessages);
         setLoading(true);
 
         try {
-            const res = await fetch("/api/ai/chat", {
+            const res = await fetch("/api/sewa-ai", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMsg, context: "DOCUMENT_HELPER" }),
+                body: JSON.stringify({
+                    messages: newMessages,
+                    sessionId: sessionId,
+                    visitorHash: "web-user" // Optional: fetch or generate a real hash
+                }),
             });
 
             const data = await res.json();
-            setMessages(prev => [...prev, { role: "assistant", content: data.reply || "म अहिले व्यस्त छु, कृपया पछि प्रयास गर्नुहोस्।" }]);
+
+            if (data.message) {
+                setMessages(prev => [...prev, { role: "assistant", content: data.message.content }]);
+                if (data.sessionId) setSessionId(data.sessionId);
+            } else {
+                setMessages(prev => [...prev, { role: "assistant", content: "म अहिले व्यस्त छु, कृपया पछि प्रयास गर्नुहोस्।" }]);
+            }
         } catch (error) {
             setMessages(prev => [...prev, { role: "assistant", content: "माफ गर्नुहोस्, केही समस्या भयो।" }]);
         } finally {

@@ -145,10 +145,6 @@
   left: 0;
 }
 
-.nav-link-hover:hover {
-  transform: translateY(-1px);
-}
-
 .nav-link-active {
   position: relative;
 }

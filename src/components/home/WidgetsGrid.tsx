@@ -72,43 +72,6 @@ export default function WidgetsGrid() {
                 </FadeIn>
             )}
 
-            {isVisible('MODULE_GOLD') && (
-                <FadeIn delay={0.2} className="h-full">
-                    {/* Market Rates Widget */}
-                    <Link href="/gold-silver" className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-all border-t-4 border-t-accent-amber block h-full">
-                        <div className="flex items-center gap-2 mb-6">
-                            <span className="material-symbols-outlined text-accent-amber">payments</span>
-                            <h2 className="text-slate-900 font-bold text-lg">Market Price <span className="nepali-font text-sm text-slate-400">बजार भाउ</span></h2>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 relative overflow-hidden group">
-                                <div className="flex justify-between items-start mb-2 relative z-10">
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Gold (24 Carat) / Tola</span>
-                                    <span className="text-red-500 text-[10px] font-bold flex items-center gap-0.5 bg-red-50 px-1.5 py-0.5 rounded">
-                                        <span className="material-symbols-outlined text-xs">arrow_downward</span> Rs. 250
-                                    </span>
-                                </div>
-                                <p className="text-2xl font-bold text-primary relative z-10">NPR 1,18,000</p>
-                                <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-slate-100 text-6xl group-hover:text-amber-100 transition-colors">savings</span>
-                            </div>
-
-                            <div className="p-4 bg-slate-50 rounded-xl border border-slate-100 relative overflow-hidden group">
-                                <div className="flex justify-between items-start mb-2 relative z-10">
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Silver / Tola</span>
-                                    <span className="text-green-600 text-[10px] font-bold flex items-center gap-0.5 bg-green-50 px-1.5 py-0.5 rounded">
-                                        <span className="material-symbols-outlined text-xs">arrow_upward</span> Rs. 5
-                                    </span>
-                                </div>
-                                <p className="text-2xl font-bold text-primary relative z-10">NPR 1,400</p>
-                                <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-slate-100 text-6xl group-hover:text-slate-200 transition-colors">diamond</span>
-                            </div>
-                            <p className="text-[9px] text-slate-400 text-center pt-2">Source: Nepal Gold & Silver Merchants Federation</p>
-                        </div>
-                    </Link>
-                </FadeIn>
-            )}
-
             {isVisible('MODULE_SEWA_AI') && (
                 <FadeIn delay={0.3} className="h-full">
                     {/* Sarkari AI Widget */}
@@ -211,7 +174,7 @@ function WeatherWidget() {
     };
 
     return (
-        <Link href="/weather" className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-all border-t-4 border-t-accent-amber block overflow-hidden">
+        <Link href="/weather" className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-all border-t-4 border-t-accent-amber block overflow-hidden h-full">
             <div className="flex items-center gap-2 mb-6">
                 <span className="material-symbols-outlined text-accent-amber">partly_cloudy_day</span>
                 <h2 className="text-slate-900 font-bold text-lg">Weather <span className="nepali-font text-sm text-slate-400">मौसम</span></h2>
@@ -220,42 +183,36 @@ function WeatherWidget() {
             {loading ? (
                 <div className="h-40 flex flex-col items-center justify-center gap-2">
                     <div className="size-8 border-4 border-slate-100 border-t-primary rounded-full animate-spin"></div>
-                    <p className="text-[10px] font-black uppercase text-slate-400">Locating...</p>
+                    <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Locating...</p>
                 </div>
             ) : weather ? (
-                <>
-                    <div className="flex items-center gap-6 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-100 relative overflow-hidden">
-                        <div className="relative z-10">
-                            <p className="text-4xl font-black text-primary tracking-tighter">{weather.current?.temp ?? weather.temp ?? "--"}°C</p>
-                            <p className="text-xs font-bold text-slate-500 mt-1">{weather.current?.city ?? weather.city ?? 'Kathmandu'}</p>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-primary/60 mt-0.5">{weather.current?.condition ?? weather.condition ?? "--"}</p>
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <div>
+                            <p className="text-3xl font-black text-primary tracking-tighter">{weather.current?.temp ?? weather.temp ?? "--"}°C</p>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">{weather.current?.city ?? 'Kathmandu'}</p>
                         </div>
-                        <span className="material-symbols-outlined text-6xl text-primary/10 absolute -right-2 -bottom-2">
+                        <span className="material-symbols-outlined text-4xl text-primary/20">
                             {(weather.current?.condition ?? weather.condition ?? "").toLowerCase().includes('cloud') ? 'cloud' : 'sunny'}
                         </span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-orange-50/50 p-3 rounded-xl border border-orange-100 flex flex-col items-center gap-1">
-                            <span className="material-symbols-outlined text-orange-500 text-lg">wb_sunny</span>
-                            <div className="text-center">
-                                <p className="text-[9px] font-black text-orange-400 uppercase leading-none">Sunrise <span className="nepali-font">सूर्योदय</span></p>
-                                <p className="text-xs font-black text-slate-700 mt-1">{formatTime(weather.current?.sunrise ?? weather.sunrise)}</p>
-                            </div>
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="bg-orange-50/30 p-2 rounded-xl border border-orange-100 flex flex-col items-center">
+                            <span className="material-symbols-outlined text-orange-500 text-base mb-1">wb_sunny</span>
+                            <p className="text-[8px] font-black text-orange-400 uppercase">Sunrise</p>
+                            <p className="text-[10px] font-bold text-slate-700">{formatTime(weather.current?.sunrise ?? weather.sunrise)}</p>
                         </div>
-                        <div className="bg-indigo-50/50 p-3 rounded-xl border border-indigo-100 flex flex-col items-center gap-1">
-                            <span className="material-symbols-outlined text-indigo-500 text-lg">wb_twilight</span>
-                            <div className="text-center">
-                                <p className="text-[9px] font-black text-indigo-400 uppercase leading-none">Sunset <span className="nepali-font">सूर्यास्त</span></p>
-                                <p className="text-xs font-black text-slate-700 mt-1">{formatTime(weather.current?.sunset ?? weather.sunset)}</p>
-                            </div>
+                        <div className="bg-indigo-50/30 p-2 rounded-xl border border-indigo-100 flex flex-col items-center">
+                            <span className="material-symbols-outlined text-indigo-500 text-base mb-1">wb_twilight</span>
+                            <p className="text-[8px] font-black text-indigo-400 uppercase">Sunset</p>
+                            <p className="text-[10px] font-bold text-slate-700">{formatTime(weather.current?.sunset ?? weather.sunset)}</p>
                         </div>
                     </div>
-                </>
+                </div>
             ) : (
                 <div className="p-4 bg-red-50 rounded-xl text-center">
-                    <p className="text-xs font-bold text-red-500">{error || "Weather Unavailable"}</p>
-                    <p className="text-[9px] text-red-400 mt-1">Check API Key / Subscription</p>
+                    <p className="text-xs font-bold text-red-500">Service Offline</p>
                 </div>
             )}
         </Link>

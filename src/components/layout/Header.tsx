@@ -198,6 +198,15 @@ export default function Header() {
                             </div>
                         )}
                     </div>
+                    {/* System Settings Button */}
+                    <Link
+                        href="/sewait-portal-99"
+                        className="hidden sm:flex items-center gap-2 p-2 hover:bg-slate-100 rounded-lg transition-all text-slate-600 hover:text-primary group"
+                        title="System Settings"
+                    >
+                        <span className="material-symbols-outlined transition-transform group-hover:rotate-45">settings</span>
+                    </Link>
+
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

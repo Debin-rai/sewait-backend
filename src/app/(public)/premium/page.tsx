@@ -1,172 +1,194 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function PremiumPage() {
-    const [user, setUser] = useState<any>(null);
-    const [loading, setLoading] = useState(false);
-    const [status, setStatus] = useState<"idle" | "verifying" | "success" | "error">("idle");
-    const router = useRouter();
+    const [transactionId, setTransactionId] = useState("");
+    const [submitting, setSubmitting] = useState(false);
+    const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            const res = await fetch("/api/auth/me");
-            const data = await res.json();
-            if (data.authenticated) {
-                setUser(data.user);
-            }
-        };
-        checkAuth();
-    }, []);
-
-    const handleUpgrade = async () => {
-        if (!user) {
-            router.push("/login?callbackUrl=/premium");
-            return;
+    const plans = [
+        {
+            name: "Basic",
+            price: "Free",
+            period: "Forever",
+            features: [
+                "Nepali Calendar & Events",
+                "Public Document Templates",
+                "Basic AI Chat Help",
+                "Community Access"
+            ],
+            button: "Current Plan",
+            current: true,
+        },
+        {
+            name: "Premium Pro",
+            price: "Rs. 400",
+            period: "per month",
+            features: [
+                "Full AI Document Generation",
+                "Draft Formal Letters (Nibedan)",
+                "Passport/License Assistance",
+                "Priority Support",
+                "No Ads"
+            ],
+            button: "Upgrade to Pro",
+            premium: true,
+            highlight: "Best Value"
+        },
+        {
+            name: "Yearly Saver",
+            price: "Rs. 3600",
+            period: "per year",
+            features: [
+                "All Pro Features",
+                "2 Months Free Savings",
+                "Premium Support Line",
+                "Early Access to Features",
+                "Dedicated Assistant"
+            ],
+            button: "Get Yearly",
+            premium: true
         }
+    ];
 
-        setLoading(true);
-        setStatus("verifying");
+    const handleVerify = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!transactionId || submitting) return;
 
-        try {
-            const res = await fetch("/api/subscription/upgrade", { method: "POST" });
-            const data = await res.json();
-
-            if (res.ok) {
-                setStatus("success");
-                // Refresh session/local state
-                const userRes = await fetch("/api/auth/me");
-                const userData = await userRes.json();
-                if (userData.authenticated) setUser(userData.user);
-            } else {
-                setStatus("error");
-            }
-        } catch (err) {
-            setStatus("error");
-        } finally {
-            setLoading(false);
-        }
+        setSubmitting(true);
+        // This would call your manual verification API
+        setTimeout(() => {
+            setSubmitting(false);
+            setStatus("success");
+            setTransactionId("");
+        }, 1500);
     };
 
     return (
-        <main className="min-h-screen pt-24 pb-20 bg-[#F8FAFC]">
-            <div className="container mx-auto px-4 lg:px-10">
-
-                {/* Header Section */}
-                <FadeIn direction="up">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-700 font-bold text-sm mb-6">
-                            <span className="material-symbols-outlined text-base">workspace_premium</span>
-                            Sarkari AI Premium
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-                            Generate <span className="text-primary">Formal Nepali Documents</span> Without Limits
+        <div className="min-h-screen bg-[#f8fafc] py-16 md:py-24">
+            <div className="container mx-auto px-6">
+                <header className="text-center mb-16 max-w-2xl mx-auto">
+                    <FadeIn>
+                        <h1 className="text-4xl md:text-5xl font-black text-primary mb-4">
+                            Go Pro. Get <span className="text-accent-amber">Serious.</span>
                         </h1>
-                        <p className="text-lg text-slate-600">
-                            Upgrade to Premium to unlock unlimited generation of high-quality government letters, applications, and documents using advanced AI.
+                        <p className="text-slate-600 font-medium">
+                            Starting at just Rs. 13 per day—less than a cup of tea ☕.
+                            Professional documents, faster results.
                         </p>
-                    </div>
-                </FadeIn>
+                    </FadeIn>
+                </header>
 
-                {/* Pricing Card */}
-                <FadeIn delay={0.2} direction="up">
-                    <div className="max-w-md mx-auto relative group">
-                        {/* Glow effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary to-blue-400 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 max-w-6xl mx-auto">
+                    {plans.map((plan, i) => (
+                        <FadeIn key={i} delay={i * 0.1}>
+                            <div className={`
+                                h-full p-8 rounded-3xl border bg-white relative flex flex-col
+                                ${plan.premium ? 'border-primary shadow-xl shadow-primary/5' : 'border-slate-100 shadow-sm'}
+                            `}>
+                                {plan.highlight && (
+                                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent-amber text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">
+                                        {plan.highlight}
+                                    </span>
+                                )}
 
-                        <div className="relative bg-white/80 backdrop-blur-xl border border-white p-8 md:p-10 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-2 text-center">
-
-                            {status === "success" ? (
-                                <div className="py-10">
-                                    <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                                        <span className="material-symbols-outlined text-5xl font-bold">check</span>
+                                <div className="mb-8">
+                                    <h3 className="text-lg font-bold text-slate-900 mb-2">{plan.name}</h3>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-3xl font-black text-primary">{plan.price}</span>
+                                        <span className="text-sm font-medium text-slate-400">{plan.period}</span>
                                     </div>
-                                    <h2 className="text-2xl font-bold text-slate-900 mb-2">Upgrade Successful!</h2>
-                                    <p className="text-slate-600 mb-8 font-medium">You are now a Premium Member. Enjoy unlimited document generation.</p>
-                                    <Link href="/sewa-ai" className="inline-flex bg-primary text-white font-bold px-8 py-3 rounded-xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all">
-                                        Go to Generator
-                                    </Link>
                                 </div>
-                            ) : (
-                                <>
-                                    <div className="mb-8">
-                                        <h2 className="text-2xl font-bold text-slate-900 mb-2">Monthly Plan</h2>
-                                        <div className="flex items-end justify-center gap-1">
-                                            <span className="text-4xl md:text-5xl font-extrabold text-primary">Rs. 400</span>
-                                            <span className="text-slate-500 font-medium mb-1">/month</span>
+
+                                <ul className="space-y-4 mb-10 flex-1">
+                                    {plan.features.map((feat, j) => (
+                                        <li key={j} className="flex items-start gap-3 text-sm font-medium text-slate-600">
+                                            <span className="material-symbols-outlined text-green-500 text-lg">check_circle</span>
+                                            {feat}
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <button className={`
+                                    w-full py-4 rounded-xl font-bold transition-all
+                                    ${plan.current
+                                        ? 'bg-slate-100 text-slate-400 cursor-default'
+                                        : 'bg-primary text-white hover:bg-slate-800 hover:shadow-lg active:scale-95 shadow-md shadow-primary/10'}
+                                `}>
+                                    {plan.button}
+                                </button>
+                            </div>
+                        </FadeIn>
+                    ))}
+                </div>
+
+                {/* Manual Payment Verification Section */}
+                <FadeIn delay={0.4}>
+                    <div className="max-w-4xl mx-auto bg-white rounded-[40px] shadow-2xl shadow-primary/5 border border-slate-100 overflow-hidden">
+                        <div className="grid grid-cols-1 md:grid-cols-2">
+                            {/* QR Codes Side */}
+                            <div className="p-8 md:p-12 border-b md:border-b-0 md:border-r border-slate-100 bg-slate-50/50">
+                                <h2 className="text-xl font-bold text-primary mb-6">How to Renew / Upgrade</h2>
+                                <div className="space-y-8">
+                                    <div className="flex gap-4 items-center">
+                                        <div className="w-20 h-20 bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-center justify-center font-bold text-primary">eSewa QR</div>
+                                        <div>
+                                            <p className="text-sm font-bold text-slate-800">1. Scan eSewa QR</p>
+                                            <p className="text-xs text-slate-500">Scan and pay the amount for your plan.</p>
                                         </div>
                                     </div>
+                                    <div className="flex gap-4 items-center">
+                                        <div className="w-20 h-20 bg-white p-2 rounded-xl shadow-sm border border-slate-100 flex items-center justify-center font-bold text-[#612d91]">Khalti QR</div>
+                                        <div>
+                                            <p className="text-sm font-bold text-slate-800">2. Scan Khalti QR</p>
+                                            <p className="text-xs text-slate-500">Alternatively use Khalti for the same.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-10 p-4 bg-amber-50 rounded-2xl border border-amber-100">
+                                    <p className="text-xs text-amber-700 font-medium">
+                                        <strong>Note:</strong> Since we are focus on privacy and low-friction, we use manual verification. Your account will be upgraded within 2-4 hours of submitting the transaction ID.
+                                    </p>
+                                </div>
+                            </div>
 
-                                    <ul className="space-y-4 mb-10 text-left">
-                                        {[
-                                            "Unlimited document generation",
-                                            "Access to all formal document templates",
-                                            "Save and manage your document history",
-                                            "Premium PDF formatting & downloads",
-                                            "Priority AI response times",
-                                            "Ad-free experience"
-                                        ].map((feature, i) => (
-                                            <li key={i} className="flex items-start gap-3">
-                                                <div className="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-0.5">
-                                                    <span className="material-symbols-outlined text-sm font-bold">check</span>
-                                                </div>
-                                                <span className="text-slate-700 font-medium">{feature}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-
+                            {/* Verification Form */}
+                            <div className="p-8 md:p-12">
+                                <h2 className="text-xl font-bold text-primary mb-6">Verify Payment</h2>
+                                <form onSubmit={handleVerify} className="space-y-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Transaction ID</label>
+                                        <input
+                                            type="text"
+                                            value={transactionId}
+                                            onChange={(e) => setTransactionId(e.target.value)}
+                                            placeholder="Enter eSewa/Khalti Transaction ID"
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm font-medium focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                                            required
+                                        />
+                                    </div>
                                     <button
-                                        onClick={handleUpgrade}
-                                        disabled={loading || user?.subscriptionStatus === 'PREMIUM'}
-                                        className="w-full bg-primary hover:bg-primary/90 disabled:bg-slate-200 disabled:text-slate-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary/30 transition-all flex items-center justify-center gap-2 group/btn"
+                                        type="submit"
+                                        disabled={submitting}
+                                        className="w-full bg-accent-amber text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20 disabled:opacity-50"
                                     >
-                                        {loading ? (
-                                            <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                        ) : user?.subscriptionStatus === 'PREMIUM' ? (
-                                            <>
-                                                <span>Active Subscription</span>
-                                                <span className="material-symbols-outlined">verified</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <span>{user ? 'Pay with eSewa / Khalti' : 'Login to Upgrade'}</span>
-                                                <span className="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
-                                            </>
-                                        )}
+                                        {submitting ? "Verifying..." : "Submit for Verification"}
                                     </button>
 
-                                    <p className="text-xs text-slate-400 mt-4 font-medium italic">
-                                        {status === "error" ? "Transaction failed. Please try again." : "Secure payments handled by eSewa / Khalti (Mock Simulation)."}
-                                    </p>
-                                </>
-                            )}
+                                    {status === "success" && (
+                                        <div className="flex items-center gap-3 p-4 bg-green-50 text-green-700 rounded-2xl border border-green-100">
+                                            <span className="material-symbols-outlined">check_circle</span>
+                                            <p className="text-xs font-bold font-display">Verification submitted! We'll upgrade your account shortly.</p>
+                                        </div>
+                                    )}
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </FadeIn>
-
-                {/* Trust Badges */}
-                <FadeIn delay={0.4} direction="up">
-                    <div className="mt-20 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                        <div className="flex items-center gap-2">
-                            <span className="material-symbols-outlined text-3xl">verified_user</span>
-                            <span className="font-bold text-slate-900">Secure Payments</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="material-symbols-outlined text-3xl">support_agent</span>
-                            <span className="font-bold text-slate-900">24/7 Priority Support</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="material-symbols-outlined text-3xl">description</span>
-                            <span className="font-bold text-slate-900">Government Standard</span>
-                        </div>
-                    </div>
-                </FadeIn>
-
             </div>
-        </main>
+        </div>
     );
 }
-

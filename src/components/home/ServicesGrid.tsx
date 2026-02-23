@@ -52,18 +52,30 @@ export default function ServicesGrid() {
                     <Link
                         key={index}
                         href={service.href}
-                        className="group bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-primary transition-all text-center"
+                        className="group relative bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden"
                     >
-                        <div className="w-16 h-16 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:bg-primary group-hover:text-white transition-all transform group-hover:-translate-y-1">
-                            <span className="material-symbols-outlined text-3xl font-light">{service.icon}</span>
+                        {/* Premium Gradient Background on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                        <div className="relative z-10 flex flex-col h-full">
+                            <div className="w-16 h-16 bg-slate-50 text-slate-400 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-500 transform group-hover:scale-110 group-hover:-rotate-3 shadow-sm group-hover:shadow-lg group-hover:shadow-primary/20">
+                                <span className="material-symbols-outlined text-3xl font-light">{service.icon}</span>
+                            </div>
+
+                            <h3 className="font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors text-lg">
+                                {service.title}
+                            </h3>
+                            <p className="text-xs text-primary/50 nepali-font mb-4 font-bold tracking-wide">{service.titleNp}</p>
+
+                            <p className="text-xs text-slate-500 leading-relaxed font-medium mb-6 flex-1">
+                                {service.desc}
+                            </p>
+
+                            <div className="pt-4 border-t border-slate-50 flex items-center justify-between text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-500">
+                                <span className="text-[10px] font-black uppercase tracking-widest">Guide Details</span>
+                                <span className="material-symbols-outlined text-base">arrow_forward</span>
+                            </div>
                         </div>
-                        <h3 className="font-bold text-slate-900 mb-1 group-hover:text-primary transition-colors">
-                            {service.title}
-                        </h3>
-                        <p className="text-xs text-primary/50 nepali-font mb-2">{service.titleNp}</p>
-                        <p className="text-xs text-slate-500 leading-relaxed">
-                            {service.desc}
-                        </p>
                     </Link>
                 ))}
             </div>

@@ -35,11 +35,11 @@ export default function AboutPage() {
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             <div className="bg-slate-50 p-8 rounded-[32px] border border-slate-100 flex-1">
                                 <h3 className="text-xl font-black text-[#1a355b] mb-4">Debin C. Rai</h3>
-                                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">SewaIT Founder & IT Specialist</p>
+                                <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Founder & IT Specialist</p>
 
                                 <div className="space-y-4 text-slate-600 font-medium">
-                                    <p>Based in <span className="text-[#1a355b] font-bold">Khotang</span>, Debin C. Rai is an NSS Management faculty passout with a deep passion for technology and design.</p>
-                                    <p>As an IT specialist and designer, he envisioned SewaIT as a way to simplify digital Nepal. His focus is on creating tools that are not only functional but also beautiful and secure.</p>
+                                    <p>Based in <span className="text-[#1a355b] font-bold">Khotang, Nepal</span>, Debin C. Rai is a technology visionary with a deep passion for digital transformation and premium design.</p>
+                                    <p>As an IT specialist, he leads the development of SewaIT to ensure it remains the most secure, functional, and aesthetically premium platform for his fellow citizens.</p>
                                 </div>
                             </div>
                         </div>

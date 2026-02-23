@@ -78,18 +78,6 @@ model CalendarEvent {
 
 // --- 3. Content & Market Management ---
 
-model MarketRate {
-  id           String   @id @default(cuid())
-  type         String   // GOLD_24K, GOLD_22K, SILVER
-  price        Float
-  change       Float    // Absolute change
-  trend        String   // UP, DOWN, STABLE
-  sourceType   String   @default("MANUAL") // MANUAL, API
-  date         DateTime @default(now()) // Identifying date for rate
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
 model Guide {
   id          String   @id @default(cuid())
   title       String
@@ -102,27 +90,6 @@ model Guide {
   icon        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-}
-
-model Festival { // Legacy model support, consider migrating to CalendarEvent
-  id          String   @id @default(cuid())
-  name        String
-  nepaliDate  String
-  date        DateTime
-  description String?
-  isHoliday   Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-model GoldRate { // Legacy model support
-  id        String   @id @default(cuid())
-  date      DateTime @default(now())
-  gold24    Float
-  gold22    Float?
-  silver    Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model SiteSetting {
