@@ -9,28 +9,28 @@ export default function ServicesGrid() {
             icon: "travel",
             title: "Passport",
             titleNp: "राहदानी",
-            desc: "Application and fee details",
+            desc: "Generate application forms and fee letters instantly.",
         },
         {
             href: "/guides/license",
             icon: "badge",
             title: "Driving License",
             titleNp: "सवारी चालक अनुमति",
-            desc: "New and renewal",
+            desc: "Draft renewal and new license request letters.",
         },
         {
             href: "/guides/pan",
             icon: "payments",
             title: "Permanent Account (PAN)",
             titleNp: "स्थायी लेखा नम्बर",
-            desc: "Online registration process",
+            desc: "AI assistance for online PAN documentation.",
         },
         {
             href: "/guides/nid",
             icon: "badge",
             title: "National Identity Card",
             titleNp: "राष्ट्रिय परिचयपत्र",
-            desc: "NID registration process",
+            desc: "Instant NID application drafting.",
         },
     ];
 

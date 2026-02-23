@@ -139,19 +139,16 @@ export default function Hero() {
                                     <span className="opacity-0">Loading...</span>
                                 )}
                             </h2>
-                            <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4 mt-2 md:mt-4">
-                                <div className={`px-3 md:px-4 py-1 md:py-1.5 ${config.pillBg} border ${config.pillBorder} rounded text-xs md:text-sm font-semibold text-white/90 transition-all duration-500`}>
-                                    Tithi <span className="nepali-font">तिथि</span>: <span className="font-bold">एकादशी</span>
-                                </div>
-                                <div className="h-4 w-px bg-white/20 hidden md:block"></div>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-xs md:text-sm font-medium text-slate-300">
-                                        Next Event:
-                                        <span className="text-white font-bold ml-1">
-                                            {nextEvent ? nextEvent.name : "Maha Shivaratri"}
-                                            {nextEvent && <span className="text-white/60 text-[10px] ml-1">({nextEvent.bsDate})</span>}
-                                        </span>
-                                    </span>
+                            <p className="text-sm md:text-base text-white/70 max-w-xl mx-auto font-medium">
+                                Create professional Government letters, Job applications, and formal documents instantly with <span className="text-white font-bold">Sarkari AI</span>.
+                            </p>
+                            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-4 md:mt-6">
+                                <button className="bg-white text-primary px-6 md:px-8 py-2 md:py-3 rounded-xl font-bold text-sm md:text-base shadow-xl hover:bg-slate-100 transition-all flex items-center gap-2 group">
+                                    <span className="material-symbols-outlined text-xl">auto_fix_high</span>
+                                    AI Document Generator
+                                </button>
+                                <div className={`px-3 md:px-4 py-1.5 md:py-2 ${config.pillBg} border ${config.pillBorder} rounded-xl text-[10px] md:text-xs font-black uppercase tracking-widest text-white/90 transition-all duration-500`}>
+                                    Rs. 400 / Month Premium
                                 </div>
                             </div>
                         </div>

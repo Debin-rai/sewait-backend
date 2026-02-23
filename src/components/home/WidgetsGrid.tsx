@@ -111,31 +111,31 @@ export default function WidgetsGrid() {
 
             {isVisible('MODULE_SEWA_AI') && (
                 <FadeIn delay={0.3} className="h-full">
-                    {/* Sewa AI Widget */}
+                    {/* Sarkari AI Widget */}
                     <Link href="/sewa-ai" className="bg-white border border-slate-100 shadow-sm rounded-2xl p-6 hover:shadow-lg transition-all border-t-4 border-t-primary block h-full overflow-hidden relative group">
                         <div className="absolute top-0 right-0 p-3 opacity-5 group-hover:opacity-10 transition-opacity">
-                            <span className="material-symbols-outlined text-8xl">smart_toy</span>
+                            <span className="material-symbols-outlined text-8xl">history_edu</span>
                         </div>
 
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-2">
-                                <span className="material-symbols-outlined text-primary">smart_toy</span>
-                                <h2 className="text-primary font-bold text-lg">Sewa AI <span className="nepali-font text-sm text-primary/60">सेवा AI</span></h2>
+                                <span className="material-symbols-outlined text-primary">auto_fix_high</span>
+                                <h2 className="text-primary font-bold text-lg">Sarkari AI <span className="nepali-font text-sm text-primary/60">सरकारी AI</span></h2>
                             </div>
-                            <span className="text-[9px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-100 uppercase tracking-tighter animate-pulse">New</span>
+                            <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100 uppercase tracking-tighter">Premium</span>
                         </div>
 
                         <div className="mb-6">
                             <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                                Namaste! I am your AI assistant. Ask me anything about:
+                                Professional Nepali document assistant. I'll help you write:
                             </p>
                         </div>
 
                         <div className="space-y-2">
                             {[
-                                { label: "Gold & Silver Rates", icon: "payments" },
-                                { label: "Government Procedures", icon: "gavel" },
-                                { label: "Weather & Calendar", icon: "event" }
+                                { label: "Sarkari Nibedan (Applications)", icon: "description" },
+                                { label: "Character/Job Letters", icon: "assignment_ind" },
+                                { label: "Legal Format Drafting", icon: "gavel" }
                             ].map((item, i) => (
                                 <div key={i} className="flex items-center gap-3 p-2 bg-slate-50 rounded-xl border border-slate-100 group-hover:border-primary/20 transition-all">
                                     <span className="material-symbols-outlined text-primary text-sm">{item.icon}</span>
@@ -145,7 +145,7 @@ export default function WidgetsGrid() {
                         </div>
 
                         <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
-                            <span className="text-[10px] font-bold text-primary group-hover:underline underline-offset-4">Try SewaAI now</span>
+                            <span className="text-[10px] font-bold text-primary group-hover:underline underline-offset-4">Generate Document Now</span>
                             <span className="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </div>
                     </Link>
