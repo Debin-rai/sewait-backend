@@ -75,6 +75,7 @@ export default function Header() {
         { href: "/gold-silver", label: "Gold & Silver" },
         { href: "/sewa-ai", label: "Sewa AI", isNew: true },
         { href: "/guides", label: "Gov. Services" },
+        { href: "/premium", label: "Premium", isNew: true },
         { href: "/about", label: "About" },
     ];
 

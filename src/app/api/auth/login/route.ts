@@ -115,13 +115,6 @@ export async function POST(request: Request) {
             );
         }
 
-        if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
-            return NextResponse.json(
-                { error: "Access denied. Admin role required." },
-                { status: 403 }
-            );
-        }
-
         // Success! Reset attempts
         await prisma.user.update({
             where: { id: user.id },
@@ -137,7 +130,7 @@ export async function POST(request: Request) {
             data: {
                 action: 'LOGIN',
                 adminId: user.id,
-                details: 'Admin logged in successfully',
+                details: `${user.role} logged in successfully`,
                 ipAddress: ip,
                 status: 'SUCCESS'
             }
@@ -145,7 +138,7 @@ export async function POST(request: Request) {
 
         await setSession(user, rememberMe);
 
-        return NextResponse.json({ success: true, user: { email: user.email, name: user.name } });
+        return NextResponse.json({ success: true, user: { email: user.email, name: user.name, role: user.role } });
     } catch (error) {
         console.error("Login Error:", error);
         return NextResponse.json(

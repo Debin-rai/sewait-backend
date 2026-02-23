@@ -1,0 +1,34 @@
+import { NextResponse } from "next/server";
+import { getSession } from "@/lib/auth";
+import prisma from "@/lib/prisma";
+
+export async function GET() {
+    try {
+        const session = await getSession();
+
+        if (!session || !session.user) {
+            return NextResponse.json({ authenticated: false }, { status: 401 });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { id: session.user.id },
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                role: true,
+                subscriptionStatus: true,
+                subscriptionExpiry: true,
+            }
+        });
+
+        if (!user) {
+            return NextResponse.json({ authenticated: false }, { status: 401 });
+        }
+
+        return NextResponse.json({ authenticated: true, user });
+    } catch (error) {
+        console.error("Auth Me Error:", error);
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}
