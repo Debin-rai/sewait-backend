@@ -25,16 +25,6 @@ const modules = [
         href: "/sewait-portal-99/calendar"
     },
     {
-        name: "Gold/Silver Rates",
-        type: "External API",
-        description: "Daily market prices. Includes manual override capability for administrative control.",
-        lastUpdated: "5 hours ago",
-        icon: "payments",
-        image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBx6ucG96W3l9QpnAcDUFzvDGEuGz-T4mi6DpZtrznvGP6uRXSAzC1tMbDLBTxNbjdHl6keOWjnsECGTwi8aveDLWoEIjncBf9BzrjZIDb6uJuhcG9eV8ZgepZOJFLQeLhhnjwlNl2aIonTF97HG1YPe-89bY2XevoD07mk_97zh4_L771DbOndiqdlSXzsJ5zzO8ixpJ2lfKeCEi2kPkEY7l6zDA4RdvcDWnXmHdNIxA0kwObOHKibwnTZZJ9MQUemUjR2B2E94QY",
-        typeColor: "bg-amber-100 text-amber-700",
-        href: "/sewait-portal-99/rates"
-    },
-    {
         name: "Utility Converters",
         type: "Calculators",
         description: "Configure Forex rates, constants, and instructional copy for the Nepali utility converters (Date, Area, Currency).",

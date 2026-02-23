@@ -15,7 +15,7 @@ export async function GET(request: Request) {
             {
                 id: 'feat-sewa-ai',
                 title: 'Sewa AI Assistant',
-                description: 'Ask anything about Nepal - gold rates, weather, guides.',
+                description: 'Ask anything about Nepal - government guides, documents, and news.',
                 url: '/sewa-ai',
                 category: 'Feature',
                 icon: 'auto_awesome'
@@ -27,14 +27,6 @@ export async function GET(request: Request) {
                 url: '/calendar',
                 category: 'Feature',
                 icon: 'calendar_month'
-            },
-            {
-                id: 'feat-gold',
-                title: 'Gold & Silver Rates',
-                description: 'Daily updated gold and silver prices in Nepal.',
-                url: '/gold-silver',
-                category: 'Feature',
-                icon: 'payments'
             },
             {
                 id: 'feat-weather',
