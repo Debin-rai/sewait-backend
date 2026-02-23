@@ -4,10 +4,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { getCurrentNepaliDate } from "@/lib/nepaliDate";
 import FadeIn from "@/components/animations/FadeIn";
 import DocMarquee from "./DocMarquee";
+import { useTheme, THEMES } from "@/context/ThemeContext";
 
 export default function Hero() {
+    const { theme } = useTheme();
     const [nepaliDate, setNepaliDate] = useState<any>(null);
     const [mounted, setMounted] = useState(false);
+
+    // Animation state for sliding background
+    const [prevTheme, setPrevTheme] = useState(theme);
+    const [isAnimating, setIsAnimating] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -16,13 +22,32 @@ export default function Hero() {
         return () => clearInterval(timer);
     }, []);
 
+    useEffect(() => {
+        if (theme !== prevTheme) {
+            setIsAnimating(true);
+            const timer = setTimeout(() => {
+                setPrevTheme(theme);
+                setIsAnimating(false);
+            }, 600); // Matches CSS animation duration
+            return () => clearTimeout(timer);
+        }
+    }, [theme, prevTheme]);
+
     return (
         <section className="relative overflow-hidden">
-            {/* Standard Blue Theme Background */}
+            {/* Current Background Layer */}
             <div
                 className="hero-theme-layer"
-                style={{ background: "linear-gradient(135deg, #1F3A5F 0%, #274C77 100%)" }}
+                style={{ background: THEMES[prevTheme].gradient }}
             />
+
+            {/* Incoming Background Layer (Sliding) */}
+            {isAnimating && (
+                <div
+                    className="hero-theme-layer hero-theme-incoming hero-slide-active"
+                    style={{ background: THEMES[theme].gradient }}
+                />
+            )}
 
             {/* Dot pattern overlay */}
             <div className="hero-dot-pattern" />

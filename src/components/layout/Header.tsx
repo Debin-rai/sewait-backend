@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemePicker from "./ThemePicker";
 
 export default function Header() {
     const pathname = usePathname();
@@ -14,7 +15,27 @@ export default function Header() {
     const [results, setResults] = useState<any[]>([]);
     const [isSearching, setIsSearching] = useState(false);
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
+    const [user, setUser] = useState<any>(null);
+    const [authChecked, setAuthChecked] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+
+    // Auth Check
+    useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const res = await fetch("/api/auth/me");
+                const data = await res.json();
+                if (data.authenticated) {
+                    setUser(data.user);
+                }
+            } catch (err) {
+                console.error("Auth check in header failed:", err);
+            } finally {
+                setAuthChecked(true);
+            }
+        };
+        checkAuth();
+    }, []);
 
     // Animated Placeholder Logic
     const placeholders = [
@@ -198,25 +219,44 @@ export default function Header() {
                             </div>
                         )}
                     </div>
-                    {/* System Settings Button */}
-                    <Link
-                        href="/sewait-portal-99"
-                        className="hidden sm:flex items-center gap-2 p-2 hover:bg-slate-100 rounded-lg transition-all text-slate-600 hover:text-primary group"
-                        title="System Settings"
-                    >
-                        <span className="material-symbols-outlined transition-transform group-hover:rotate-45">settings</span>
-                    </Link>
+                    <div className="flex items-center gap-3">
+                        <ThemePicker />
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden p-2 hover:bg-slate-100 rounded-lg transition-all duration-300 active:scale-90"
-                        aria-label="Toggle menu"
-                    >
-                        <span className="material-symbols-outlined text-slate-700">
-                            {mobileMenuOpen ? "close" : "menu"}
-                        </span>
-                    </button>
+                        {/* User Profile Section */}
+                        {authChecked && (
+                            <div className="flex items-center gap-3">
+                                {user ? (
+                                    <div className="hidden sm:flex items-center gap-3 bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-xl">
+                                        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary border border-primary/20">
+                                            {user.name?.[0] || user.email[0].toUpperCase()}
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] font-black text-slate-800 leading-none">{user.name || user.email.split('@')[0]}</span>
+                                            <span className={`text-[8px] font-bold uppercase tracking-tight leading-none mt-0.5 ${user.subscriptionStatus === 'PREMIUM' ? 'text-amber-600' : 'text-slate-400'}`}>
+                                                {user.subscriptionStatus === 'PREMIUM' ? 'PRO' : 'Free'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="hidden sm:flex items-center gap-2">
+                                        <Link href="/login" className="text-xs font-bold text-slate-600 hover:text-primary px-2">Log In</Link>
+                                        <Link href="/register" className="text-xs font-bold bg-primary text-white px-4 py-2 rounded-lg shadow-sm hover:bg-primary/90 transition-all">Sign Up</Link>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Mobile Menu Button */}
+                        <button
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            className="lg:hidden p-2 hover:bg-slate-100 rounded-lg transition-all duration-300 active:scale-90"
+                            aria-label="Toggle menu"
+                        >
+                            <span className="material-symbols-outlined text-slate-700">
+                                {mobileMenuOpen ? "close" : "menu"}
+                            </span>
+                        </button>
+                    </div>
                 </div>
             </header>
 

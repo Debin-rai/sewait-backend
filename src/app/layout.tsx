@@ -91,6 +91,7 @@ import Footer from "@/components/layout/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 import PwaPrompt from "@/components/PwaPrompt";
 import CookieConsent from "@/components/CookieConsent";
+import FluidCursor from "@/components/animations/FluidCursor";
 
 import prisma from "@/lib/prisma";
 import Chatbot from "@/components/Chatbot";
@@ -202,6 +203,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Chatbot id={chatbotId} />
             <PwaPrompt />
             <CookieConsent />
+            <FluidCursor />
           </ClientLayout>
         </SmoothScroll>
       </body>
