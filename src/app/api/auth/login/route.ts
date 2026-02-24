@@ -81,6 +81,14 @@ export async function POST(request: Request) {
             );
         }
 
+        // Check if user has a password (only for local accounts)
+        if (!user.password) {
+            return NextResponse.json(
+                { error: "This account uses social login (Google/GitHub). Please sign in with your provider." },
+                { status: 401 }
+            );
+        }
+
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {

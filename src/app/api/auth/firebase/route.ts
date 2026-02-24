@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
         if (!user) {
             // Create new user if they don't exist
-            user = await prisma.user.create({
+            user = await (prisma.user.create as any)({
                 data: {
                     email,
                     name: name || null,
@@ -49,30 +49,40 @@ export async function POST(req: NextRequest) {
             });
         } else {
             // Update existing user with Firebase UID if it's missing (link account)
-            if (!user.firebaseUid) {
-                user = await prisma.user.update({
+            if (!(user as any).firebaseUid) {
+                user = await (prisma.user.update as any)({
                     where: { id: user.id },
                     data: {
                         firebaseUid: uid,
-                        provider: user.provider === "CREDENTIALS" ? "GOOGLE" : user.provider
+                        provider: (user as any).provider === "CREDENTIALS" ? "GOOGLE" : (user as any).provider
                     },
                 });
             }
+        }
+
+        if (!user) {
+            return NextResponse.json(
+                { error: "User could not be created or found" },
+                { status: 500 }
+            );
         }
 
         // 3. Create Session JWT (using the existing auth logic)
         // We reuse your custom JWT system so middleware stays the same
         const expires = new Date(Date.now() + SESSION_DURATION);
         const sessionToken = await encrypt({
-            userId: user.id,
-            email: user.email,
-            role: user.role,
+            user: {
+                id: user.id,
+                email: user.email,
+                role: user.role,
+            },
             expires,
         });
 
         // 4. Set Session Cookie
+        const { SESSION_COOKIE_NAME } = await import("@/lib/auth");
         const cookieStore = await cookies();
-        cookieStore.set("admin_session", sessionToken, {
+        cookieStore.set(SESSION_COOKIE_NAME, sessionToken, {
             expires,
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
