@@ -4,7 +4,7 @@ import GuidesClient from "./GuidesClient";
 export const metadata: Metadata = {
     title: "SewaIT Guides Nepal | Citizenship, Passport, & License Info",
     description: "Step-by-step simplified guides for Nepal government services: Citizenship, Passport (E-Passport), Driving License, PAN Card, and more. Navigate official processes easily with SewaIT.",
-    keywords: ["SewaIT Guides", "Nepali Citizenship Guide", "Passport Nepal Renewal", "Driving License Nepal Process", "Sarkari Sewa", "Public Service Guides Nepal"],
+    keywords: ["SewaIT Guides", "Nepali Citizenship Guide", "Passport Nepal Renewal", "Driving License Nepal Process", "SewaIT Sewa", "Public Service Guides Nepal"],
     openGraph: {
         title: "SewaIT Guides - Nepal Government Services",
         description: "Official government service guides for citizens of Nepal. Simplified and step-by-step.",

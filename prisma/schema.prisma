@@ -198,7 +198,7 @@ model ChatMessage {
   @@index([sessionId])
 }
 
-// --- 6. Sarkari AI SaaS ---
+// --- 6. SewaIT AI SaaS ---
 
 model SavedDocument {
   id        String   @id @default(cuid())
