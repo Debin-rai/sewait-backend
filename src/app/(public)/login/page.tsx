@@ -44,12 +44,12 @@ export default function LoginPage() {
                 router.push("/sewa-ai");
                 router.refresh();
             } else {
-                setError(data.error || "Firebase authentication failed.");
+                setError(data.error || data.details || "Firebase authentication failed.");
             }
         } catch (err: any) {
             console.error("Google Sign-In Error:", err);
             if (err.code !== "auth/popup-closed-by-user") {
-                setError("Failed to sign in with Google. Please try again.");
+                setError(err.message || "Failed to sign in with Google. Please try again.");
             }
         } finally {
             setIsGoogleLoading(false);
