@@ -2,7 +2,7 @@
 
 import FadeIn from "@/components/animations/FadeIn";
 import DocumentGenerator from "@/components/docs/DocumentGenerator";
-import SarkariAssistant from "@/components/SarkariAssistant";
+import SewaITAssistant from "@/components/SewaITAssistant";
 
 export default function DocumentGeneratorSection() {
     return (
@@ -25,12 +25,13 @@ export default function DocumentGeneratorSection() {
                             <span className="material-symbols-outlined">smart_toy</span>
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold text-slate-900">Need specific help?</h2>
-                            <p className="text-xs text-slate-500">Ask Sarkari AI anything about the generation process.</p>
+                            <h1 className="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                                Official Document <span className="text-primary">Generator with SewaIT AI.</span>
+                            </h1>
                         </div>
                     </div>
                     <div className="bg-white border border-slate-100 rounded-3xl shadow-lg h-[600px] overflow-hidden mx-2 md:mx-0">
-                        <SarkariAssistant />
+                        <SewaITAssistant />
                     </div>
                 </div>
             </FadeIn>

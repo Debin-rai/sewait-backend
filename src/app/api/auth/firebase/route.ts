@@ -17,6 +17,13 @@ export async function POST(req: NextRequest) {
             );
         }
 
+        // Verify CSRF
+        const { verifyCsrfToken } = await import("@/lib/csrf");
+        const isValidCsrf = await verifyCsrfToken(req);
+        if (!isValidCsrf) {
+            return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+        }
+
         // 1. Verify the Firebase ID token
         const decodedToken = await adminAuth.verifyIdToken(idToken);
         const { email, uid, name, picture } = decodedToken;
@@ -25,6 +32,16 @@ export async function POST(req: NextRequest) {
             return NextResponse.json(
                 { error: "Email missing from Firebase token" },
                 { status: 400 }
+            );
+        }
+
+        // --- Limited Users Check (Whitelist) ---
+        const allowedEmails = process.env.ALLOWED_EMAILS?.split(",").map(e => e.trim()) || [];
+        if (allowedEmails.length > 0 && !allowedEmails.includes(email)) {
+            console.warn(`🚫 BLOCKED sign-in attempt from unauthorized email: ${email}`);
+            return NextResponse.json(
+                { error: "Access Denied: Your email is not authorized to use this application." },
+                { status: 403 }
             );
         }
 
@@ -68,7 +85,7 @@ export async function POST(req: NextRequest) {
         }
 
         // 3. Create Session JWT (using the existing auth logic)
-        // We reuse your custom JWT system so middleware stays the same
+        // We reuse your custom JWT system so proxy stays the same
         const expires = new Date(Date.now() + SESSION_DURATION);
         const sessionToken = await encrypt({
             user: {

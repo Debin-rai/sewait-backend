@@ -103,7 +103,7 @@ export default function WidgetsGrid() {
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center gap-2">
                                 <span className="material-symbols-outlined" style={{ color: THEMES[theme].primary }}>auto_fix_high</span>
-                                <h2 className="font-bold text-lg" style={{ color: THEMES[theme].primary }}>Sarkari AI <span className="nepali-font text-sm opacity-60">सरकारी AI</span></h2>
+                                <h2 className="font-bold text-lg" style={{ color: THEMES[theme].primary }}>SewaIT AI <span className="nepali-font text-sm opacity-60">सरकारी AI</span></h2>
                             </div>
                             <span
                                 className="text-[9px] font-bold px-2 py-0.5 rounded border uppercase tracking-tighter"
@@ -121,7 +121,7 @@ export default function WidgetsGrid() {
 
                         <div className="space-y-2">
                             {[
-                                { label: "Sarkari Nibedan (Applications)", icon: "description" },
+                                { label: "SewaIT Nibedan (Applications)", icon: "description" },
                                 { label: "Character/Job Letters", icon: "assignment_ind" },
                                 { label: "Legal Format Drafting", icon: "gavel" }
                             ].map((item, i) => (

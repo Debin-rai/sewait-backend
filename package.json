@@ -1,6 +1,6 @@
 {
   "name": "sewait",
-  "version": "0.1.0",
+  "version": "1.0.7",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,6 +10,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@prisma/client": "^5.10.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/papaparse": "^5.5.2",
@@ -47,8 +49,11 @@
     "typescript": "5.9.3"
   },
   "optionalDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.0.0",
+    "@tailwindcss/oxide-linux-x64-musl": "^4.0.0",
     "lightningcss": "^1.30.2",
-    "lightningcss-linux-x64-gnu": "^1.30.2"
+    "lightningcss-linux-x64-gnu": "^1.30.2",
+    "lightningcss-linux-x64-musl": "^1.30.2"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

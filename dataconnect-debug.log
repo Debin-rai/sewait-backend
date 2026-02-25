@@ -1,0 +1,19 @@
+I0225 15:19:45.441314   12340 load.go:31] Reloading schema and connectors...
+I0225 15:19:45.549337   12340 control.go:100] [/emulator/sajilosathi 405d] UpdateResources(): done
+Main schema: sources: schema\schema.gql [1992B] 
+Connector "example": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+I0225 15:19:45.625159   12340 codegen.go:80] [connector "example" javascriptSdk] Generating sources into "C:\\Users\\hp\\dev\\sajilosathi\\src\\dataconnect-generated"
+I0225 15:19:45.652406   12340 codegen.go:80] [connector "example" adminSdk] Generating sources into "C:\\Users\\hp\\dev\\sajilosathi\\src\\dataconnect-admin-generated"
+I0225 15:19:45.665444   12340 collector.go:107] schema extensions wrote into "C:\\Users\\hp\\dev\\sajilosathi\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [80731B] main\implicit.gql [1261B] main\input.gql [28173B] main\relation.gql [14318B] main\query.gql [5099B] main\mutation.gql [13679B] 
+I0225 15:19:45.688509   12340 collector.go:107] connector "example" javascriptSdk wrote into "C:\\Users\\hp\\dev\\sajilosathi\\src\\dataconnect-generated"
+Generated sources: react\esm\package.json [17B] react\index.cjs.js [3439B] .guides/usage.md [3489B] react\esm\index.esm.js [3269B] .guides/setup.md [1682B] .guides/config.json [236B] esm\index.esm.js [3561B] esm\package.json [17B] react\README.md [48299B] react\index.d.ts [3961B] index.d.ts [8025B] index.cjs.js [4051B] package.json [863B] README.md [40931B] react\package.json [460B] 
+I0225 15:19:45.703390   12340 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation
+I0225 15:19:45.720869   12340 collector.go:107] connector "example" adminSdk wrote into "C:\\Users\\hp\\dev\\sajilosathi\\src\\dataconnect-admin-generated"
+Generated sources: esm\index.esm.js [2981B] esm\package.json [17B] index.cjs.js [3274B] package.json [632B] index.d.ts [7666B] 
+I0225 15:19:45.728866   12340 installsdk.go:55] Package @dataconnect/admin-generated is already installed. Skipping installation
+I0225 15:19:45.728866   12340 load.go:109] Finished reloading
+I0225 15:19:45.740107   12340 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:9399
+I0225 15:19:52.391612   12340 control.go:100] [/emulator/sajilosathi 8b7a] UpdateResources(): done
+Main schema: sources: schema\schema.gql [1992B] 
+Connector "example": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 

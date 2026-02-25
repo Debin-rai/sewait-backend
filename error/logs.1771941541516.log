@@ -1,0 +1,284 @@
+2026-02-24T13:56:10.982147838Z [inf]  
+2026-02-24T13:56:12.476251826Z [inf]  [35m[Region: us-west1][0m
+2026-02-24T13:56:12.498319509Z [err]  INFO No package manager inferred, using npm default
+2026-02-24T13:56:12.498632186Z [err]  
+2026-02-24T13:56:12.573756254Z [inf]  
+2026-02-24T13:56:12.573817826Z [inf]  [38;2;125;86;243m╭─────────────────╮[0m
+2026-02-24T13:56:12.573824063Z [inf]  [38;2;125;86;243m│[0m Railpack 0.17.2 [38;2;125;86;243m│[0m
+2026-02-24T13:56:12.573828878Z [inf]  [38;2;125;86;243m╰─────────────────╯[0m
+2026-02-24T13:56:12.573836762Z [inf]  
+2026-02-24T13:56:12.573841695Z [inf]  [97m↳ Detected Node[0m
+2026-02-24T13:56:12.573846385Z [inf]  [97m↳ Using npm package manager[0m
+2026-02-24T13:56:12.573850386Z [inf]  
+2026-02-24T13:56:12.573855694Z [inf]  [1mPackages[0m
+2026-02-24T13:56:12.573859604Z [inf]  [38;5;238m──────────[0m
+2026-02-24T13:56:12.573864369Z [inf]  [95mnode[0m  [38;5;238m│[0m  [96m22.22.0[0m  [38;5;238m│[0m  railpack default (22)
+2026-02-24T13:56:12.573868357Z [inf]  
+2026-02-24T13:56:12.573872423Z [inf]  [1mSteps[0m
+2026-02-24T13:56:12.573876152Z [inf]  [38;5;238m──────────[0m
+2026-02-24T13:56:12.573885755Z [inf]  [95m▸ install[0m
+2026-02-24T13:56:12.573890002Z [inf]  [38;5;245m$[0m [1mnpm ci[0m
+2026-02-24T13:56:12.573894528Z [inf]  
+2026-02-24T13:56:12.573898409Z [inf]  [95m▸ build[0m
+2026-02-24T13:56:12.573902485Z [inf]  [38;5;245m$[0m [1mnpm run build[0m
+2026-02-24T13:56:12.573906409Z [inf]  
+2026-02-24T13:56:12.573910401Z [inf]  [1mDeploy[0m
+2026-02-24T13:56:12.573914066Z [inf]  [38;5;238m──────────[0m
+2026-02-24T13:56:12.573919349Z [inf]  [38;5;245m$[0m [1mnpm run start[0m
+2026-02-24T13:56:12.573923690Z [inf]  
+2026-02-24T13:56:12.573927626Z [inf]  
+2026-02-24T13:56:12.576005982Z [inf]  Successfully prepared Railpack plan for build
+2026-02-24T13:56:12.576070725Z [inf]  
+2026-02-24T13:56:12.576081725Z [inf]  
+2026-02-24T13:56:12.576567921Z [inf]  context: k9nn-uHzT
+2026-02-24T13:56:12.826084595Z [inf]  [internal] load build definition from railpack-plan.json
+2026-02-24T13:56:12.826147069Z [inf]  [internal] load build definition from railpack-plan.json
+2026-02-24T13:56:12.826159972Z [inf]  [internal] load build definition from railpack-plan.json
+2026-02-24T13:56:12.837069684Z [inf]  [internal] load build definition from railpack-plan.json
+2026-02-24T13:56:12.840277115Z [inf]  resolve image config for docker-image://ghcr.io/railwayapp/railpack-frontend:v0.17.2
+2026-02-24T13:57:38.653918368Z [inf]  resolve image config for docker-image://ghcr.io/railwayapp/railpack-frontend:v0.17.2
+2026-02-24T13:57:38.654028137Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.17.2@sha256:28365a4aa9bba5675a71d2a7df568a19ab8da928dc150aaa63157752f0702a07
+2026-02-24T13:57:38.654149107Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.17.2@sha256:28365a4aa9bba5675a71d2a7df568a19ab8da928dc150aaa63157752f0702a07
+2026-02-24T13:57:38.660223247Z [inf]  docker-image://ghcr.io/railwayapp/railpack-frontend:v0.17.2@sha256:28365a4aa9bba5675a71d2a7df568a19ab8da928dc150aaa63157752f0702a07
+2026-02-24T13:57:38.752290277Z [inf]  load build definition from railpack-plan.json
+2026-02-24T13:57:38.752360231Z [inf]  load build definition from railpack-plan.json
+2026-02-24T13:57:38.752399182Z [inf]  load build definition from railpack-plan.json
+2026-02-24T13:57:38.763075574Z [inf]  load build definition from railpack-plan.json
+2026-02-24T13:57:38.963619807Z [inf]  copy /mise/installs
+2026-02-24T13:57:38.963682414Z [inf]  copy /mise/shims
+2026-02-24T13:57:38.963698018Z [inf]  install mise packages: node
+2026-02-24T13:57:38.963708088Z [inf]  create mise config
+2026-02-24T13:57:38.963719721Z [inf]  mkdir /etc/mise
+2026-02-24T13:57:38.963731774Z [inf]  docker-image://ghcr.io/railwayapp/railpack-builder:latest
+2026-02-24T13:57:38.963740756Z [inf]  install apt packages: libatomic1
+2026-02-24T13:57:38.963749663Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:latest
+2026-02-24T13:57:38.963817259Z [inf]  copy /root/.cache
+2026-02-24T13:57:38.963824354Z [inf]  copy /app/node_modules
+2026-02-24T13:57:38.963841401Z [inf]  npm run build
+2026-02-24T13:57:38.963850691Z [inf]  [railpack] secrets hash
+2026-02-24T13:57:38.963860252Z [inf]  copy / /app
+2026-02-24T13:57:38.963899617Z [inf]  [railpack] merge $packages:apt:runtime, $packages:mise, $build, $build
+2026-02-24T13:57:38.963912279Z [inf]  mkdir -p /app/node_modules/.cache
+2026-02-24T13:57:38.963920953Z [inf]  copy / /app
+2026-02-24T13:57:38.963928020Z [inf]  loading .
+2026-02-24T13:57:38.963933691Z [inf]  copy /root/.local/state/mise
+2026-02-24T13:57:38.963939069Z [inf]  copy /etc/mise/config.toml
+2026-02-24T13:57:38.963944507Z [inf]  copy /app
+2026-02-24T13:57:38.963949711Z [inf]  copy /usr/local/bin/mise
+2026-02-24T13:57:38.963955847Z [inf]  npm ci
+2026-02-24T13:57:38.964007860Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:latest
+2026-02-24T13:57:38.964018125Z [inf]  docker-image://ghcr.io/railwayapp/railpack-builder:latest
+2026-02-24T13:57:38.964035202Z [inf]  [railpack] secrets hash
+2026-02-24T13:57:38.964043977Z [inf]  loading .
+2026-02-24T13:57:38.964064656Z [inf]  [railpack] secrets hash
+2026-02-24T13:57:38.964073061Z [inf]  loading .
+2026-02-24T13:57:39.395911792Z [inf]  docker-image://ghcr.io/railwayapp/railpack-builder:latest
+2026-02-24T13:57:39.398025569Z [inf]  loading .
+2026-02-24T13:57:39.398080152Z [inf]  mkdir /etc/mise
+2026-02-24T13:57:39.398092339Z [inf]  create mise config
+2026-02-24T13:57:39.398117270Z [inf]  create mise config
+2026-02-24T13:57:39.398126103Z [inf]  [railpack] secrets hash
+2026-02-24T13:57:39.398620168Z [inf]  install mise packages: node
+2026-02-24T13:57:39.409748377Z [inf]  [railpack] secrets hash
+2026-02-24T13:57:39.829805314Z [inf]  mise node@22.22.0    install
+
+2026-02-24T13:57:39.831086407Z [inf]  mise node@22.22.0    download node-v22.22.0-linux-x64.tar.gz
+
+2026-02-24T13:57:39.894945168Z [inf]  loading .
+2026-02-24T13:57:40.185788105Z [inf]  mise node@22.22.0    extract node-v22.22.0-linux-x64.tar.gz
+
+2026-02-24T13:57:41.481462997Z [inf]  mise node@22.22.0    node -v
+
+2026-02-24T13:57:41.486069745Z [inf]  mise node@22.22.0    v22.22.0
+
+2026-02-24T13:57:41.487261275Z [inf]  mise node@22.22.0    npm -v
+
+2026-02-24T13:57:41.599592112Z [inf]  mise node@22.22.0    10.9.4
+
+2026-02-24T13:57:41.630767832Z [inf]  mise node@22.22.0  ✓ installed
+
+2026-02-24T13:57:41.868621034Z [inf]  install mise packages: node
+2026-02-24T13:57:41.870238474Z [inf]  copy / /app
+2026-02-24T13:57:42.118479732Z [inf]  copy / /app
+2026-02-24T13:57:42.120873176Z [inf]  mkdir -p /app/node_modules/.cache
+2026-02-24T13:57:42.267996008Z [inf]  mkdir -p /app/node_modules/.cache
+2026-02-24T13:57:42.269746101Z [inf]  npm ci
+2026-02-24T13:57:42.474791773Z [inf]  npm warn config production Use `--omit=dev` instead.
+
+2026-02-24T13:58:33.303914388Z [inf]  
+> sewait@0.1.0 postinstall
+> prisma generate
+
+
+2026-02-24T13:58:33.888256973Z [inf]  Prisma schema loaded from prisma/schema.prisma
+
+2026-02-24T13:58:34.410160809Z [inf]  
+✔ Generated Prisma Client (v5.10.2) to ./node_modules/@prisma/client in 154ms
+
+Start using Prisma Client in Node.js (See: https://pris.ly/d/client)
+```
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+```
+or start using Prisma Client at the edge (See: https://pris.ly/d/accelerate)
+```
+import { PrismaClient } from '@prisma/client/edge'
+const prisma = new PrismaClient()
+```
+
+See other ways of importing Prisma Client: http://pris.ly/d/importing-client
+
+┌─────────────────────────────────────────────────────────────┐
+│  Deploying your app to serverless or edge functions?        │
+│  Try Prisma Accelerate for connection pooling and caching.  │
+│  https://pris.ly/cli/accelerate                             │
+└─────────────────────────────────────────────────────────────┘
+
+
+2026-02-24T13:58:34.615251915Z [inf]  
+added 656 packages, and audited 657 packages in 52s
+
+2026-02-24T13:58:34.874974686Z [inf]  
+15 vulnerabilities (1 moderate, 14 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+2026-02-24T13:58:35.511443564Z [inf]  npm ci
+2026-02-24T13:58:35.514086468Z [inf]  copy / /app
+2026-02-24T13:58:36.088774772Z [inf]  copy / /app
+2026-02-24T13:58:36.090431959Z [inf]  npm run build
+2026-02-24T13:58:36.439393013Z [inf]  npm warn config production Use `--omit=dev` instead.
+
+2026-02-24T13:58:36.454173285Z [inf]  
+> sewait@0.1.0 build
+> prisma generate && next build
+
+
+2026-02-24T13:58:37.007261361Z [inf]  Prisma schema loaded from prisma/schema.prisma
+
+2026-02-24T13:58:37.59350998Z [inf]  
+✔ Generated Prisma Client (v5.10.2) to ./node_modules/@prisma/client in 204ms
+
+Start using Prisma Client in Node.js (See: https://pris.ly/d/client)
+```
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+```
+or start using Prisma Client at the edge (See: https://pris.ly/d/accelerate)
+```
+import { PrismaClient } from '@prisma/client/edge'
+const prisma = new PrismaClient()
+```
+
+See other ways of importing Prisma Client: http://pris.ly/d/importing-client
+
+┌─────────────────────────────────────────────────────────────┐
+│  Deploying your app to serverless or edge functions?        │
+│  Try Prisma Accelerate for connection pooling and caching.  │
+│  https://pris.ly/cli/accelerate                             │
+└─────────────────────────────────────────────────────────────┘
+
+
+2026-02-24T13:58:37.630290519Z [inf]  ┌─────────────────────────────────────────────────────────┐
+│  Update available 5.10.2 -> 7.4.1                       │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+
+2026-02-24T13:58:38.718100194Z [inf]  ▲ Next.js 16.1.6 (Turbopack)
+
+2026-02-24T13:58:38.71836387Z [inf]  
+
+2026-02-24T13:58:38.720895062Z [inf]  ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+2026-02-24T13:58:38.760028584Z [inf]    Creating an optimized production build ...
+
+2026-02-24T13:58:44.263913522Z [inf]  
+
+2026-02-24T13:58:44.264024995Z [inf]  > Build error occurred
+
+2026-02-24T13:58:44.268591823Z [inf]  Error: Turbopack build failed with 1 errors:
+./src/app/globals.css
+Error evaluating Node.js code
+Error: Cannot find native binding. npm has a bug related to optional dependencies (https://github.com/npm/cli/issues/4828). Please try `npm i` again after removing both package-lock.json and node_modules directory.
+    [at Object.<anonymous> (/app/node_modules/@tailwindcss/oxide/index.js:559:11)]
+    [at Module._compile (node:internal/modules/cjs/loader:1706:14)]
+    [at Object..js (node:internal/modules/cjs/loader:1839:10)]
+    [at Module.load (node:internal/modules/cjs/loader:1441:32)]
+    [at Function._load (node:internal/modules/cjs/loader:1263:12)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
+    [at require (node:internal/modules/helpers:147:16)]
+    [at Object.<anonymous> (/app/node_modules/@tailwindcss/postcss/dist/index.js:1:1406)]
+Caused by: Error: Cannot find module '@tailwindcss/oxide-linux-x64-gnu'
+Require stack:
+- /app/node_modules/@tailwindcss/oxide/index.js
+- /app/node_modules/@tailwindcss/postcss/dist/index.js
+- /app/.next/build/chunks/[root-of-the-server]__51225daf._.js
+- /app/.next/build/chunks/[turbopack]_runtime.js
+- /app/.next/build/postcss.js
+    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
+    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
+    [at require (node:internal/modules/helpers:147:16)]
+    [at requireNative (/app/node_modules/@tailwindcss/oxide/index.js:288:27)]
+    [at Object.<anonymous> (/app/node_modules/@tailwindcss/oxide/index.js:526:17)]
+Caused by: Error: Cannot find module './tailwindcss-oxide.linux-x64-gnu.node'
+Require stack:
+- /app/node_modules/@tailwindcss/oxide/index.js
+- /app/node_modules/@tailwindcss/postcss/dist/index.js
+- /app/.next/build/chunks/[root-of-the-server]__51225daf._.js
+- /app/.next/build/chunks/[turbopack]_runtime.js
+- /app/.next/build/postcss.js
+    [at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)]
+    [at Function._load (node:internal/modules/cjs/loader:1192:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1463:12)]
+    [at require (node:internal/modules/helpers:147:16)]
+    [at requireNative (/app/node_modules/@tailwindcss/oxide/index.js:283:18)]
+    [at Object.<anonymous> (/app/node_modules/@tailwindcss/oxide/index.js:526:17)]
+
+Import trace:
+  Client Component Browser:
+    ./src/app/globals.css [Client Component Browser]
+    ./src/app/layout.tsx [Server Component]
+
+
+    at ignore-listed frames
+
+2026-02-24T13:58:44.313156423Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:latest
+2026-02-24T13:58:44.313329696Z [inf]  docker-image://ghcr.io/railwayapp/railpack-runtime:latest
+2026-02-24T13:58:44.313336891Z [inf]  copy /mise/shims
+2026-02-24T13:58:44.313344448Z [inf]  copy /mise/installs
+2026-02-24T13:58:44.313351683Z [inf]  copy /usr/local/bin/mise
+2026-02-24T13:58:44.313374943Z [inf]  copy /etc/mise/config.toml
+2026-02-24T13:58:44.313394653Z [inf]  copy /root/.local/state/mise
+2026-02-24T13:58:44.313413428Z [inf]  install apt packages: libatomic1
+2026-02-24T13:58:44.576953172Z [inf]  Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+
+2026-02-24T13:58:44.596904767Z [inf]  Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+
+2026-02-24T13:58:44.605500321Z [inf]  Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [48.0 kB]
+
+2026-02-24T13:58:44.616596469Z [err]  npm run build
+2026-02-24T13:58:44.652185555Z [err]  install apt packages: libatomic1
+2026-02-24T13:58:44.674967168Z [err]  ERROR: failed to build: failed to solve: process "npm run build" did not complete successfully: exit code: 1

@@ -14,6 +14,13 @@ export async function POST(request: Request) {
             );
         }
 
+        // Verify CSRF
+        const { verifyCsrfToken } = await import("@/lib/csrf");
+        const isValidCsrf = await verifyCsrfToken(request);
+        if (!isValidCsrf) {
+            return NextResponse.json({ error: "Invalid CSRF token" }, { status: 403 });
+        }
+
         // Check if user already exists
         const existingUser = await prisma.user.findUnique({
             where: { email },

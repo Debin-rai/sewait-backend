@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
                 throw new Error(data.error || "Login failed");
             }
 
-            // Success! Next.js middleware will now allow access
+            // Success! Next.js proxy will now allow access
             router.push("/sewait-portal-99");
         } catch (err: any) {
             setError(err.message);

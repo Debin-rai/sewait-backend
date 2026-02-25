@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1a355b;
-  --color-primary-light: #274C77;
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
   --color-accent-amber: #D97706;
   --color-gov-blue: #003893;
   --color-background-light: #F8FAFC;
@@ -55,7 +55,11 @@
 }
 
 :root {
-  --hero-bg: linear-gradient(135deg, #1F3A5F 0%, #274C77 100%);
+  --color-primary: #1e40af;
+  --color-primary-light: #3b82f6;
+  --hero-bg: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3b82f6 100%);
+  --background: #FFFFFF;
+  --foreground: #1a355b;
 }
 
 .ticker-wrap {

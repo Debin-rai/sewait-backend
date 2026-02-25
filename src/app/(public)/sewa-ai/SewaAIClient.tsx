@@ -24,7 +24,7 @@ export default function SewaAIClient() {
     const [isHistoryOpen, setIsHistoryOpen] = useState(false);
     const searchParams = useSearchParams();
     const paramView = searchParams.get('view');
-    const [view, setView] = useState<'chat' | 'docs'>((paramView === 'docs') ? 'docs' : 'chat');
+    const [view, setView] = useState<'home' | 'chat' | 'docs'>((paramView === 'docs') ? 'docs' : (paramView === 'chat' ? 'chat' : 'home'));
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const fetchHistory = async () => {
@@ -190,6 +190,71 @@ export default function SewaAIClient() {
         { label: "Weather Update", icon: <Cloud className="size-4" /> },
     ];
 
+    // --- RENDER HELPERS ---
+    const renderHome = () => (
+        <div className="flex-1 flex flex-col items-center justify-center p-6 md:p-12 overflow-y-auto no-scrollbar">
+            <FadeIn className="max-w-5xl w-full text-center space-y-12 py-12">
+                <div className="space-y-4">
+                    <div className="size-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary/5">
+                        <Bot className="text-primary size-10" />
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
+                        Welcome to <span className="text-primary">Sewa AI</span>
+                    </h1>
+                    <p className="text-lg text-slate-500 font-bold uppercase tracking-widest">Digital Assistant for Nepal</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Chatbot Card */}
+                    <button
+                        onClick={() => setView('chat')}
+                        className="group relative p-10 bg-white dark:bg-slate-900 rounded-[3rem] border-2 border-slate-100 dark:border-slate-800 text-left transition-all hover:border-primary hover:shadow-2xl active:scale-[0.98] overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <Bot size={120} strokeWidth={1} />
+                        </div>
+                        <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-8 group-hover:scale-110 transition-transform">
+                            <Bot size={32} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3">Sewa Assistant</h3>
+                        <p className="text-slate-500 font-medium leading-relaxed mb-8">
+                            Chat with our AI to get instant help with passport procedures,
+                            license verification, weather updates, and more.
+                        </p>
+                        <div className="flex items-center gap-2 text-primary font-black uppercase text-xs tracking-widest">
+                            Start Chatting <ArrowLeft className="size-4 rotate-180" />
+                        </div>
+                    </button>
+
+                    {/* Doc Maker Card */}
+                    <button
+                        onClick={() => setView('docs')}
+                        className="group relative p-10 bg-white dark:bg-slate-900 rounded-[3rem] border-2 border-slate-100 dark:border-slate-800 text-left transition-all hover:border-primary hover:shadow-2xl active:scale-[0.98] overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <FileText size={120} strokeWidth={1} />
+                        </div>
+                        <div className="size-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 mb-8 group-hover:scale-110 transition-transform">
+                            <FileText size={32} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3">Document Maker</h3>
+                        <p className="text-slate-500 font-medium leading-relaxed mb-8">
+                            Generate professional government application letters,
+                            notices, and drafts in Nepali and English instantly.
+                        </p>
+                        <div className="flex items-center gap-2 text-blue-500 font-black uppercase text-xs tracking-widest">
+                            Draft Document <ArrowLeft className="size-4 rotate-180" />
+                        </div>
+                    </button>
+                </div>
+
+                <p className="text-xs font-black text-slate-400 uppercase tracking-widest pt-8">
+                    Empowering Citizens with Technology
+                </p>
+            </FadeIn>
+        </div>
+    );
+
     return (
         <div className="flex flex-col lg:flex-row h-screen bg-white dark:bg-slate-950 overflow-hidden fixed inset-0 z-[100]">
             {/* Desktop Sidebar */}
@@ -203,14 +268,21 @@ export default function SewaAIClient() {
                 </Link>
 
                 <button
-                    onClick={clearChat}
-                    className="w-full bg-primary hover:bg-primary-dark text-white font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-3 mb-4 transition-all shadow-xl shadow-primary/20 active:scale-95"
+                    onClick={() => { setView('home'); clearChat(); }}
+                    className="w-full bg-primary hover:bg-primary/90 text-white font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-3 mb-4 transition-all shadow-xl shadow-primary/20 active:scale-95"
                 >
                     <Plus className="size-5" strokeWidth={3} />
-                    NEW CHAT
+                    NEW SESSION
                 </button>
 
                 <div className="space-y-2 mb-8">
+                    <button
+                        onClick={() => { setView('home'); setIsHistoryOpen(false); }}
+                        className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all text-left ${view === 'home' ? 'bg-primary text-white shadow-lg' : 'text-slate-500 hover:bg-white dark:hover:bg-slate-800'}`}
+                    >
+                        <Layout className="size-5" />
+                        <span className="text-sm font-bold">Dashboard</span>
+                    </button>
                     <button
                         onClick={() => { setView('chat'); setIsHistoryOpen(false); }}
                         className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all text-left ${view === 'chat' ? 'bg-primary text-white shadow-lg' : 'text-slate-500 hover:bg-white dark:hover:bg-slate-800'}`}
@@ -273,11 +345,11 @@ export default function SewaAIClient() {
                         </div>
 
                         <button
-                            onClick={clearChat}
+                            onClick={() => { setView('home'); clearChat(); }}
                             className="w-full bg-primary text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2 mb-4 shadow-lg shadow-primary/20"
                         >
                             <Plus size={20} strokeWidth={3} />
-                            NEW CHAT
+                            NEW SESSION
                         </button>
 
                         <div className="grid grid-cols-2 gap-2 mb-8">
@@ -323,43 +395,28 @@ export default function SewaAIClient() {
                 </div>
             )}
 
-            {/* Main Chat Area */}
+            {/* Main Area */}
             <main className="flex-1 flex flex-col relative h-full">
-                {/* Chat Header */}
+                {/* Header conditionally shows Menu for mobile */}
                 <header className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 px-4 h-20 flex items-center justify-between z-10 shrink-0">
                     <div className="flex items-center gap-2">
-                        <Link href="/" className="lg:hidden p-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-500 hover:text-primary transition-all flex items-center gap-1">
-                            <ArrowLeft size={18} strokeWidth={3} />
-                            <span className="text-[10px] font-black uppercase tracking-tighter">Back</span>
-                        </Link>
                         <button onClick={() => setIsHistoryOpen(true)} className="lg:hidden p-2 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-500 hover:text-primary transition-all">
                             <Menu size={22} strokeWidth={2.5} />
                         </button>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3" onClick={() => setView('home')} style={{ cursor: 'pointer' }}>
                             <div className="size-11 bg-primary/10 rounded-2xl flex items-center justify-center overflow-hidden border border-primary/10">
                                 <Bot className="text-primary size-6 animate-pulse" />
                             </div>
-                            <div className="hidden xs:block">
-                                <h2 className="text-base font-black text-slate-900 dark:text-white tracking-tight -mb-1 text-left">Sewa AI</h2>
-                                <div className="flex items-center gap-1.5">
-                                    <div className="size-1.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active • v2.0</span>
-                                </div>
-                            </div>
+                            <h2 className="text-base font-black text-slate-900 dark:text-white tracking-tight -mb-1">
+                                {view === 'home' ? 'Dashboard' : view === 'chat' ? 'Sewa Assistant' : 'Doc Maker'}
+                            </h2>
                         </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <button className="hidden sm:flex size-10 items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-primary transition-all">
-                            <Share2 size={18} />
-                        </button>
-                        <button className="hidden sm:flex size-10 items-center justify-center bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-primary transition-all" onClick={clearChat}>
-                            <Plus size={20} strokeWidth={3} />
-                        </button>
                     </div>
                 </header>
 
-                {view === 'chat' ? (
-                    <>
+                {view === 'home' && renderHome()}
+                {view === 'chat' && (
+                    <div className="flex-1 flex flex-col relative overflow-hidden">
                         {/* Messages Container */}
                         <div
                             ref={scrollRef}
@@ -451,7 +508,7 @@ export default function SewaAIClient() {
                                     <button
                                         onClick={() => handleSend()}
                                         disabled={!input.trim() || isLoading}
-                                        className="size-14 bg-primary text-white rounded-[1.6rem] flex items-center justify-center hover:bg-primary-dark transition-all shadow-xl shadow-primary/30 disabled:opacity-40 disabled:shadow-none active:scale-90"
+                                        className="size-14 bg-primary text-white rounded-[1.6rem] flex items-center justify-center hover:bg-primary/90 transition-all shadow-xl shadow-primary/30 disabled:opacity-40 disabled:shadow-none active:scale-90"
                                     >
                                         <Send size={24} strokeWidth={2.5} />
                                     </button>
@@ -462,15 +519,12 @@ export default function SewaAIClient() {
                                 </p>
                             </div>
                         </div>
-                    </>
-                ) : (
+                    </div>
+                )}
+                {view === 'docs' && (
                     <div className="flex-1 overflow-y-auto p-4 md:p-10 no-scrollbar pb-20">
                         <FadeIn>
                             <div className="max-w-4xl mx-auto">
-                                <div className="mb-10 text-center">
-                                    <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tighter mb-2">Sarkari Document Maker</h1>
-                                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest">Professional Government Drafts in Seconds</p>
-                                </div>
                                 <DocumentGenerator />
                             </div>
                         </FadeIn>

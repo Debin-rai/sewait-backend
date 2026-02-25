@@ -46,11 +46,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setThemeState] = useState<ThemeType>("default");
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem("sewait-theme") as ThemeType;
-        if (savedTheme && THEMES[savedTheme]) {
-            setThemeState(savedTheme);
-        }
-    }, []);
+        const root = document.documentElement;
+        const currentTheme = THEMES[theme];
+
+        root.style.setProperty("--color-primary", currentTheme.primary);
+        root.style.setProperty("--color-primary-light", currentTheme.secondary);
+        // Add more variables if needed for gradients etc.
+        root.style.setProperty("--hero-bg", currentTheme.gradient);
+    }, [theme]);
 
     const setTheme = (newTheme: ThemeType) => {
         setThemeState(newTheme);

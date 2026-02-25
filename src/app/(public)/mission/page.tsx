@@ -39,7 +39,7 @@ export default function MissionPage() {
                             },
                             {
                                 title: "Simplifying Complexity",
-                                desc: "Delivering step-by-step Sarkari Guides for essential processes like passports and driving licenses to make government services more accessible.",
+                                desc: "Delivering step-by-step SewaIT Guides for essential processes like passports and driving licenses to make government services more accessible.",
                                 icon: "account_balance",
                                 color: "bg-teal-50 text-teal-600"
                             },

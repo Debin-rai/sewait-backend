@@ -77,7 +77,7 @@ export default function Hero() {
                                 )}
                             </h2>
                             <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto font-medium leading-relaxed">
-                                Create professional Government letters, Job applications, and formal documents instantly with <span className="text-white font-bold">Sarkari AI</span>.
+                                Create professional Government letters, Job applications, and formal documents instantly with <span className="text-white font-bold">SewaIT AI</span>.
                             </p>
                             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-8 md:mt-10">
                                 <button
@@ -86,7 +86,7 @@ export default function Hero() {
                                     style={{ color: THEMES[theme].primary }}
                                 >
                                     <span className="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">auto_fix_high</span>
-                                    Sarkari AI Assistant
+                                    SewaIT AI Assistant
                                 </button>
                                 <div className="px-5 md:px-6 py-2 md:py-3 bg-white/10 border border-white/20 rounded-2xl text-[11px] md:text-xs font-black uppercase tracking-[0.2em] text-white/90 backdrop-blur-md">
                                     Rs. 400 / Month Premium

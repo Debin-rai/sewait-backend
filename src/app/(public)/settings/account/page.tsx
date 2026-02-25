@@ -30,11 +30,31 @@ export default function AccountSettings() {
     const handleSave = async (e: React.FormEvent) => {
         e.preventDefault();
         setSaving(true);
-        // Implement save logic here
-        setTimeout(() => {
-            alert("Profile updated successfully!");
+        try {
+            // Get CSRF Token
+            const csrfRes = await fetch("/api/auth/csrf");
+            const { csrfToken } = await csrfRes.json();
+
+            const res = await fetch("/api/auth/profile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken
+                },
+                body: JSON.stringify({ name: formData.name }),
+            });
+
+            if (res.ok) {
+                alert("Profile updated successfully!");
+            } else {
+                const data = await res.json();
+                alert(data.error || "Update failed. Please try again.");
+            }
+        } catch (err) {
+            alert("Something went wrong. Please try again later.");
+        } finally {
             setSaving(false);
-        }, 1000);
+        }
     };
 
     if (loading) return (
@@ -59,7 +79,7 @@ export default function AccountSettings() {
                     <div className="p-8 space-y-6">
                         <div className="flex flex-col md:flex-row gap-8 items-start">
                             <div className="relative group">
-                                <div 
+                                <div
                                     className="size-24 rounded-[2rem] bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-3xl font-bold border-2 border-dashed border-slate-200 dark:border-slate-700 transition-all group-hover:border-primary/50"
                                     style={{ color: THEMES[theme].primary }}
                                 >
@@ -72,16 +92,16 @@ export default function AccountSettings() {
                             <div className="flex-1 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Full Name</label>
-                                    <input 
+                                    <input
                                         type="text"
                                         value={formData.name}
-                                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                         className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-3 text-sm font-bold focus:ring-4 focus:ring-primary/5 outline-none transition-all"
                                     />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-xs font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
-                                    <input 
+                                    <input
                                         type="email"
                                         value={formData.email}
                                         disabled
@@ -95,8 +115,8 @@ export default function AccountSettings() {
 
                 <div className="flex justify-end gap-4">
                     <button type="button" className="px-8 py-3 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">Discard</button>
-                    <button 
-                        type="submit" 
+                    <button
+                        type="submit"
                         disabled={saving}
                         className="px-10 py-3 bg-primary text-white rounded-2xl text-sm font-bold shadow-xl shadow-primary/20 transition-all active:scale-95 disabled:opacity-50"
                         style={{ backgroundColor: THEMES[theme].primary }}

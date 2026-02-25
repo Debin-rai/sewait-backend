@@ -57,7 +57,7 @@ export default function Header() {
         "Search services...",
         "guide passport",
         "guide pan card",
-        "Sarkari AI Assistant",
+        "SewaIT AI Assistant",
         "Nepali Calendar 2082",
         "Official Documents",
         "Debin Rai"
@@ -110,7 +110,7 @@ export default function Header() {
     const navLinks = [
         { href: "/", label: "Home" },
         { href: "/calendar", label: "Calendar" },
-        { href: "/sewa-ai", label: "Sarkari AI", isNew: true },
+        { href: "/sewa-ai", label: "SewaIT AI", isNew: true },
         { href: "/guides", label: "Gov. Services" },
         { href: "/premium", label: "Premium", isNew: true },
         { href: "/about", label: "About" },
@@ -210,8 +210,7 @@ export default function Header() {
                                         setResults([]);
                                     }
                                 }}
-                                className="text-white text-[9px] font-bold px-3 py-1.5 rounded-lg transition-all duration-300 hover:shadow-md active:scale-95"
-                                style={{ backgroundColor: THEMES[theme].primary }}
+                                className="bg-primary text-white text-[9px] font-bold px-3 py-1.5 rounded-lg transition-all duration-300 hover:shadow-md active:scale-95"
                             >
                                 GO
                             </button>
@@ -255,7 +254,7 @@ export default function Header() {
                             <div className="flex items-center gap-3 relative" ref={profileDropdownRef}>
                                 {user ? (
                                     <>
-                                        <button 
+                                        <button
                                             onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
                                             className="flex items-center gap-3 bg-slate-50 border border-slate-100 px-3 py-1.5 rounded-xl hover:bg-slate-100 transition-all active:scale-95"
                                         >
@@ -292,23 +291,23 @@ export default function Header() {
                                                         <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
                                                     </div>
                                                     <div className="space-y-1">
-                                                        <Link 
-                                                            href="/settings" 
+                                                        <Link
+                                                            href="/settings"
                                                             onClick={() => setProfileDropdownOpen(false)}
                                                             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-all"
                                                         >
                                                             <span className="material-symbols-outlined text-[20px]">manage_accounts</span>
                                                             <span className="text-sm font-semibold">Profile Settings</span>
                                                         </Link>
-                                                        <Link 
-                                                            href="/premium" 
+                                                        <Link
+                                                            href="/premium"
                                                             onClick={() => setProfileDropdownOpen(false)}
                                                             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 transition-all"
                                                         >
                                                             <span className="material-symbols-outlined text-[20px]">workspace_premium</span>
                                                             <span className="text-sm font-semibold">Subscription</span>
                                                         </Link>
-                                                        <button 
+                                                        <button
                                                             onClick={handleLogout}
                                                             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-red-500 hover:bg-red-50 transition-all"
                                                         >
@@ -325,8 +324,7 @@ export default function Header() {
                                         <Link href="/login" className="text-xs font-bold text-slate-600 px-2 transition-colors nav-link-hover" style={{ '--hover-color': THEMES[theme].primary } as any}>Log In</Link>
                                         <Link
                                             href="/register"
-                                            className="text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition-all hover:opacity-90"
-                                            style={{ backgroundColor: THEMES[theme].primary }}
+                                            className="bg-primary text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition-all hover:opacity-90"
                                         >
                                             Sign Up
                                         </Link>

@@ -91,7 +91,7 @@ export default function LoginPage() {
                         <div className="p-8 md:p-10">
                             <div className="text-center mb-8">
                                 <h1 className="text-2xl font-bold text-slate-900 mb-2">Welcome Back</h1>
-                                <p className="text-sm text-slate-500 font-medium">Log in to Sarkari AI to save your documents</p>
+                                <p className="text-sm text-slate-500 font-medium">Log in to SewaIT to save your documents</p>
                             </div>
 
                             {error && (

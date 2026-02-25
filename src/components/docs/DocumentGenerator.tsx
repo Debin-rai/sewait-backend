@@ -78,7 +78,7 @@ export default function DocumentGenerator() {
     };
 
     const handleDownloadPDF = () => {
-        downloadAsPDF("generated-document", `Sarkari_Document_${Date.now()}`);
+        downloadAsPDF("generated-document", `SewaIT_Document_${Date.now()}`);
     };
 
     return (
@@ -90,7 +90,7 @@ export default function DocumentGenerator() {
                         <span className="material-symbols-outlined text-3xl">auto_fix_high</span>
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold text-slate-900">Sarkari AI Document Generator</h1>
+                        <h1 className="text-2xl font-bold text-slate-900">SewaIT AI Document Generator</h1>
                         <p className="text-sm text-slate-500 font-medium whitespace-nowrap">Instant Professional Nepali Government Documents</p>
                     </div>
                 </div>
@@ -207,7 +207,7 @@ export default function DocumentGenerator() {
             {step === 3 && (
                 <div className="py-20 flex flex-col items-center justify-center text-center">
                     <div className="w-16 h-16 border-4 border-primary/10 border-t-primary rounded-full animate-spin mb-6" />
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Sarkari AI is Drafting...</h3>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">SewaIT AI is Drafting...</h3>
                     <p className="text-sm text-slate-500">Generating your formal document in professional Nepali format.</p>
                 </div>
             )}

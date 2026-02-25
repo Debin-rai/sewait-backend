@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   },
   description: "SewaIT by Debin C. Rai: The ultimate Digital Nepal hub. Featuring a live Nepali Calendar with Tithi, government service guides (Passport, License, PAN), weather updates, and the Sewa AI assistant.",
   keywords: [
-    "SewaIT", "Debin C. Rai", "SewaIT Founder", "Nepali Calendar 2081", "Nepali Patro", 
-    "Sarkari Guides", "Nepal government services", "Passport Nepal", "Driving License Nepal", 
-    "PAN registration Nepal", "आजको मिती", "नेपाली पात्रो", "Sewa AI", "Sarkari AI", "Nepal AI Assistant"
+    "SewaIT", "Debin C. Rai", "SewaIT Founder", "Nepali Calendar 2081", "Nepali Patro",
+    "SewaIT Guides", "Nepal government services", "Passport Nepal", "Driving License Nepal",
+    "PAN registration Nepal", "आजको मिती", "नेपाली पात्रो", "Sewa AI", "SewaIT AI", "Nepal AI Assistant"
   ],
   authors: [{ name: "Debin C. Rai", url: "https://sewait.up.railway.app" }],
   creator: "Debin C. Rai",

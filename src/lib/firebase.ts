@@ -12,6 +12,11 @@ const firebaseConfig = {
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
+// Validate config in production client
+if (typeof window !== 'undefined' && !firebaseConfig.apiKey) {
+    console.error("❌ FIREBASE ERROR: 'NEXT_PUBLIC_FIREBASE_API_KEY' is missing. Please add it to your environment variables (Railway Dashboard).");
+}
+
 // Initialize Firebase
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const auth = getAuth(app);

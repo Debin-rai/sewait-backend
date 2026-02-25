@@ -60,9 +60,16 @@ export default function RegisterPage() {
         setError("");
 
         try {
+            // Get CSRF Token first
+            const csrfRes = await fetch("/api/auth/csrf");
+            const { csrfToken } = await csrfRes.json();
+
             const res = await fetch("/api/auth/register", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken
+                },
                 body: JSON.stringify({ name, email, password }),
             });
 
@@ -92,7 +99,7 @@ export default function RegisterPage() {
                         <div className="p-8 md:p-10">
                             <div className="text-center mb-8">
                                 <h1 className="text-2xl font-bold text-slate-900 mb-2">Create Account</h1>
-                                <p className="text-sm text-slate-500 font-medium">Join Sarkari AI to generate and save documents</p>
+                                <p className="text-sm text-slate-500 font-medium">Join SewaIT to generate and save documents</p>
                             </div>
 
                             {error && (
