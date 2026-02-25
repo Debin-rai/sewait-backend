@@ -26,10 +26,17 @@ export default function RegisterPage() {
             const result = await signInWithPopup(auth, provider);
             const idToken = await result.user.getIdToken();
 
-            // Send ID Token to our backend to create session
+            // 1. Get CSRF Token first
+            const csrfRes = await fetch("/api/auth/csrf");
+            const { csrfToken } = await csrfRes.json();
+
+            // 2. Send ID Token to our backend to create session
             const res = await fetch("/api/auth/firebase", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-Token": csrfToken
+                },
                 body: JSON.stringify({ idToken }),
             });
 
